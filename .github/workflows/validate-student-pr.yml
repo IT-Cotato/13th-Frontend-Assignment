@@ -22,10 +22,10 @@ jobs:
           fi
 
           escaped_base="$(printf '%s' "$BASE_REF" | sed -e 's/[][(){}.^$*+?|\\/]/\\&/g')"
-          expected_pattern="^${escaped_base}-week[0-9]+$"
+          expected_pattern="^${escaped_base}-.+$"
 
           if [[ ! "$HEAD_REF" =~ $expected_pattern ]]; then
-            echo "::error::Invalid branch mapping. Expected '<base>-week<number>' -> '<base>'."
+            echo "::error::Invalid branch mapping. Expected '<base>-*' -> '<base>' (head must start with base name)."
             echo "::error::Current mapping: '$HEAD_REF' -> '$BASE_REF'."
             exit 1
           fi
