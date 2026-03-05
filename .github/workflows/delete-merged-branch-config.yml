@@ -1,4 +1,4 @@
-name: delete branch on close pr
+name: delete merged branch on PR close
 
 on:
   pull_request:
@@ -6,14 +6,39 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
 
 jobs:
   delete-branch:
     if: ${{ github.event.pull_request.merged == true && github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
-      - name: delete branch
-        uses: SvanBoxel/delete-merged-branch@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Delete merged head branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const head = context.payload.pull_request.head.ref;
+            const base = context.payload.pull_request.base.ref;
+
+            // Safety: never delete base branch (edge case)
+            if (head === base) {
+              core.info(`Skip delete: head "${head}" equals base "${base}".`);
+              return;
+            }
+
+            const ref = `heads/${head}`;
+
+            try {
+              await github.rest.git.deleteRef({ owner, repo, ref });
+              core.info(`Deleted branch: ${head}`);
+            } catch (e) {
+              if (e.status === 404) {
+                core.info(`Skip delete: ${ref} already deleted.`);
+                return;
+              }
+              if (e.status === 422) {
+                core.info(`Skip delete: ${ref} cannot be deleted (likely protected).`);
+                return;
+              }
+              throw e;
+            }
