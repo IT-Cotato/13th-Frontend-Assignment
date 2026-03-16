@@ -9,6 +9,7 @@ const cardStyle = {
 
 const textStyle = {
   theme: {
+    color: '#1F2937',
     fontFamily: 'Pretendard',
     fontSize: '14px',
     fontStyle: 'normal',
@@ -23,7 +24,7 @@ interface TodoCardProps {
 
 export default function TodoCard({ content }: TodoCardProps) {
   return (
-    <div className="w-full flex p-[16px] gap-[10px] items-start" style={cardStyle.theme}>
+    <div className="flex p-[16px] gap-[10px] items-start self-stretch" style={cardStyle.theme}>
       <p style={textStyle.theme}>{content}</p>
     </div>
   )
