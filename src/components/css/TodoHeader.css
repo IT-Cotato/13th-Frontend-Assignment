@@ -1,0 +1,26 @@
+.todo-header-wrapper {
+    display: flex;
+    padding: 10px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    margin-top: 80px;
+  }
+  
+  .todo-header-row {
+    display: flex;
+    height: 36px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+  }
+
+  .todo-header-text {
+    color: #1F2937;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+  }

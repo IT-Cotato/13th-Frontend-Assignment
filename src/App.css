@@ -1,0 +1,15 @@
+#root {
+  display: flex;
+  width: 1549px;
+  height: 944px;
+  align-items: center;
+  background: #F5F5F5;
+}
+
+.todo-wrapper {
+  display: flex;
+  width: 640px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
