@@ -1,10 +1,50 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 html,
 body,
 #root {
-  height: 100%;
-  background-color: #f5f5f5;
+  background-color: var(--color-background);
+}
+
+@theme {
+  --font-sans: "Pretendard Variable", "Pretendard", sans-serif;
+
+  /*  Color */
+  --color-primary: #3B82F6;
+  --color-primary-hover: #2563EB;
+  --color-success: #22C55E;
+  --color-warning: #f59e0B;
+  --color-danger: #EF4444;
+  --color-purple: #885CF6;
+  --color-background: #F5F5F5;
+  --color-card: #ffffff;
+  --color-text: #1f2937;
+  --color-text-secondary: #6B7280;
+  --color-border: #E5E7Eb;
+
+  /* Font */
+  --text-heading: 24px;
+  --text-heading--font-weight: 700; /* Bold */
+
+  --text-subheading: 16px;
+  --text-subheading--font-weight: 600; /* Semibold */
+
+  --text-body: 14px;
+  --text-body--font-weight: 400; /* Regular */
+
+  --text-caption: 12px;
+  --text-caption--font-weight: 400; /* Regular */
+
+}
+
+@layer base {
+  body {
+    color: var(--color-text); /* 아까 설정한 #1f2937 */
+    font-family: "Pretendard";
+  }
+
+  h1 { @apply text-heading; }
+  h2 { @apply text-subheading; }
+  p  { @apply text-body; }
+  span { @apply text-caption; }
 }
