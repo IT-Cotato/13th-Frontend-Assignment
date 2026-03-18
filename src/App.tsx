@@ -6,7 +6,7 @@ export default function App() {
   const todoItems = TODO_ITEMS;
   const mainTitle = "✅ 오늘의 할 일";
   const appBackgroundStyle: React.CSSProperties = {
-    backgroundColor: 'var(--bg)', // #F5F5F5
+    backgroundColor: 'var(--bg)',
     minHeight: '100vh',
     width: '100vw',
     position: 'relative',
@@ -16,13 +16,14 @@ export default function App() {
   };
 
   const todoContainerStyle: React.CSSProperties = {
-    width: '640px',            
+    width: '640px',     
+    maxWidth: '90%',       
     boxSizing: 'border-box',
-    position: 'absolute',
-    top: '80px',               
-    left: '445px',             
+    margin: '80px auto',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: 'var(--bg)',
+    borderRadius: '16px',
   };
 
   return (
