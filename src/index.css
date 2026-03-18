@@ -1,0 +1,66 @@
+:root {
+}
+
+#root {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/*
+오늘의 할 일
+Heading - 24px Bold
+*/
+
+h1 {
+    color: #1f2937;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px; /* 150% */
+}
+
+/*
+서브헤딩 텍스트
+Subheading - 16px Semibold
+*/
+h2 {
+    color: #1f2937;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+}
+
+/*
+본문 텍스트
+Body - 14px Regular
+*/
+body {
+    background: #f5f5f5;
+    margin-top: 80px;
+    color: #1f2937;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px; /* 150% */
+}
+
+/*
+작은 텍스트 및 부가 정보
+Caption - 12px Regular
+*/
+p {
+    color: #6b7280;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 150% */
+}
