@@ -11,22 +11,30 @@ export default function App() {
   ];
 
   const appBackgroundStyle: React.CSSProperties = {
-    backgroundColor: '#F5F5F5', 
+    backgroundColor: 'var(--bg)', // #F5F5F5
     minHeight: '100vh',
     width: '100vw',
     position: 'relative',
     margin: 0,
     padding: 0,
-    overflow: 'hidden'         
+    overflow: 'auto' 
+  };
+
+  const todoContainerStyle: React.CSSProperties = {
+    width: '640px',            
+    boxSizing: 'border-box',
+    position: 'absolute',
+    top: '80px',               
+    left: '445px',             
+    display: 'flex',
+    flexDirection: 'column'
   };
 
   return (
     <div style={appBackgroundStyle}>
-      <main id="root">
+      <main style={todoContainerStyle}>
         <TodoHeader title={mainTitle} />
-        <div style={{ flex: 1, padding: '0 20px 40px' }}>
-          <TodoList items={todoItems} />
-        </div>
+        <TodoList items={todoItems} />
       </main>
     </div>
   );

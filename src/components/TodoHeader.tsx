@@ -4,7 +4,7 @@ interface TodoHeaderProps {
 
 export default function TodoHeader({ title }: TodoHeaderProps) {
   const headerStyle: React.CSSProperties = {
-    padding: '10px 0 22px 0', 
+    padding: '10px 0 10px 0', 
     textAlign: 'left',
   };
 
