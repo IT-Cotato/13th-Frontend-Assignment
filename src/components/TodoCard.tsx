@@ -4,16 +4,25 @@ interface TodoCardProps {
 
 export default function TodoCard({ task }: TodoCardProps) {
   const cardStyle: React.CSSProperties = {
-    backgroundColor: '#FFFFFF',
-    padding: '16px',
-    borderRadius: '12px',
-    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
-    fontSize: '16px',
-    fontWeight: 500,
-    color: '#374151',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '16px',           
+    alignSelf: 'stretch',       
+    boxSizing: 'border-box',
     width: '100%',
-    boxSizing: 'border-box'
+
+    backgroundColor: 'var(--bg-card)', 
+    borderRadius: '12px',              
+    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.10)', 
+    
+    font: 'var(--font-body)',         
+    color: 'var(--text)',           
+    textAlign: 'left'
   };
 
-  return <div style={cardStyle}>{task}</div>;
+  return (
+    <div style={cardStyle}>
+      {task}
+    </div>
+  );
 }
