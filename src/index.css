@@ -1,29 +1,37 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* ---Colors ---*/
+  --primary: #3B82F6;
+  --primary-hover: #2563EB;
+  --success: #22C55E;
+  --danger: #EF4444;
+  --warning: #F59E0B;
+  --purple: #8B5CF6;
 
+  --bg: #F5F5F5;            
+  --bg-card: #FFFFFF;       
+  --text: #1F2937;          
+  --text-secondary: #6B7280; 
+  --border: #E5E7EB;
+
+  /* ---Typography---*/
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
+  /* Heading */
+  --font-h1: bold 24px/120% var(--sans);
+  /* Subheading */
+  --font-sub: 600 16px/140% var(--sans);
+  /* Body */
+  --font-body: 400 14px/150% var(--sans);
+  /* Caption */
+  --font-caption: 400 12px/140% var(--sans);
+
+  /* --- Base Styles --- */
+  font: var(--font-body);
   color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
   @media (max-width: 1024px) {
     font-size: 16px;
@@ -51,7 +59,7 @@
 }
 
 #root {
-  width: 1126px;
+  width: 1549px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -64,35 +72,32 @@
 
 body {
   margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
+  font: var(--font-h1);
   margin: 0;
+  color: var(--text);
+}
+
+h2 {
+  font: var(--font-sub);
+  margin: 0;
+  color: var(--text);
+}
+
+p {
+  font: var(--font-body);
+  margin: 0;
+}
+
+span.caption {
+  font: var(--font-caption);
+  color: var(--text-secondary);
 }
 
 code,
@@ -109,3 +114,5 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+
