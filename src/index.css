@@ -1,0 +1,118 @@
+:root {
+  /* ---Colors ---*/
+  --primary: #3B82F6;
+  --primary-hover: #2563EB;
+  --success: #22C55E;
+  --danger: #EF4444;
+  --warning: #F59E0B;
+  --purple: #8B5CF6;
+
+  --bg: #F5F5F5;            
+  --bg-card: #FFFFFF;       
+  --text: #1F2937;          
+  --text-secondary: #6B7280; 
+  --border: #E5E7EB;
+
+  /* ---Typography---*/
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  /* Heading */
+  --font-h1: bold 24px/120% var(--sans);
+  /* Subheading */
+  --font-sub: 600 16px/140% var(--sans);
+  /* Body */
+  --font-body: 400 14px/150% var(--sans);
+  /* Caption */
+  --font-caption: 400 12px/140% var(--sans);
+
+  /* --- Base Styles --- */
+  font: var(--font-body);
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+#root {
+  width: 1549px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+h1 {
+  font: var(--font-h1);
+  margin: 0;
+  color: var(--text);
+}
+
+h2 {
+  font: var(--font-sub);
+  margin: 0;
+  color: var(--text);
+}
+
+p {
+  font: var(--font-body);
+  margin: 0;
+}
+
+span.caption {
+  font: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+
+
