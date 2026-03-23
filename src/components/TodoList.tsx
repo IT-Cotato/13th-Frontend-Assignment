@@ -6,13 +6,16 @@ type TodoListProps = {
 
 function TodoList({ todos }: TodoListProps) {
   return (
-    <div className="self-stretch h-64 flex flex-col justify-start items-start gap-4">
-      <div className="self-stretch flex-1 flex flex-col justify-start items-start gap-4">
-        {todos.map((todo, index) => (
-          <TodoCard key={index} text={todo} />
-        ))}
-      </div>
-    </div>
+    <ul className="self-stretch h-64 flex flex-col justify-start items-start gap-4">
+      {todos.map((todo, index) => (
+        <li
+          key={index}
+          className="self-stretch flex-1 flex flex-col justify-start items-start"
+        >
+          <TodoCard text={todo} />
+        </li>
+      ))}
+    </ul>
   );
 }
 
