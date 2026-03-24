@@ -11,14 +11,20 @@ export default function TodoList({ items }: TodoListProps) {
     gap: '16px',          
     marginTop: '22px',    
     width: '100%',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+
+    listStyle: 'none',
+    padding: 0,
+    margin: '22px 0 0 0'
   };
 
   return (
-    <div style={listContainerStyle}>
+    <ul style={listContainerStyle}>
       {items.map((item, index) => (
-        <TodoCard key={index} task={item} />
+        <li key={index} style={{ width: '100%' }}>
+          <TodoCard task={item} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
