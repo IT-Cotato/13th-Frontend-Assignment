@@ -1,10 +1,10 @@
+import {useState} from 'react';
 import {TODO_ITEMS} from './constants/todoData';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 
 export default function App() {
-  const todoItems = TODO_ITEMS;
-  const mainTitle = "✅ 오늘의 할 일";
+  const [todoItems] = useState(TODO_ITEMS);
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
     minHeight: '100vh',
@@ -29,7 +29,7 @@ export default function App() {
   return (
     <div style={appBackgroundStyle}>
       <main style={todoContainerStyle}>
-        <TodoHeader title={mainTitle} />
+        <TodoHeader title="✅ 오늘의 할 일" />
         <TodoList items={todoItems} />
       </main>
     </div>

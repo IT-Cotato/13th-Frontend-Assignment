@@ -1,7 +1,12 @@
 import TodoCard from './TodoCard';
 
+interface TodoItem {
+  id: string;
+  task: string;
+}
+
 interface TodoListProps {
-  items: string[];
+  items: TodoItem[];
 }
 
 export default function TodoList({ items }: TodoListProps) {
@@ -20,9 +25,9 @@ export default function TodoList({ items }: TodoListProps) {
 
   return (
     <ul style={listContainerStyle}>
-      {items.map((item, index) => (
-        <li key={index} style={{ width: '100%' }}>
-          <TodoCard task={item} />
+      {items.map((item) => (
+        <li key={item.id} style={{ width: '100%' }}>
+          <TodoCard task={item.task} />
         </li>
       ))}
     </ul>
