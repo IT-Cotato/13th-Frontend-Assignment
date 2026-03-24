@@ -2,10 +2,11 @@ import {useState} from 'react';
 import {TODO_ITEMS} from './constants/todoData';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
+import EmptyState from './components/EmptyState';
 
 export default function App() {
   const [todoItems, setTodoItems] = useState(TODO_ITEMS);
-
+  
   const toggleTodo = (id: string) => {
     setTodoItems(prevItems =>
       prevItems.map(item =>
@@ -39,7 +40,11 @@ export default function App() {
     <div style={appBackgroundStyle}>
       <main style={todoContainerStyle}>
         <TodoHeader title="✅ 오늘의 할 일" />
-        <TodoList items={todoItems} onToggle={toggleTodo} />
+        {todoItems.length > 0 ? (
+          <TodoList items={todoItems} onToggle={toggleTodo} />
+        ) : (
+          <EmptyState />
+        )}
       </main>
     </div>
   );

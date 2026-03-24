@@ -25,7 +25,7 @@ export default function TodoList({ items, onToggle }: TodoListProps) {
   return (
     <ul style={listStyle}>
       {items.map((item) => (
-        <li key={item.id} style={{ width: '100%' }}>
+        <li key={item.id}>
           <TodoCard
             id={item.id}
             task={item.task}
