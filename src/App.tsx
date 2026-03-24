@@ -2,16 +2,16 @@ import TodoHeader from "./components/TodoHeader";
 import TodoList from "./components/TodoList";
 import "./App.css";
 
-const todos = [
-  "리액트 공식문서 읽기",
-  "알고리즘 문제 풀기",
-  "운동 30분 하기",
-  "프로젝트 회의 준비",
-];
-
-const weekLabel = "Week 1 — 기본 레이아웃";
+const weekLabel = "Week 2 — 체크박스 토글";
 const headerIcon = "✅";
 const headerTitle = "오늘의 할 일";
+
+const todos = [
+  {id: 1, text: "리액트 공식문서 읽기", done: true },
+  {id: 2, text: "알고리즘 문제 풀기", done: true },
+  {id: 3, text: "운동 30분 하기", done: false },
+  {id: 4, text: "프로젝트 회의 준비", done: false }
+];
 
 export default function App() {
   return (
