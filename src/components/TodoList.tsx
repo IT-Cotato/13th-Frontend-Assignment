@@ -1,24 +1,39 @@
 import TodoCard from './TodoCard';
 
-interface TodoListProps {
-  items: string[];
+interface TodoItem {
+  id: string;
+  task: string;
+  isCompleted: boolean;
 }
 
-export default function TodoList({ items }: TodoListProps) {
-  const listContainerStyle: React.CSSProperties = {
+interface TodoListProps {
+  items: TodoItem[];
+  onToggle: (id: string) => void;
+}
+
+
+export default function TodoList({ items, onToggle }: TodoListProps) {
+  const listStyle: React.CSSProperties = {
+    listStyle: 'none',
+    padding: 0,
+    margin: '22px 0 0 0',
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px',          
-    marginTop: '22px',    
-    width: '100%',
-    boxSizing: 'border-box'
+    gap: '16px',
   };
 
   return (
-    <div style={listContainerStyle}>
-      {items.map((item, index) => (
-        <TodoCard key={index} task={item} />
+    <ul style={listStyle}>
+      {items.map((item) => (
+        <li key={item.id}>
+          <TodoCard
+            id={item.id}
+            task={item.task}
+            isCompleted={item.isCompleted}
+            onToggle={onToggle}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

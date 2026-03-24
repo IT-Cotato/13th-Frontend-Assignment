@@ -1,10 +1,20 @@
+import {useState} from 'react';
 import {TODO_ITEMS} from './constants/todoData';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
+import EmptyState from './components/EmptyState';
 
 export default function App() {
-  const todoItems = TODO_ITEMS;
-  const mainTitle = "✅ 오늘의 할 일";
+  const [todoItems, setTodoItems] = useState(TODO_ITEMS);
+  
+  const toggleTodo = (id: string) => {
+    setTodoItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
+      )
+    );
+  };
+
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
     minHeight: '100vh',
@@ -29,8 +39,12 @@ export default function App() {
   return (
     <div style={appBackgroundStyle}>
       <main style={todoContainerStyle}>
-        <TodoHeader title={mainTitle} />
-        <TodoList items={todoItems} />
+        <TodoHeader title="✅ 오늘의 할 일" />
+        {todoItems.length > 0 ? (
+          <TodoList items={todoItems} onToggle={toggleTodo} />
+        ) : (
+          <EmptyState />
+        )}
       </main>
     </div>
   );
