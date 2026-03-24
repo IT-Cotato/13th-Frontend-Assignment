@@ -4,7 +4,16 @@ import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 
 export default function App() {
-  const [todoItems] = useState(TODO_ITEMS);
+  const [todoItems, setTodoItems] = useState(TODO_ITEMS);
+
+  const toggleTodo = (id: string) => {
+    setTodoItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
+      )
+    );
+  };
+
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
     minHeight: '100vh',
@@ -30,7 +39,7 @@ export default function App() {
     <div style={appBackgroundStyle}>
       <main style={todoContainerStyle}>
         <TodoHeader title="✅ 오늘의 할 일" />
-        <TodoList items={todoItems} />
+        <TodoList items={todoItems} onToggle={toggleTodo} />
       </main>
     </div>
   );
