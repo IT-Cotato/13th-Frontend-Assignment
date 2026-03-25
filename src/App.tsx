@@ -1,5 +1,5 @@
-import TodoHeader from "./TodoHeader.tsx"
-import TodoList from "./TodoList.tsx"
+import TodoHeader from "./TodoHeader"
+import TodoList from "./TodoList"
 import './App.css'
 
 function App() {
