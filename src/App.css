@@ -82,3 +82,68 @@ body {
   line-height: 21px;
   font-family: Pretendard;
 }
+
+.todo-card__check { /*체크*/
+  width: 24px;
+  height: 24px;
+  border-radius: 13421800px;
+  border: 2px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.todo-card__check--done { /* 완료 시 채우기 */
+  border-radius: 13421800px;
+  border: 2px solid #6c9ce8;
+  background: #6c9ce8;
+}
+
+.todo-card__check-icon {
+  width: 14px;
+  height: 10px;
+}
+
+.todo-card__text--done {
+  color: #9CA3AF;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; /* 150% */
+  text-decoration-line: line-through;
+}
+
+.todo-empty {
+  display: flex;
+  width: 640px;
+  height: 233px;
+  padding-top: 64px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
+}
+
+.todo-empty__text {
+  color: #6B7280;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; /* 150% */
+}
+
+.todo-empty__icon {
+  color: #0A0A0A;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 72px; /* 150% */
+}
