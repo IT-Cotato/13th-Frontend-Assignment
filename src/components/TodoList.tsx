@@ -1,6 +1,30 @@
-export const ToDoList = { // 다른 파일에서도 사용 가능하게 export
-  fi: "리액트 공식문서 읽기",
-  se: "알고리즘 문제 풀기",
-  th: "운동 30분 하기",
-  fo: "프로젝트 회의 준비"
-};
+import { TODO_ITEMS } from "./todoItems";
+import { Card } from "./TodoCard";
+
+export default function TodoList() {
+  const isEmpty = TODO_ITEMS.length === 0;
+
+  return (
+    <>
+      {isEmpty && (
+        <div className="emptyList">
+          <div className="emptyContainer">
+            <div className="emptyIcon">📋</div>
+            <div className="emptyText">아직 할 일이 없어요</div>
+          </div>
+        </div>
+      )}
+
+      {!isEmpty && (
+      <ul className="toDoList">
+        {TODO_ITEMS.map((item) => (
+          <Card key={item.id} name={item.name} isChecked={item.isChecked} />
+        ))}
+      </ul>
+    )
+  }
+
+    </>
+  );
+    
+}
