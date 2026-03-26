@@ -3,7 +3,7 @@ function TodoCard({ text, isDone }: { text: string; isDone: boolean }) {
     <div className="card">
       <div className={`checkbox ${isDone ? "done" : ""}`}>
         {isDone && (
-          <svg width="14" height="10" viewBox="0 0 14 10">
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
             <path
               d="M1 5L5 9L13 1"
               stroke="white"
