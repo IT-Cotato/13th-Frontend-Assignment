@@ -12,6 +12,17 @@ type Props = {
 };
 
 function TodoList({ todos, toggleTodo }: Props) {
+   // 할 일이 없을 때
+  if (todos.length === 0) {
+    return (
+      <div className="empty">
+        <div className="empty-icon">📋</div>
+        <p className="empty-text">아직 할 일이 없어요</p>
+      </div>
+    );
+  }
+
+  // 할 일이 있을 때
   return (
     <ul className="card-list">
       {todos.map((todo) => (
