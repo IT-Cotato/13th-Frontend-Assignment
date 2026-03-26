@@ -1,13 +1,30 @@
 import TodoCard from "./TodoCard";
 
-function TodoList() {
+interface Todo {
+  id: number;
+  text: string;
+  isDone: boolean;
+}
+
+function TodoList({ todos }: { todos: Todo[] }) {
+  // 빈 배열이면 빈 상태 UI 렌더링
+  if (todos.length === 0) {
+    return (
+      <div className="empty-container">
+        <div className="empty-icon">📋</div>
+        <div className="empty-text">아직 할 일이 없어요</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="frame1">
-      <TodoCard text="리액트 공식문서 읽기" />
-      <TodoCard text="알고리즘 문제 풀기" />
-      <TodoCard text="운동 30분 하기" />
-      <TodoCard text="프로젝트 회의 준비" />
-    </div>
+    <ul className="frame1">
+      {todos.map((todo) => (
+        <li key={todo.id}>
+          <TodoCard text={todo.text} isDone={todo.isDone} />
+        </li>
+      ))}
+    </ul>
   );
 }
 
