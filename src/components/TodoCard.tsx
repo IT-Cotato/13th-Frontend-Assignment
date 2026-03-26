@@ -1,45 +1,46 @@
-import { ToDoList } from './TodoList';
-
-export function Card1() {
-  return (
-    <>
-      <div className="card">
-        <p>{ToDoList.fi}</p>
-      </div>
-  
-    </>
-  );
+interface CardProps {
+  name: string;
+  isChecked: boolean;
 }
 
-export function Card2() {
-  return (
-    <>
-      <div className="card">
-        <p>{ToDoList.se}</p>
-      </div>
-  
-    </>
-  );
-}
+export function Card({ name, isChecked }: CardProps) {
+  if (isChecked) {
+    return (
+      <li className={`item checked`}>
+        <div className="CheckedBox">
+          <svg
+            className="CheckedIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="10"
+            viewBox="0 0 14 10"
+            fill="none"
+          >
+            <g clip-path="url(#clip0_16_101)">
+              <path
+                d="M1 5L5 9L13 1"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_16_101">
+                <rect width="14" height="10" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        {name}
+      </li>
+    );
+  }
 
-export function Card3() {
   return (
-    <>
-      <div className="card">
-        <p>{ToDoList.th}</p>
-      </div>
-  
-    </>
-  );
-}
-
-export function Card4() {
-  return (
-    <>
-      <div className="card">
-        <p>{ToDoList.fo}</p>
-      </div>
-  
-    </>
+    <li className="item">
+      <div className="UncheckedBox"></div>
+      {name}
+    </li>
   );
 }
