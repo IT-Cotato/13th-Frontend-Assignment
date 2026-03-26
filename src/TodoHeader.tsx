@@ -1,9 +1,9 @@
 function TodoHeader() {
   return (
-    <div className="heading">
-      <div className="icon">✅</div>
-      <div className="title">오늘의 할 일</div>
-    </div>
+    <header className="heading">
+      <span className="icon">✅</span>
+      <h1 className="title">오늘의 할 일</h1>
+    </header>
   );
 }
 

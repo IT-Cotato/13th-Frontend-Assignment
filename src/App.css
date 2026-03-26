@@ -35,6 +35,8 @@
   font-size: 24px;
   font-weight: 700;
   line-height: 36px;
+
+  margin: 0;
 }
 
 .container {
@@ -69,4 +71,40 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%; 
+  border: 2px solid #d1d5db;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox.done {
+  background-color: #60a5fa; 
+  border: none;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #374151;
+}
+
+.card-text.done {
+  text-decoration: line-through;
+  color: #9ca3af; 
 }
