@@ -1,4 +1,4 @@
-import TodoCard from "./ToDoCard";
+import TodoCard from "./TodoCard";
 
 type Props = {
   todos: string[];
@@ -6,11 +6,13 @@ type Props = {
 
 function TodoList({ todos }: Props) {
   return (
-    <div className="card-list">
+    <ul className="card-list">
       {todos.map((todo, idx) => (
-        <TodoCard key={idx} text={todo} />
+        <li key={idx}>
+          <TodoCard text={todo} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
