@@ -1,4 +1,5 @@
 import './App.css';
+import EmptyList from './components/EmptyList';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 import { useState } from 'react';
@@ -24,6 +25,9 @@ function App() {
     <div className="todo">
       <TodoHeader title="오늘의 할 일" />
       <TodoList todos={todos} onCheck={onCheck} />
+
+      <TodoHeader title="오늘의 할 일" />
+      <EmptyList />
     </div>
   );
 }
