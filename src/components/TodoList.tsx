@@ -1,15 +1,22 @@
 import TodoCard from "./TodoCard";
 
-type Props = {
-  todos: string[];
+type Todo = {
+  id: number;
+  text: string;
+  isDone: boolean;
 };
 
-function TodoList({ todos }: Props) {
+type Props = {
+  todos: Todo[];
+  toggleTodo: (id: number) => void;
+};
+
+function TodoList({ todos, toggleTodo }: Props) {
   return (
     <ul className="card-list">
-      {todos.map((todo, idx) => (
-        <li key={idx}>
-          <TodoCard text={todo} />
+      {todos.map((todo) => (
+        <li key={todo.id} onClick={() => toggleTodo(todo.id)}>
+          <TodoCard text={todo.text} isDone={todo.isDone} />
         </li>
       ))}
     </ul>
