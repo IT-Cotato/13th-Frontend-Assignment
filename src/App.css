@@ -36,10 +36,50 @@ li.todoCard {
     height: 56px;
     padding: 16px;
     margin: 0;
-    align-items: flex-start;
+
+    align-items: center;
     flex-shrink: 0;
+    position: relative;
+    gap: 12px;
 
     border-radius: 12px;
     background: #fff;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+li.todoCard.checked {
+    opacity: 0.5;
+}
+
+/*체크박스 디자인*/
+label {
+    display: flex;
+    height: 24px;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+/* 기존 박스 부분 디자인 삭제*/
+input[type="checkbox"] {
+    display: none;
+}
+
+/* 커스텀 체크박스 역할을 하는 span */
+.check-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+    border: 2px solid #e5e7eb;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+/*체크 시 배경색 변경*/
+.checked .check-icon {
+    border-color: #3b82f6;
+    background: #3b82f6;
 }
