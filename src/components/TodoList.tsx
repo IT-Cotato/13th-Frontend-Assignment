@@ -14,7 +14,7 @@ type Props = {
 
 export default function TodoList({ todos, onCheck }: Props) {
   return (
-    <div className="card-list">
+    <ul className="card-list">
       {todos.map((todo) => (
         <TodoCard
           key={todo.id}
@@ -24,6 +24,6 @@ export default function TodoList({ todos, onCheck }: Props) {
           onCheck={onCheck}
         />
       ))}
-    </div>
+    </ul>
   );
 }

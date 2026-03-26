@@ -10,7 +10,7 @@ type Props = {
 
 export default function TodoCard({ id, text, isChecked, onCheck }: Props) {
   return (
-    <div className="card">
+    <li className="card">
       <label className="card-label">
         <input
           className="card-input"
@@ -25,6 +25,6 @@ export default function TodoCard({ id, text, isChecked, onCheck }: Props) {
         </span>
         <span className="card-text">{text}</span>
       </label>
-    </div>
+    </li>
   );
 }
