@@ -1,0 +1,32 @@
+.empty-list{
+  display: flex;
+  width: 640px;
+  height: 233px;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
+
+}
+
+.empty-icon{
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 72px; /* 150% */
+}
+
+.empty-list-text{
+  color: #6B7280;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; /* 150% */
+  }
