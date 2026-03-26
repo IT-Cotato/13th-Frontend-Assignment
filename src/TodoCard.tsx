@@ -14,10 +14,7 @@ function TodoCard({ text, isDone }: { text: string; isDone: boolean }) {
           </svg>
         )}
       </div>
-
-      <div className={`card-text ${isDone ? "done" : ""}`}>
-        {text}
-      </div>
+      <div className={`card-text ${isDone ? "done" : ""}`}>{text}</div>
     </div>
   );
 }

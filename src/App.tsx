@@ -12,7 +12,6 @@ function App() {
 
   return (
     <div className="frame3">
-      {/* 첫 번째 오늘의 할 일 */}
       <div className="frame2">
         <TodoHeader />
       </div>
@@ -20,12 +19,11 @@ function App() {
         <TodoList todos={todos} />
       </div>
 
-      {/* 두 번째 오늘의 할 일 */}
       <div className="frame2">
         <TodoHeader />
       </div>
       <div className="container">
-        <TodoList todos={[]} /> {/* 빈 배열 전달 */}
+        <TodoList todos={[]} />
       </div>
     </div>
   );

@@ -35,7 +35,6 @@
   font-size: 24px;
   font-weight: 700;
   line-height: 36px;
-
   margin: 0;
 }
 
@@ -51,6 +50,9 @@
   flex-direction: column;
   gap: 16px;
   align-self: stretch;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .card {
@@ -58,20 +60,10 @@
   align-items: center;
   gap: 12px;
   padding: 16px;
-
   border-radius: 12px;
   background: #f9fafb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
-.card-text {
-  color: #1f2937;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-}
-
 
 .checkbox {
   display: flex;
@@ -79,14 +71,13 @@
   height: 24px;
   justify-content: center;
   align-items: center;
-
   border-radius: 50%;
-  border: 2px solid #e5e7eb; 
+  border: 2px solid #e5e7eb;
 }
 
 .checkbox.done {
-  background: #3b82f6; 
-  border: 2px solid #3b82f6; 
+  background: #3b82f6;
+  border: 2px solid #3b82f6;
 }
 
 .card-text {
@@ -96,27 +87,48 @@
 
 .card-text.done {
   text-decoration: line-through;
-  color: #9ca3af; 
-}
-
-.frame1 {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.empty {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px;
-  border-radius: 12px;
-  background: #f9fafb;
   color: #9ca3af;
-  font-family: Pretendard;
-  font-size: 14px;
+}
+
+
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+  height: 233px;
+  padding-top: 64px;
+  gap: 12px;
+  align-items: center; 
+
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
 }
 
 .empty-icon {
-  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  color: #0a0a0a;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 72px; 
+}
+
+.empty-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  color: #6b7280;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; 
 }
