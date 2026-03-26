@@ -17,3 +17,30 @@
   font-weight: 400;
   line-height: 21px;
 }
+
+.check-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  border: 2px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3px;
+}
+
+.check-circle.checked {
+  border: 2px solid #3B82F6;
+  background: #3B82F6;
+}
+
+.check-img {
+  width: 14px;
+  height: 10px;
+}
+
+.card.done {
+  color: #9CA3AF;
+  text-decoration: line-through;
+  opacity: 50%;
+}
