@@ -39,13 +39,50 @@ body {
   line-height: 36px; /* 150% */
 }
 
+.emptyList {
+  display: flex;
+  width: 640px;
+  height: 233px;
+  padding-top: 64px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
+}
+
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  row-gap: 12px;
+}
+
+.emptyIcon {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 72px;
+}
+
+.emptyText {
+  color: #6B7280;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
 .toDoList {
   display: flex;
   flex-direction: column;
   row-gap: 16px;
 }
 
-.card {
+.item {
   display: flex;
   align-items: center;
   padding: 16px;
@@ -54,4 +91,35 @@ body {
   color: #1F2937;
   border-radius: 12px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
+  gap: 12px;
+}
+
+.item.checked {
+  opacity: 0.5;
+  text-decoration-line: line-through;
+}
+
+.CheckedBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 13421800px;
+  border: 2px solid #3B82F6;
+  background: #3B82F6;
+
+}
+
+.CheckedIcon {
+  width: 14px;
+  height: 10px;
+  flex-shrink: 0;
+}
+
+.UncheckedBox {
+  width: 24px;
+  height: 24px;
+  border-radius: 13421800px;
+  border: 2px solid #E5E7EB;
 }
