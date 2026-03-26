@@ -1,4 +1,5 @@
 import TodoCard from "./TodoCard";
+import TodoEmpty from "./TodoEmpty";
  
 export default function TodoList() {
 
@@ -8,6 +9,10 @@ export default function TodoList() {
     { id: 3, content: "운동 30분 하기" },
     { id: 4, content: "프로젝트 회의 준비" },
   ];
+
+  if (todos.length === 0) {
+    return <TodoEmpty />;
+  }
 
   return (
     <ul className="flex flex-col items-start gap-4 self-stretch">
