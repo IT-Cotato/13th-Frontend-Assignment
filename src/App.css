@@ -104,3 +104,19 @@
   padding: 0;
   margin: 0;
 }
+
+.empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f9fafb;
+  color: #9ca3af;
+  font-family: Pretendard;
+  font-size: 14px;
+}
+
+.empty-icon {
+  font-size: 24px;
+}
