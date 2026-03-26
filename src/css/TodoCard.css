@@ -17,3 +17,53 @@
   font-weight: 400;
   line-height: 21px;
 }
+
+.card:has(.card-input:checked) {
+  text-decoration: line-through;
+  opacity: 0.5;
+
+}
+
+.card-label:has(.card-input:checked) .card-checkbox-ui {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 13421800px;
+  border: 2px solid #3B82F6;
+  background: #3B82F6;
+}
+
+.card-label:has(.card-input:checked) .card-checkbox-icon {
+  width: 14px;
+  height: 10px;
+  flex-shrink: 0;
+  display: block;
+  
+}
+
+
+
+.card-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+.card-input {
+  display: none;
+}
+
+.card-checkbox-ui {
+  width: 24px;
+  height: 24px; 
+
+  border-radius: 13421800px;
+  border: 2px solid #E5E7EB;  
+}
+

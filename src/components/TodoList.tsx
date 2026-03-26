@@ -1,15 +1,28 @@
 import TodoCard from './TodoCard';
 import '../css/TodoList.css';
 
-type Props = {
-  todos: string[];
+export type TodoItem = {
+  id: number;
+  text: string;
+  isChecked: boolean;
 };
 
-export default function TodoList({ todos }: Props) {
+type Props = {
+  todos: TodoItem[];
+  onCheck: (id: number) => void;
+};
+
+export default function TodoList({ todos, onCheck }: Props) {
   return (
     <div className="card-list">
       {todos.map((todo) => (
-        <TodoCard key={todo} text={todo} />
+        <TodoCard
+          key={todo.id}
+          id={todo.id}
+          text={todo.text}
+          isChecked={todo.isChecked}
+          onCheck={onCheck}
+        />
       ))}
     </div>
   );
