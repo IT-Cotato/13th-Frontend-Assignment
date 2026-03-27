@@ -83,3 +83,39 @@ input[type="checkbox"] {
     border-color: #3b82f6;
     background: #3b82f6;
 }
+
+/*할일 없는 화면*/
+#emptyContainer {
+    display: flex;
+    width: 640px;
+    height: 233px;
+    padding-top: 64px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+#fileIcon {
+    font-size: 48pt;
+    line-height: 72px;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: stretch;
+}
+
+#emptyContainer p {
+    text-align: center;
+    line-height: 21px; /* 150% */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: stretch;
+}
