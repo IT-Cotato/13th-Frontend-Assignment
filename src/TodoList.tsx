@@ -7,7 +7,15 @@ interface Todo {
 }
 
 export default function TodoList({todos}: {todos: Todo[]}) {
-    
+    if (todos.length === 0) {
+        return (
+        <div className="empty-state">
+          <span className="empty-icon">📋</span>
+        <p className="empty-text">아직 할 일이 없어요</p>
+        </div>
+        )
+      }
+
   return (
     <ul className="frame1">
       {todos.map((todo) => (
