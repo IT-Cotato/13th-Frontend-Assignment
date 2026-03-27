@@ -1,13 +1,20 @@
 import TodoCard from "./TodoCard";
 
-export default function TodoList() {
+interface Todo {
+  id: number;
+  text: string;
+  isCompleted: boolean;
+}
+
+export default function TodoList({todos}: {todos: Todo[]}) {
     
   return (
     <ul className="frame1">
-      <li><TodoCard text="리액트 공식문서 읽기" /></li>
-      <li><TodoCard text="알고리즘 문제 풀기" /></li>
-      <li><TodoCard text="운동 30분 하기" /></li>
-      <li><TodoCard text="프로젝트 회의 준비" /></li>
+      {todos.map((todo) => (
+        <li key={todo.id}>
+          <TodoCard text={todo.text} isCompleted={todo.isCompleted} />
+        </li>
+      ))}
     </ul>
   )
 }
