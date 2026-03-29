@@ -16,7 +16,11 @@
     align-self: stretch;
 }
 
-#todoList {
+ul#todoList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -25,14 +29,93 @@
     align-self: stretch;
 }
 
-.todoCard {
+li.todoCard {
     display: flex;
+    box-sizing: border-box;
+    width: 640px;
+    height: 56px;
     padding: 16px;
+    margin: 0;
+
     align-items: center;
-    gap: 10px;
-    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    gap: 12px;
 
     border-radius: 12px;
     background: #fff;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+li.todoCard.checked {
+    opacity: 0.5;
+}
+
+/*체크박스 디자인*/
+label {
+    display: flex;
+    height: 24px;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+/* 기존 박스 부분 디자인 삭제*/
+input[type="checkbox"] {
+    display: none;
+}
+
+/* 커스텀 체크박스 역할을 하는 span */
+.check-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+    border: 2px solid #e5e7eb;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+/*체크 시 배경색 변경*/
+.checked .check-icon {
+    border-color: #3b82f6;
+    background: #3b82f6;
+}
+
+/*할일 없는 화면*/
+#emptyContainer {
+    display: flex;
+    width: 640px;
+    height: 233px;
+    padding-top: 64px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+#fileIcon {
+    font-size: 48pt;
+    line-height: 72px;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: stretch;
+}
+
+#emptyContainer p {
+    text-align: center;
+    line-height: 21px; /* 150% */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: stretch;
 }
