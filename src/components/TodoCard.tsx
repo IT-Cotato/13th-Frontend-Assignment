@@ -22,9 +22,9 @@ function Item({todo, isCompleted }: {todo: string;isCompleted: boolean;}) {
 export default function TodoCard({todo, isCompleted }: {todo: string;isCompleted: boolean;}) {
   return (
     <li className="flex w-full items-center gap-[10px] p-4 rounded-[12px] bg-white shadow-sm">
-      <p className="text-[14px] leading-[21px] text-[#1F2937]">
+      <div className="text-[14px] leading-[21px] text-[#1F2937]">
         <Item todo={todo} isCompleted={isCompleted} />
-      </p>
+      </div>
     </li>
   )
 }

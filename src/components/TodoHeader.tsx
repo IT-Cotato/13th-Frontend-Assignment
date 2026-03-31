@@ -8,9 +8,9 @@ export default function TodoHeader() {
         <span className="text-[24px] font-bold leading-[36px] text-[#1F2937]">
           {emoji}
         </span>
-        <span className="text-[24px] font-bold leading-[36px] text-[#1F2937]">
+        <h1 className="text-[24px] font-bold leading-[36px] text-[#1F2937]">
           {title}
-        </span>
+        </h1>
       </div>
     </div>
   );
