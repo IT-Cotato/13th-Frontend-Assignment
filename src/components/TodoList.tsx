@@ -26,8 +26,16 @@ function TodoList({ todos, toggleTodo }: Props) {
   return (
     <ul className="card-list">
       {todos.map((todo) => (
-        <li key={todo.id} onClick={() => toggleTodo(todo.id)}>
-          <TodoCard text={todo.text} isDone={todo.isDone} />
+        <li key={todo.id} className="card-item">
+          <label className="card-label">
+            <input
+              type="checkbox"
+              checked={todo.isDone}
+              onChange={() => toggleTodo(todo.id)}
+              className="card-checkbox"
+            />
+            <TodoCard text={todo.text} isDone={todo.isDone} />
+          </label>
         </li>
       ))}
     </ul>

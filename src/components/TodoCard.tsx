@@ -12,7 +12,7 @@ function TodoCard({ text, isDone }: Props) {
       <div className={`check-circle ${isDone ? 'checked' : ''}`}>
         {isDone && <img src={checkIcon} className="check-img" />}
       </div>
-      <span className={isDone ? 'done' : ''}>{text}</span>
+      <span>{text}</span>
     </div>
   );
 }

@@ -33,6 +33,10 @@
   padding: 0;
 }
 
+.card-checkbox {
+  display: none;
+}
+
 .empty {
   width: 608px;
   height: 233px;

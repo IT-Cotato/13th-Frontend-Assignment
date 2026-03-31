@@ -13,7 +13,7 @@ function App() {
 
   const toggleTodo = (id: number) => {
     setTodos(
-      todos.map(todo =>
+      prev => prev.map(todo =>
         todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
       )
     );
