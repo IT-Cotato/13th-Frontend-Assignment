@@ -27,12 +27,18 @@ function App() {
     );
   }
 
+  function handleDelete(id: number) {
+    setTodos((prev) => 
+      prev.filter((item) =>
+      item.id !== id ));
+  }
+
   return (
     <div className="flex min-h-screen w-full items-start bg-[#F5F5F5]">
       <div className="mx-auto flex w-full max-w-[640px] flex-col items-start gap-[22px]">
         <TodoHeader />
         <TodoForm onAddTodo={handleAddTodo} />
-        <TodoList todos={todos} onToggle={handleToggle} />
+        <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
       </div>
     </div>
   )
