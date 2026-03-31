@@ -1,0 +1,19 @@
+.title {
+  display: flex;
+  align-items: center;
+  gap: 16.95px;
+  margin-top: 90px;
+  margin-bottom: 22px;
+  font-family: 'Pretendard';
+  font-size: 24px;
+}
+
+.title-text {
+  margin: 0;
+  color: #1f2937;
+  font-family: 'Pretendard';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+}
