@@ -17,12 +17,22 @@ function App() {
     setTodos((prev) => [...prev, newTodo])
   }
 
+  function handleToggle(id: number) {
+    setTodos((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, isCompleted: !item.isCompleted }
+          : item
+      )
+    );
+  }
+
   return (
     <div className="flex min-h-screen w-full items-start bg-[#F5F5F5]">
       <div className="mx-auto flex w-full max-w-[640px] flex-col items-start gap-[22px]">
         <TodoHeader />
         <TodoForm onAddTodo={handleAddTodo} />
-        <TodoList todos={todos} />
+        <TodoList todos={todos} onToggle={handleToggle} />
       </div>
     </div>
   )

@@ -1,10 +1,10 @@
 import TodoCard from "./TodoCard";
 import type { Todo } from "../data/TodoData";
 
-export default function TodoList({todos} : {todos: Todo[] }) {
-    const todoItems = todos.map( item =>
-        <TodoCard key={item.id} todo = {item.todo} isCompleted = {item.isCompleted} />
-    );
+export default function TodoList({todos, onToggle} : {todos: Todo[]; onToggle: (id:number) => void; }) {
+    const todoItems = todos.map( (item) => (
+        <TodoCard key={item.id} todo = {item.todo} isCompleted = {item.isCompleted} onToggle={() => onToggle(item.id)} />
+    ));
 
     return (
         <ul className="flex flex-col items-start gap-[16px] self-stretch">

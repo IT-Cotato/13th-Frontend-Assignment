@@ -1,9 +1,9 @@
 import EmptyCircleIcon from "../icons/EmptyCircleIcon"
 import CheckIcon from "../icons/CheckIcon"
 
-function Item({todo, isCompleted }: {todo: string;isCompleted: boolean;}) {
+function Item({todo, isCompleted, onToggle}: {todo: string; isCompleted: boolean; onToggle: () => void }) {
   return(
-    <div>
+    <button onClick={onToggle} className="cursor-pointer">
       {isCompleted ? (
         <div className= "flex items-center gap-[12px] text-[#1F2937] opacity-50">
           <CheckIcon />
@@ -15,15 +15,15 @@ function Item({todo, isCompleted }: {todo: string;isCompleted: boolean;}) {
           <span>{todo}</span>
         </div>
       )}
-  </div>
+  </button>
   )
 }
 
-export default function TodoCard({todo, isCompleted }: {todo: string;isCompleted: boolean;}) {
+export default function TodoCard({todo, isCompleted, onToggle }: {todo: string;isCompleted: boolean; onToggle: () => void}) {
   return (
     <li className="flex w-full items-center gap-[10px] p-4 rounded-[12px] bg-white shadow-sm">
       <div className="text-[14px] leading-[21px] text-[#1F2937]">
-        <Item todo={todo} isCompleted={isCompleted} />
+        <Item todo={todo} isCompleted={isCompleted} onToggle={onToggle} />
       </div>
     </li>
   )
