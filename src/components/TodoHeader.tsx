@@ -5,9 +5,9 @@ type TodoHeaderProps = {
 
 function TodoHeader({ icon, title }: TodoHeaderProps) {
   return (
-    <div className="flex self-stretch items-center gap-2 py-2.5">
-      <span className="text-gray-800 text-2xl font-bold leading-9">{icon}</span>
-      <h1 className="text-gray-800 text-2xl font-bold leading-9">{title}</h1>
+    <div className="flex w-[640px] items-center gap-2">
+      <span className="text-2xl font-bold leading-9 text-gray-800">{icon}</span>
+      <h1 className="text-2xl font-bold leading-9 text-gray-800">{title}</h1>
     </div>
   );
 }
