@@ -9,6 +9,8 @@ export default function TodoForm({onAddTodo} : {onAddTodo: (text:string) => void
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        if (!works.trim()) return;
       
         onAddTodo(works);
         setWorks('');
