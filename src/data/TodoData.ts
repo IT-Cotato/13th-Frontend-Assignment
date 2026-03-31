@@ -24,5 +24,10 @@ export const todoData: Todo[] = [
         id: 3,
         todo: '프로젝트 회의 준비',
         isCompleted: false
+    },
+    {
+        id: 4,
+        todo: '장보기 하기',
+        isCompleted: false
     }
 ];
