@@ -1,11 +1,6 @@
 import TodoCard from './TodoCard';
 import '../css/TodoList.css';
-
-export type TodoItem = {
-  id: number;
-  text: string;
-  isChecked: boolean;
-};
+import type { TodoItem } from '../types/todo.types';
 
 type Props = {
   todos: TodoItem[];

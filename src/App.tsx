@@ -3,16 +3,13 @@ import EmptyList from './components/EmptyList';
 import TodoHeader from './components/TodoHeader';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
+import { INITIAL_TODOS } from './data/todo.data';
+import type { TodoItem } from './types/todo.types';
 import { useState } from 'react';
 
 
 function App() {
-  const [todos, setTodos] = useState([
-    {id:1, text:'리액트 공식문서 읽기', isChecked:false},
-    {id:2, text:'알고리즘 문제 풀기', isChecked:false},
-    {id:3, text:'운동 30분 하기', isChecked:false},
-    {id:4, text:'프로젝트 회의 준비', isChecked:false},
-  ]);
+  const [todos, setTodos] = useState<TodoItem[]>(INITIAL_TODOS);
 
   const [inputValue, setInputValue] = useState('');
 
