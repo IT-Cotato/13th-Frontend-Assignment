@@ -1,26 +1,22 @@
 import "./TodoInput.css"
-import { useState } from "react";
 
-function TodoInput() {
-  const [text, setText] = useState("");
+type Props = {
+  inputText: string;
+  onChangeInput: (value: string) => void;
+  onAddTodo: () => void;
+};
 
-  const handleFocus = () => {
-    if (text === "") {
-      setText("새로운 할 일");
-    }
-  };
-
+function TodoInput({ inputText, onChangeInput, onAddTodo }: Props) {
   return (
     <div className="input-section">
       <input 
         type="text" 
         placeholder="할 일을 입력하세요" 
         className="todo-input" 
-        value={text}
-        onFocus={handleFocus}
-        onChange={(e) => setText(e.target.value)}
+        value={inputText}
+        onChange={(e) => onChangeInput(e.target.value)}
       />
-      <button className="add-button">추가</button>
+      <button className="add-button" onClick={onAddTodo}>추가</button>
     </div>
   );
 }

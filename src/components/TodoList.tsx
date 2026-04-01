@@ -1,18 +1,14 @@
 import "./TodoList.css"
 import TodoCard from "./TodoCard";
-
-type Todo = {
-  id: number;
-  text: string;
-  completed: boolean;
-};
+import type { Todo } from "../App";
 
 type Props = {
   todos: Todo[];
-  toggleTodo: (id: number) => void;
+  onToggleTodo: (id: number) => void;
+  onDeleteTodo: (id: number) => void;
 };
 
-function TodoList({ todos, toggleTodo }: Props) {
+function TodoList({ todos, onToggleTodo, onDeleteTodo }: Props) {
    // 할 일이 없을 때
   if (todos.length === 0) {
     return (
@@ -28,15 +24,12 @@ function TodoList({ todos, toggleTodo }: Props) {
     <ul className="card-list">
       {todos.map((todo) => (
         <li key={todo.id} className="card-item">
-          <label className="card-label">
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleTodo(todo.id)}
-              className="card-checkbox"
-            />
-            <TodoCard text={todo.text} completed={todo.completed} />
-          </label>
+           <TodoCard
+            text={todo.text}
+            completed={todo.completed}
+            onToggle={() => onToggleTodo(todo.id)}
+            onDelete={() => onDeleteTodo(todo.id)}
+          />
         </li>
       ))}
     </ul>
