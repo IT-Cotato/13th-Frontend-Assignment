@@ -20,6 +20,12 @@
   background-color: #F5F5F5;
 }
 
+.todo-input :focus {
+  border-radius: 8px;
+  border: 2px solid #3B82F6;
+  box-shadow: 0 0 0 4px #3B82F6;
+}
+
 .add-button {
   display: flex;
   width: 72.2px;
