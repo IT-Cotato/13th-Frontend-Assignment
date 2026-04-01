@@ -4,7 +4,7 @@ import TodoCard from "./TodoCard";
 type Todo = {
   id: number;
   text: string;
-  isDone: boolean;
+  completed: boolean;
 };
 
 type Props = {
@@ -31,11 +31,11 @@ function TodoList({ todos, toggleTodo }: Props) {
           <label className="card-label">
             <input
               type="checkbox"
-              checked={todo.isDone}
+              checked={todo.completed}
               onChange={() => toggleTodo(todo.id)}
               className="card-checkbox"
             />
-            <TodoCard text={todo.text} isDone={todo.isDone} />
+            <TodoCard text={todo.text} completed={todo.completed} />
           </label>
         </li>
       ))}
