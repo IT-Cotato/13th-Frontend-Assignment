@@ -10,9 +10,10 @@ export type TodoItem = {
 type Props = {
   todos: TodoItem[];
   onCheck: (id: number) => void;
+  onDelete: (id: number) => void;
 };
 
-export default function TodoList({ todos, onCheck }: Props) {
+export default function TodoList({ todos, onCheck, onDelete }: Props) {
   return (
     <ul className="card-list">
       {todos.map((todo) => (
@@ -22,6 +23,7 @@ export default function TodoList({ todos, onCheck }: Props) {
           text={todo.text}
           isChecked={todo.isChecked}
           onCheck={onCheck}
+          onDelete={onDelete}
         />
       ))}
     </ul>

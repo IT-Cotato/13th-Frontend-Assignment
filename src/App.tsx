@@ -41,6 +41,11 @@ function App() {
     setInputValue(''); // 추가 후 입력창 비우기
   };
 
+  const onDelete = (id: number) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
+
   return (
     <div className="todo">
       <TodoHeader title="오늘의 할 일" />
@@ -53,7 +58,7 @@ function App() {
 
 
       {todos.length > 0 ? (
-        <TodoList todos={todos} onCheck={onCheck} />
+        <TodoList todos={todos} onCheck={onCheck} onDelete={onDelete} />
       ) : (
         <EmptyList />
       )}

@@ -6,9 +6,10 @@ type Props = {
   text: string;
   isChecked: boolean;
   onCheck: (id: number) => void;
+  onDelete: (id: number) => void;
 };
 
-export default function TodoCard({ id, text, isChecked, onCheck }: Props) {
+export default function TodoCard({ id, text, isChecked, onCheck, onDelete }: Props) {
   return (
     <li className="card">
       <label className="card-label">
@@ -25,6 +26,14 @@ export default function TodoCard({ id, text, isChecked, onCheck }: Props) {
         </span>
         <span className="card-text">{text}</span>
       </label>
+
+      <button
+        type="button"
+        className="card-delete-button"
+        onClick={() => onDelete(id)}
+      >
+        🗑
+      </button>
     </li>
   );
 }

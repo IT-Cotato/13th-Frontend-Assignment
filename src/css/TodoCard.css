@@ -19,12 +19,14 @@
   line-height: 21px;
 }
 
-.card:has(.card-input:checked) {
+.card-label:has(.card-input:checked) {
   text-decoration: line-through;
-  opacity: 0.5;
-
 }
 
+.card:has(.card-input:checked){
+    opacity: 0.5;
+
+}
 .card-label:has(.card-input:checked) .card-checkbox-ui {
   display: flex;
   width: 24px;
@@ -68,3 +70,16 @@
   border: 2px solid #E5E7EB;  
 }
 
+.card-delete-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  color: #0A0A0A;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 150% */
+}
