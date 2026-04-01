@@ -1,3 +1,5 @@
+import "./TodoHeader.css"
+
 type Props = {
   title: string;
 };

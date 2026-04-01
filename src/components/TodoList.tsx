@@ -1,3 +1,4 @@
+import "./TodoList.css"
 import TodoCard from "./TodoCard";
 
 type Todo = {
