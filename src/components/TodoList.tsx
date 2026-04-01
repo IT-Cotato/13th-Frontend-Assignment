@@ -4,9 +4,10 @@ import type { Todo } from "../App";
 type TodoListProps = {
   todos: Todo[];
   onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
 };
 
-function TodoList({ todos, onToggle }: TodoListProps) {
+function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
   if (todos.length === 0) {
     return (
       <div className="inline-flex h-60 w-[640px] flex-col items-start justify-start gap-3 rounded-xl bg-white pt-16 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.10)]">
@@ -33,6 +34,7 @@ function TodoList({ todos, onToggle }: TodoListProps) {
             text={todo.text}
             completed={todo.completed}
             onToggle={() => onToggle(todo.id)}
+            onDelete={() => onDelete(todo.id)}
           />
         </li>
       ))}
