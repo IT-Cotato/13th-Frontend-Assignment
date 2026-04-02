@@ -15,11 +15,27 @@ function App() {
   const [todos, setTodos] = useState(fixedTodos);
   const [inputValue, setInputValue] = useState("");
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <div className="frame3">
       <div className="frame2">
         <TodoHeader />
       </div>
+
+      <div className="inputContainer">
+        <input
+          className="todoInput"
+          type="text"
+          placeholder="할 일을 입력하세요"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+        <button className="addButton">추가</button>
+      </div>
+
       <div className="container">
         <TodoList todos={todos} />
       </div>
