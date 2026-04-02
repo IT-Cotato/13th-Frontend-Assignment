@@ -1,38 +1,32 @@
-interface CardProps {
-  name: string;
-  isChecked: boolean;
+import checkedIcon from "../assets/icon/checkedIcon.svg";
+
+interface TodoCardProps {
+  id: number;
+  text: string;
+  completed: boolean;
+  onDelete: (id: number) => void;
 }
 
-export function Card({ name, isChecked }: CardProps) {
-  if (isChecked) {
+export default function TodoCard({
+  id,
+  text,
+  completed,
+  onDelete,
+}: TodoCardProps) {
+  function handleClick() {
+    onDelete(id);
+  }
+
+  if (completed) {
     return (
       <li className={`item checked`}>
         <div className="CheckedBox">
-          <svg
-            className="CheckedIcon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="10"
-            viewBox="0 0 14 10"
-            fill="none"
-          >
-            <g clip-path="url(#clip0_16_101)">
-              <path
-                d="M1 5L5 9L13 1"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_16_101">
-                <rect width="14" height="10" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+          <img src={checkedIcon} alt="checked" />
         </div>
-        {name}
+        <div className="text">
+          <del>{text}</del>
+        </div>
+        <button className="delBtn">🗑</button>
       </li>
     );
   }
@@ -40,7 +34,10 @@ export function Card({ name, isChecked }: CardProps) {
   return (
     <li className="item">
       <div className="UncheckedBox"></div>
-      {name}
+      <div className="text">{text}</div>
+      <button className="delBtn" onClick={handleClick}>
+        🗑
+      </button>
     </li>
   );
 }
