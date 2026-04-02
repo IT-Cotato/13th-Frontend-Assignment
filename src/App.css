@@ -1,157 +1,113 @@
-/* 🌟 투두 리스트 영역 (3번째 사진 참고: 간격 16px) */
-.todo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px; 
-}
 
-/* 🌟 개별 투두 카드 (2번째 사진 참고: 패딩, 간격, 둥글기 수정) */
-.todo-card {
-  background-color: #FFFFFF;
-  
-  /* 피그마 데이터 반영 */
-  padding: 24px 20px;
-  border-radius: 16px;
-  gap: 12px; 
-  
-  border: 1px solid #E5E7EB;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-}
-
-/* 🌟 체크박스 뼈대 (1번째 사진 참고: padding 4px 추가) */
-.checkbox-container {
-  display: flex;
-  width: 24px;
-  height: 24px;
-  padding: 4px; /* 피그마에 있는 패딩 값 반영 */
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-sizing: border-box; /* 패딩이 24px 크기 안으로 들어가도록 설정 */
-}
-
-/* 미완료 상태 (빈 동그라미) */
-.checkbox-container.unchecked {
-  border: 2px solid #E5E7EB;
-  background-color: transparent;
-}
-
-.checkbox-container.checked {
-  background-color: #3B82F6; /* 피그마의 --gray-200 색상 */
-  border: 2px solid #3B82F6; 
-  opacity: 0.4;
-}
-
-.task-text {
-  color: #1F2937;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 21px; /* 150% */
-}
-
-.done-text {
-  color: #9CA3AF;
-  text-decoration: line-through;
-}
-
+body { background-color: #F8F9FA; margin: 0; font-family: Pretendard, sans-serif; }
 
 .app-container {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-    /* 🌟 사진 반영: 맨 위에서부터 32px, 맨 아래에서부터 32px 떨어지게 합니다 */
-  padding: 32px 20px;     
-  display: flex;
-  flex-direction: column;    
-    /* 🌟 사진 반영: 위쪽 리스트 섹션과 아래쪽 빈 섹션 사이의 64px 간격 */
-  gap: 64px; 
-}
-  
-  .demo-section {
-    display: flex;
-    flex-direction: column;
-    gap: 32px; 
-}
-    
-    /* 헤더 내부 (소제목과 대제목 사이) 간격 */
-  .todo-header {
-    display: flex;
-    flex-direction: column;
-    gap: 42px; 
-    margin: 0;
-}
-    
-    /* 🌟 핵심 해결책: 텍스트의 보이지 않는 기본 여백(줄 간격) 완전히 제거 */
-    .subtitle, .title {
-      gap: 42px; 
-      margin: 0; 
-      line-height: 1; /* 글자 크기만큼만 높이를 차지하도록 설정하여 투명한 여백을 없앱니다 */
-    }
-
-
-.section-title {
-  font-size: 16px;
-  font-weight: normal;
-  color: #6B7280; 
-  gap: 42px; 
-  margin: 0;
-}
-
-
-.todo-empty-container {
+  padding: 32px 20px; 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-self: stretch; 
-  gap: 42px; 
+  gap: 64px; 
+}
+
+.demo-section { display: flex; flex-direction: column; gap: 32px; }
+
+
+.todo-header { display: flex; flex-direction: column; gap: 42px; margin: 0; }
+.subtitle { color: #6B7280; font-size: 16px; font-weight: 400; margin: 0; line-height: 1; }
+.title { color: #1F2937; font-size: 28px; font-weight: 800; margin: 0; line-height: 1; }
+
+
+.input-section {
+  display: flex;
+  gap: 12px;
+}
+
+.todo-input {
+  flex: 1; 
+  padding: 16px 20px;
+  font-size: 16px;
+  font-family: Pretendard, sans-serif;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
   background-color: #FFFFFF;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+  color: #1F2937;
+}
+
+
+
+.todo-input:focus,
+.todo-input.focused {
+  outline: none;
+  border: 1px solid #3B82F6; 
+}
+
+
+.add-button {
+  padding: 0 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background-color: #3B82F6;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.add-button:hover { background-color: #2563EB; }
+
+
+.todo-list { display: flex; flex-direction: column; gap: 16px; }
+
+.todo-card {
+  background-color: #FFFFFF;
+  padding: 24px 20px;
   border-radius: 16px;
   border: 1px solid #E5E7EB;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-
-.empty-icon {
-  color: #0A0A0A;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 72px; /* 150% */
-}
-
-.empty-text {
-  color: #6B7280;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 21px; /* 150% */
-  margin: 0; /* p태그의 기본 마진 제거 */
-}
-
-.todo-empty-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.card-left { display: flex; align-items: center; gap: 12px; }
+
+
+.checkbox-container {
+  display: flex; width: 24px; height: 24px;
+  justify-content: center; align-items: center;
+  border-radius: 50%; flex-shrink: 0;
+}
+
+.checkbox-container.unchecked { 
+  border: 2px solid #E5E7EB; 
+  background-color: transparent; 
+}
+
+
+.checkbox-container.checked { 
+  background: #3B82F6;
+  border: 2px solid #3B82F6;
+  border-radius: 13421800px;
+    opacity: 0.4; 
+}
+
+.task-text { color: #1F2937; font-size: 16px; font-weight: 400; margin: 0; line-height: 21px; }
+.done-text { color: #9CA3AF; text-decoration: line-through; }
+
+
+.delete-button {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
   justify-content: center;
   align-items: center;
-  
-  align-self: stretch; 
-  height: 250px; 
-  width: 100%;
-  gap: 16px; 
-  
-  background-color: #FFFFFF;
-  border-radius: 12px;
-  border: 1px solid #E5E7EB;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  cursor: pointer;
 }
+
+
+.delete-button svg path { transition: fill 0.2s; }
+.delete-button:hover svg path { fill: #4B5563; }

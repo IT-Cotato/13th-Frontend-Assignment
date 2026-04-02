@@ -2,11 +2,11 @@
 
 interface TodoCardProps {
     task: string;
-    description: string; // 🌟 새로 추가하는 상세 설명 속성
     isDone: boolean;
+    num: number;
   }
   
-  export default function TodoCard({ task, description, isDone }: TodoCardProps) {
+  export default function TodoCard({ task, isDone, num }: TodoCardProps) {
     return (
       <div className="todo-card">
         {/* 1. 체크박스 영역 (기존 코드 유지) */}
@@ -25,10 +25,7 @@ interface TodoCardProps {
             {task}
           </h3>
           
-          {/* 상세 설명 (피그마의 '회색 글씨' 스타일 반영) */}
-          <p className="task-description">
-            {description}
-          </p>
+          
         </div>
       </div>
     );
