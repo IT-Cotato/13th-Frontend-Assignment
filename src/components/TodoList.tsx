@@ -1,25 +1,20 @@
 // src/components/TodoList.tsx
-import React from 'react';
+
 import TodoCard from './TodoCard';
 
-// 1. 부모에게서 받을 데이터의 타입을 정해줍니다.
-interface Todo {
-  id: number;
-  content: string;
-  isDone: boolean;
-}
+// 1. 부모에게서 받을 데이터의 타입 정하기
 
 interface TodoListProps {
   todos: Todo[]; 
 }
 
-// 2. 괄호 안에 { todos }: TodoListProps 를 넣어서 외부 데이터를 받아옵니다!
-// 🚨 주의: 이 아래에 const todos = [...] 같은 코드가 절대 있으면 안 됩니다!
+// 2. 괄호 안에 { todos }: TodoListProps 를 넣어서 외부 데이터 받아오기
+
 const TodoList = ({ todos }: TodoListProps) => {
   return (
     <div className="todo-list-wrapper">
       
-      {/* 3. 받아온 todos 배열의 길이에 따라 빈 화면을 보여줄지 결정합니다 */}
+      {/* 3. 받아온 todos 배열의 길이에 따라 빈 화면을 보여줄지 결정*/}
       {todos.length === 0 ? (
         <div className="empty-state">
           <span className="empty-icon">📋</span>
