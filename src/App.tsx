@@ -24,11 +24,12 @@ function App() {
     <div className="frame3">
       <div className="frame2">
         <TodoHeader />
+        <div>
+        <InputTodo input={input} setInput={setInput} onAdd={handleAdd} />
+        </div>
       </div>
 
-      <div>
-        <InputTodo input={input} setInput={setInput} onAdd={handleAdd} />
-      </div>
+      
 
       <div className="container">
         <TodoList todos={todos} onDelete={handleDelete} />
