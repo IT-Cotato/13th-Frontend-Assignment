@@ -2,9 +2,10 @@ interface InputTodoProps {
   input: string;
   setInput: (value: string) => void;
   onAdd: () => void;
+  placeholder: string; 
 }
 
-function InputTodo({ input, setInput, onAdd }: InputTodoProps) {
+function InputTodo({ input, setInput, onAdd, placeholder }: InputTodoProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") onAdd();
   };
@@ -14,7 +15,7 @@ function InputTodo({ input, setInput, onAdd }: InputTodoProps) {
       <input
         className="todo-input"
         type="text"
-        placeholder="할 일을 입력하세요"
+        placeholder={placeholder} 
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
@@ -23,8 +24,6 @@ function InputTodo({ input, setInput, onAdd }: InputTodoProps) {
         추가
       </button>
     </div>
-
-    
   );
 }
 
