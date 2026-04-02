@@ -33,6 +33,11 @@ function App() {
     setInputValue("");
   };
 
+  const handleDeleteTodo = (id: number) => {
+    const nextTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(nextTodos);
+  };
+
   return (
     <div className="frame3">
       <div className="frame2">
