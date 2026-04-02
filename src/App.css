@@ -4,6 +4,7 @@
 * {
   margin: 0;
   padding: 0;
+  height : 100%
   box-sizing: border-box;
   font-family: "Pretendard", sans-serif; /*프로젝트 전체 폰트 적용*/
 }
