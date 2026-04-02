@@ -1,13 +1,7 @@
 import TodoCard from "./TodoCard";
+import type { Todo } from "./types/todo.types";
 
-interface Todo {
-  id: number;
-  text: string;
-  isDone: boolean;
-}
-
-function TodoList({ todos }: { todos: Todo[] }) {
-  // 빈 배열이면 빈 상태 UI 렌더링
+function TodoList({ todos, onDelete }: { todos: Todo[]; onDelete: (id: number) => void }) {
   if (todos.length === 0) {
     return (
       <div className="empty-container">
@@ -21,7 +15,7 @@ function TodoList({ todos }: { todos: Todo[] }) {
     <ul className="frame1">
       {todos.map((todo) => (
         <li key={todo.id}>
-          <TodoCard text={todo.text} isDone={todo.isDone} />
+          <TodoCard text={todo.text} isDone={todo.isDone} onDelete={() => onDelete(todo.id)} />
         </li>
       ))}
     </ul>

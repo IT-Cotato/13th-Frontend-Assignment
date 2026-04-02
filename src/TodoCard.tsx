@@ -1,4 +1,4 @@
-function TodoCard({ text, isDone }: { text: string; isDone: boolean }) {
+function TodoCard({ text, isDone, onDelete }: { text: string; isDone: boolean; onDelete: () => void }) {
   return (
     <div className="card">
       <div className={`checkbox ${isDone ? "done" : ""}`}>
@@ -15,6 +15,7 @@ function TodoCard({ text, isDone }: { text: string; isDone: boolean }) {
         )}
       </div>
       <div className={`card-text ${isDone ? "done" : ""}`}>{text}</div>
+      <button className="delete-button" onClick={onDelete}>🗑️</button>
     </div>
   );
 }
