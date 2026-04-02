@@ -1,0 +1,64 @@
+/* 공통 규칙 */
+.todo-form,
+.todo-input {
+  width: 640px;
+  height: 46.6px;
+}
+
+/* App.css */
+.todo {
+  font-family: Pretendard, sans-serif;
+}
+
+.todo-form{
+  display: flex;
+
+  padding-right: 0;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+
+.todo-input{
+  padding: 0 16px;
+
+
+  border-radius: 8px;
+  border: 0.8px solid #E5E7EB;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.todo-input:focus {
+  border-radius: 8px;
+  border: 2px solid #3B82F6;
+  
+  background: rgba(255, 255, 255, 0.00);
+  
+  box-shadow: 0 0 0 4px #3B82F6;
+}
+
+.todo-button{
+  display: flex;
+  height: 46.6px;
+  border: none;
+  padding: 12.8px 23.2px 12.8px 24px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  border-radius: 8px;
+  background: #3B82F6;
+
+  color: #FFF;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+}
