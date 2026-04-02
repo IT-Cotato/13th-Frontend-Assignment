@@ -3,9 +3,19 @@ import {TODO_ITEMS} from './constants/todoData';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 import EmptyState from './components/EmptyState';
+import TodoInput from './components/TodoInput';
 
 export default function App() {
   const [todoItems, setTodoItems] = useState(TODO_ITEMS);
+
+  const addTodo = (task: string) => {
+    const newTodo = {
+      id: `todo-${Date.now()}`, 
+      task,
+      isCompleted: false,
+    };
+    setTodoItems((prev) => [...prev, newTodo]); 
+  };
   
   const toggleTodo = (id: string) => {
     setTodoItems(prevItems =>
@@ -13,6 +23,10 @@ export default function App() {
         item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
       )
     );
+  };
+
+  const deleteTodo = (id: string) => {
+    setTodoItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const appBackgroundStyle: React.CSSProperties = {
@@ -40,8 +54,9 @@ export default function App() {
     <div style={appBackgroundStyle}>
       <main style={todoContainerStyle}>
         <TodoHeader title="✅ 오늘의 할 일" />
+        <TodoInput onAdd={addTodo} />
         {todoItems.length > 0 ? (
-          <TodoList items={todoItems} onToggle={toggleTodo} />
+          <TodoList items={todoItems} onToggle={toggleTodo} onDelete={deleteTodo} />
         ) : (
           <EmptyState />
         )}
