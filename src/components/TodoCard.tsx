@@ -1,4 +1,4 @@
-import checkedIcon from "../assets/icon/checkedIcon.svg";
+import checkedIcon from "../assets/icons/checkedIcon.svg";
 
 interface TodoCardProps {
   id: number;
