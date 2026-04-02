@@ -3,21 +3,19 @@ import TodoCard from "./TodoCard";
 import { todoItems } from "./data";
 
 export default function TodoList() {
-    const cardsList = todoItems.map((todoItems) => (
+    const todoItem = todoItems.map((todoItems) => (
         <TodoCard
-            key={todoItems.key}
+            id={todoItems.id}
             text={todoItems.text}
             isChecked={todoItems.isChecked}
         />
     ));
-    if (cardsList.length === 0) {
+    if (todoItem.length === 0) {
         return <Empty />;
     }
     return (
         <>
-            <ul id="todoList" className="control-container">
-                {cardsList}
-            </ul>
+            <ul id="todoList">{todoItem}</ul>
         </>
     );
 }

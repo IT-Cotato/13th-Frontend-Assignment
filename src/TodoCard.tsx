@@ -1,18 +1,19 @@
 import { FaCheck } from "react-icons/fa6";
 
 export default function TodoCard({
-    key,
+    id,
     text,
     isChecked,
 }: {
-    key: number;
+    id: string;
     text: string;
     isChecked: boolean;
 }) {
     return (
         <>
+            {/* readOnly */}
             <li className={"todoCard " + (isChecked ? "checked" : "")}>
-                <input type="checkbox" checked={isChecked} key={key} />
+                <input type="checkbox" checked={isChecked} id={id} />
                 <label>
                     <span className="check-icon">
                         {isChecked && <FaCheck color="white" size={14} />}
