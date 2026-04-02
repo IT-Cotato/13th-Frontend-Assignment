@@ -19,6 +19,20 @@ function App() {
     setInputValue(e.target.value);
   };
 
+  const handleAddTodo = () => {
+    if (inputValue.trim() === "") return;
+
+    const newTodo = {
+      id: Date.now(),
+      text: inputValue,
+      isCompleted: false,
+    };
+
+    setTodos([...todos, newTodo]);
+
+    setInputValue("");
+  };
+
   return (
     <div className="frame3">
       <div className="frame2">
@@ -33,7 +47,9 @@ function App() {
           value={inputValue}
           onChange={handleInputChange}
         />
-        <button className="addButton">추가</button>
+        <button className="addButton" onClick={handleAddTodo}>
+          추가
+        </button>
       </div>
 
       <div className="container">
