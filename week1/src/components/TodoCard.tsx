@@ -8,17 +8,18 @@ interface TodoCardProps {
 export default function TodoCard({ text, checked, onToggle, onDelete }: TodoCardProps) {
   return (
     <div className={`todo-item ${checked ? "is-checked" : ""}`}>
-      <button
-        type="button"
-        className="todo-item-main"
-        onClick={onToggle}
-        aria-pressed={checked}
-      >
+      <label className="todo-item-main">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={onToggle}
+          className="sr-only todo-input-control"
+        />
         <span className={`todo-checkbox ${checked ? "is-checked" : ""}`} aria-hidden="true">
           {checked ? "✓" : ""}
         </span>
         <span className="todo-text">{text}</span>
-      </button>
+      </label>
 
       {onDelete ? (
         <button
