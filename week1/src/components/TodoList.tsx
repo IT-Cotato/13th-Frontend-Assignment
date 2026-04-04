@@ -8,6 +8,14 @@ interface TodoListProps {
 }
 
 export default function TodoList({ items, onToggle, onDelete }: TodoListProps) {
+  if (items.length === 0) {
+    return (
+      <div className="todo-empty-state" role="status" aria-live="polite">
+        아직 등록된 할 일이 없어요.
+      </div>
+    );
+  }
+
   return (
     <ul className="todo-list">
       {items.map((item) => (

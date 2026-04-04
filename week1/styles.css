@@ -141,6 +141,21 @@ body {
   gap: 16px;
 }
 
+.todo-empty-state {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px dashed #dbe1ea;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+}
+
 .todo-item {
   width: 100%;
   min-height: 72px;
