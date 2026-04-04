@@ -1,8 +1,17 @@
-import { TODO_ITEMS } from "./todoItems";
-import { Card } from "./TodoCard";
+import TodoCard from "./TodoCard";
 
-export default function TodoList() {
-  const isEmpty = TODO_ITEMS.length === 0;
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+interface TodoListProps {
+  todos: Todo[];
+  onDelete: (id: number) => void;
+}
+
+export default function TodoList({ todos, onDelete }: TodoListProps) {
+  const isEmpty = todos.length === 0;
 
   return (
     <>
@@ -16,15 +25,18 @@ export default function TodoList() {
       )}
 
       {!isEmpty && (
-      <ul className="toDoList">
-        {TODO_ITEMS.map((item) => (
-          <Card key={item.id} name={item.name} isChecked={item.isChecked} />
-        ))}
-      </ul>
-    )
-  }
-
+        <ul className="toDoList">
+          {todos.map((todo) => (
+            <TodoCard
+              key={todo.id}
+              id={todo.id}
+              text={todo.text}
+              completed={todo.completed}
+              onDelete={onDelete}
+            />
+          ))}
+        </ul>
+      )}
     </>
   );
-    
 }
