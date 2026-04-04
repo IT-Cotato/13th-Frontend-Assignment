@@ -7,7 +7,7 @@ export default function App() {
   const [todoItems, setTodoItems] = useState(initialTodoItems);
   const [newTodo, setNewTodo] = useState("");
   const [focusItems, setFocusItems] = useState(focusPreviewItems);
-  const [focusTodo, setFocusTodo] = useState("새로운 할 일");
+  const [focusTodo, setFocusTodo] = useState("");
 
   function handleToggle(id: number) {
     setTodoItems((currentItems) =>
@@ -101,10 +101,11 @@ export default function App() {
             <TodoHeader icon="✅" title="오늘의 할 일" headingId="focus-title" />
             <form className="todo-form" onSubmit={handleFocusAdd}>
               <input
-                className="todo-input is-focused"
+                className="todo-input"
                 type="text"
                 value={focusTodo}
                 onChange={(event) => setFocusTodo(event.target.value)}
+                placeholder="할 일을 입력하세요"
                 aria-label="새로운 할 일 입력"
               />
               <button className="todo-add-button" type="submit">
