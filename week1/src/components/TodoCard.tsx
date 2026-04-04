@@ -13,7 +13,7 @@ export default function TodoCard({ text, checked, onToggle, onDelete }: TodoCard
           type="checkbox"
           checked={checked}
           onChange={onToggle}
-          className="sr-only todo-input-control"
+          className="sr-only"
         />
         <span className={`todo-checkbox ${checked ? "is-checked" : ""}`} aria-hidden="true">
           {checked ? "✓" : ""}

@@ -105,8 +105,7 @@ body {
   color: #9ca3af;
 }
 
-.todo-input:focus,
-.todo-input.is-focused {
+.todo-input:focus {
   border-color: var(--blue);
   box-shadow: 0 0 0 4px rgba(74, 134, 247, 0.18);
 }
