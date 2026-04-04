@@ -1,6 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import TodoHeader from './components/TodoHeader';
+import TodoCount from './components/TodoCount';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 
@@ -56,6 +57,7 @@ function App() {
   return (
     <div className="todo">
       <TodoHeader title="오늘의 할 일" />
+      <TodoCount todos={todos} />
       <TodoInput
         inputText={inputText}
         onChangeInput={handleChangeInput}
