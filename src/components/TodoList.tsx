@@ -1,25 +1,21 @@
-// src/components/TodoList.tsx
-import React from 'react';
 import TodoCard from './TodoCard';
 
-// 1. 부모에게서 받을 데이터의 타입을 정해줍니다.
 interface Todo {
   id: number;
-  content: string;
-  isDone: boolean;
+  text: string;
+  completed: boolean;
 }
 
+// 부모로부터 onDelete 함수를 받을 수 있도록 타입 추가
 interface TodoListProps {
-  todos: Todo[]; 
+  todos: Todo[];
+  onDelete: (id: number) => void;
 }
 
-// 2. 괄호 안에 { todos }: TodoListProps 를 넣어서 외부 데이터를 받아옵니다!
-// 🚨 주의: 이 아래에 const todos = [...] 같은 코드가 절대 있으면 안 됩니다!
-const TodoList = ({ todos }: TodoListProps) => {
+const TodoList = ({ todos, onDelete }: TodoListProps) => {
   return (
     <div className="todo-list-wrapper">
       
-      {/* 3. 받아온 todos 배열의 길이에 따라 빈 화면을 보여줄지 결정합니다 */}
       {todos.length === 0 ? (
         <div className="empty-state">
           <span className="empty-icon">📋</span>
@@ -30,8 +26,11 @@ const TodoList = ({ todos }: TodoListProps) => {
           {todos.map((todo) => (
             <TodoCard
               key={todo.id}
-              content={todo.content}
-              isDone={todo.isDone}
+              text={todo.text}
+              completed={todo.completed}
+
+              // 삭제 버튼 클릭 시 현재 항목의 id를 담아 실행하도록 함수 전달
+              onDelete={() => onDelete(todo.id)} 
             />
           ))}
         </div>
