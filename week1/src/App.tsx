@@ -1,17 +1,13 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import TodoHeader from "./components/TodoHeader";
 import TodoList from "./components/TodoList";
-import type { TodoItem } from "./types";
-
-const initialTodoItems: TodoItem[] = [
-  { id: 1, text: "리액트 공식문서 읽기", checked: true },
-  { id: 2, text: "알고리즘 문제 풀기", checked: true },
-  { id: 3, text: "운동 30분 하기", checked: false },
-  { id: 4, text: "프로젝트 회의 준비", checked: false },
-];
+import { focusPreviewItems, initialTodoItems } from "./data";
 
 export default function App() {
   const [todoItems, setTodoItems] = useState(initialTodoItems);
+  const [newTodo, setNewTodo] = useState("");
+  const [focusItems, setFocusItems] = useState(focusPreviewItems);
+  const [focusTodo, setFocusTodo] = useState("");
 
   function handleToggle(id: number) {
     setTodoItems((currentItems) =>
@@ -21,25 +17,106 @@ export default function App() {
     );
   }
 
+  function handleDelete(id: number) {
+    setTodoItems((currentItems) => currentItems.filter((item) => item.id !== id));
+  }
+
+  function handleFocusToggle(id: number) {
+    setFocusItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      )
+    );
+  }
+
+  function handleFocusDelete(id: number) {
+    setFocusItems((currentItems) => currentItems.filter((item) => item.id !== id));
+  }
+
+  function handleAdd(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const trimmedTodo = newTodo.trim();
+
+    if (!trimmedTodo) {
+      return;
+    }
+
+    setTodoItems((currentItems) => [
+      ...currentItems,
+      {
+        id: Date.now(),
+        text: trimmedTodo,
+        checked: false,
+      },
+    ]);
+    setNewTodo("");
+  }
+
+  function handleFocusAdd(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const trimmedTodo = focusTodo.trim();
+
+    if (!trimmedTodo) {
+      return;
+    }
+
+    setFocusItems((currentItems) => [
+      {
+        id: Date.now(),
+        text: trimmedTodo,
+        checked: false,
+      },
+      ...currentItems,
+    ]);
+    setFocusTodo("");
+  }
+
   return (
     <main className="page">
       <section className="design-frame">
         <div className="todo-stack">
           <section className="todo-panel" aria-labelledby="toggle-title">
-            <p className="eyebrow">Week 2 - 체크박스 토글</p>
+            <p className="eyebrow">Week 3 - 기본 상태</p>
             <TodoHeader icon="✅" title="오늘의 할 일" headingId="toggle-title" />
-            <TodoList items={todoItems} onToggle={handleToggle} />
+            <form className="todo-form" onSubmit={handleAdd}>
+              <input
+                className="todo-input"
+                type="text"
+                value={newTodo}
+                onChange={(event) => setNewTodo(event.target.value)}
+                placeholder="할 일을 입력하세요"
+                aria-label="할 일 입력"
+              />
+              <button className="todo-add-button" type="submit">
+                추가
+              </button>
+            </form>
+            <TodoList items={todoItems} onToggle={handleToggle} onDelete={handleDelete} />
           </section>
 
-          <section className="todo-panel empty-panel" aria-labelledby="empty-title">
-            <p className="eyebrow">Week 2 - 빈 상태</p>
-            <TodoHeader icon="✅" title="오늘의 할 일" headingId="empty-title" />
-            <div className="empty-state">
-              <span className="empty-state-icon" aria-hidden="true">
-                📋
-              </span>
-              <p className="empty-state-text">아직 할 일이 없어요</p>
-            </div>
+          <section className="todo-panel" aria-labelledby="focus-title">
+            <p className="eyebrow">Week 3 - 입력 중 (Focus)</p>
+            <TodoHeader icon="✅" title="오늘의 할 일" headingId="focus-title" />
+            <form className="todo-form" onSubmit={handleFocusAdd}>
+              <input
+                className="todo-input"
+                type="text"
+                value={focusTodo}
+                onChange={(event) => setFocusTodo(event.target.value)}
+                placeholder="할 일을 입력하세요"
+                aria-label="새로운 할 일 입력"
+              />
+              <button className="todo-add-button" type="submit">
+                추가
+              </button>
+            </form>
+            <TodoList
+              items={focusItems}
+              onToggle={handleFocusToggle}
+              onDelete={handleFocusDelete}
+            />
           </section>
         </div>
       </section>
