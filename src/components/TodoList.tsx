@@ -9,10 +9,11 @@ interface TodoItem {
 interface TodoListProps {
   items: TodoItem[];
   onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 
-export default function TodoList({ items, onToggle }: TodoListProps) {
+export default function TodoList({ items, onToggle, onDelete }: TodoListProps) {
   const listStyle: React.CSSProperties = {
     listStyle: 'none',
     padding: 0,
@@ -31,6 +32,7 @@ export default function TodoList({ items, onToggle }: TodoListProps) {
             task={item.task}
             isCompleted={item.isCompleted}
             onToggle={onToggle}
+            onDelete={onDelete}
           />
         </li>
       ))}
