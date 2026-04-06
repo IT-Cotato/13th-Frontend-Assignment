@@ -2,12 +2,13 @@ import Empty from "./Empty";
 import TodoCard from "./TodoCard";
 import { todoItems } from "./data";
 
-export default function TodoList() {
-    const todoItem = todoItems.map((todoItems) => (
+export default function TodoList({ listState }) {
+    const todoItem = listState.map((todoItems) => (
         <TodoCard
+            key={todoItems.id}
             id={todoItems.id}
             text={todoItems.text}
-            isChecked={todoItems.isChecked}
+            completed={todoItems.completed}
         />
     ));
     if (todoItem.length === 0) {

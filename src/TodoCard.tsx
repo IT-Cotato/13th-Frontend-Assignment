@@ -1,26 +1,43 @@
+// 아이콘 라이브러리
 import { FaCheck } from "react-icons/fa6";
 
 export default function TodoCard({
     id,
     text,
-    isChecked,
+    completed,
 }: {
-    id: string;
+    id: number;
     text: string;
-    isChecked: boolean;
+    completed: boolean;
 }) {
     return (
         <>
             {/* readOnly */}
-            <li className={"todoCard " + (isChecked ? "checked" : "")}>
-                <input type="checkbox" checked={isChecked} id={id} />
+            <li className={"todoCard " + (completed ? "checked" : "")}>
+                <input type="checkbox" checked={completed} id={id} readOnly />
                 <label>
                     <span className="check-icon">
-                        {isChecked && <FaCheck color="white" size={14} />}
+                        {completed && <FaCheck color="white" size={14} />}
                     </span>
-                    {isChecked ? <del>{text}</del> : text}
+                    {completed ? <del>{text}</del> : text}
                 </label>
+                <button
+                    onClick={() => {
+                        alert("delete test");
+                    }}
+                >
+                    🗑
+                </button>
             </li>
         </>
     );
 }
+
+// export function DeleteButton() {
+//     handleDelete = () => {};
+//     return (
+//         <>
+//             <button onClick={handleDelete}>🗑</button>
+//         </>
+//     );
+// }
