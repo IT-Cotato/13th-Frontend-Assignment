@@ -20,6 +20,7 @@ export default function TodoInput({ listState, setListState }) {
     return (
         <>
             <form
+                id="todo-input-form"
                 onSubmit={(e) => {
                     e.preventDefault();
                 }}
@@ -29,8 +30,8 @@ export default function TodoInput({ listState, setListState }) {
                     placeholder="할 일을 입력하세요"
                     onChange={onChange}
                 ></input>
-                <button type="submit" onClick={handleAddTodo}>
-                    추가
+                <button id="addButton" type="submit" onClick={handleAddTodo}>
+                    <span className="buttonText">추가</span>
                 </button>
             </form>
         </>
