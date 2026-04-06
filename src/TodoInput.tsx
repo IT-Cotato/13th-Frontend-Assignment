@@ -15,6 +15,8 @@ export default function TodoInput({ listState, setListState }) {
             ...prevList,
             { id: newId, completed: false, text: inputText },
         ]);
+
+        setInputText("");
     }
 
     return (
@@ -29,7 +31,9 @@ export default function TodoInput({ listState, setListState }) {
                     type="text"
                     placeholder="할 일을 입력하세요"
                     onChange={onChange}
+                    value={inputText}
                 ></input>
+
                 <button id="addButton" type="submit" onClick={handleAddTodo}>
                     <span className="buttonText">추가</span>
                 </button>
