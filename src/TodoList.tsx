@@ -1,15 +1,9 @@
 import Empty from "./Empty";
 import TodoCard from "./TodoCard";
-import { todoItems } from "./data";
 
-export default function TodoList({ listState }) {
+export default function TodoList({ listState, onDelete }) {
     const todoItem = listState.map((todoItems) => (
-        <TodoCard
-            key={todoItems.id}
-            id={todoItems.id}
-            text={todoItems.text}
-            completed={todoItems.completed}
-        />
+        <TodoCard key={todoItems.id} {...todoItems} onDelete={onDelete} />
     ));
     if (todoItem.length === 0) {
         return <Empty />;

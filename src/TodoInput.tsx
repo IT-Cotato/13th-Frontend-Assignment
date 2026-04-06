@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { todoItems } from "./data";
 
 export default function TodoInput({ listState, setListState }) {
     const [inputText, setInputText] = useState<string>("");
@@ -11,8 +10,8 @@ export default function TodoInput({ listState, setListState }) {
     function handleAddTodo() {
         const newId = listState[listState.length - 1].id + 1;
 
-        setListState((listState) => [
-            ...listState,
+        setListState((prevList) => [
+            ...prevList,
             { id: newId, completed: false, text: inputText },
         ]);
     }
