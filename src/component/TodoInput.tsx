@@ -7,14 +7,17 @@ interface TodoInputProps {
 export default function TodoInput({ onAdd }: TodoInputProps) {
   const [text, setText] = useState("");
 
-  const handleAdd = () => {
-    if (text.trim() === "") return;
-    onAdd(text);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (text.trim().length === 0) return;
+    onAdd(text.trim());
     setText("");
-  };
+  }
 
   return(
-    <div className="flex w-[640px] h-[46.6px] items-center justify-between gap-3">
+    <form 
+      onSubmit={handleSubmit}
+      className="flex w-[640px] h-[46.6px] items-center justify-between gap-3">
       <input 
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -26,13 +29,13 @@ export default function TodoInput({ onAdd }: TodoInputProps) {
         "
       />
       <button 
-        onClick={handleAdd}
+        type="submit"
         className="flex w-[72.2px] h-full px-3 py-3 items-center justify-center bg-primary rounded-[8px] text-body text-white leading-[21px]"
       >
         추가
       </button>
 
-    </div>
+    </form>
   )
 
 }

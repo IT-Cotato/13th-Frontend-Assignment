@@ -9,7 +9,7 @@ interface TodoListProps {
 export default function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
 
   return (
-    <ul className="flex flex-col items-start gap-4 self-stretch">
+    <div className="flex flex-col items-start gap-4 self-stretch">
       {todos.map((todo) => (
         <TodoCard 
           key={todo.id}
@@ -19,6 +19,6 @@ export default function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
           onDelete={() => onDelete(todo.id)}
         />
       ))}
-    </ul>
+    </div>
   )
 }
