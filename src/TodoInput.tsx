@@ -8,8 +8,9 @@ export default function TodoInput({ listState, setListState }) {
     };
 
     function handleAddTodo() {
-        const newId = listState[listState.length - 1].id + 1;
+        if (inputText == "") return;
 
+        const newId = listState[listState.length - 1].id + 1;
         setListState((prevList) => [
             ...prevList,
             { id: newId, completed: false, text: inputText },
