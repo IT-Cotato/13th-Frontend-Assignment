@@ -38,10 +38,13 @@ export default function TodoCard({ id, task, isCompleted, onToggle, onDelete }: 
   };
 
   return (
-    <div
+    <button
+      type="button"
       className="todo-card" 
       onClick={() => onToggle(id)}
+      aria-pressed={isCompleted} 
     >
+
       <div style={contentSectionStyle}>
         <div style={checkboxStyle}>
           {isCompleted && (
@@ -63,6 +66,6 @@ export default function TodoCard({ id, task, isCompleted, onToggle, onDelete }: 
       >
         🗑
       </button>
-    </div>
+    </button>
   );
 }
