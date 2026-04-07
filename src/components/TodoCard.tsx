@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import './TodoCard.css';
 
 interface TodoCardProps {
   id: string; 
@@ -9,22 +9,6 @@ interface TodoCardProps {
 }
 
 export default function TodoCard({ id, task, isCompleted, onToggle, onDelete }: TodoCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const cardStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '16px',
-    gap: '12px',
-    backgroundColor: 'var(--bg-card)',
-    borderRadius: '12px',
-    boxShadow: isHovered ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' : '0 1px 3px 0 rgba(0, 0, 0, 0.10)',
-    width: '100%',
-    boxSizing: 'border-box',
-    cursor: 'pointer', 
-    transition: 'box-shadow 0.2s ease',
-  };
 
   const contentSectionStyle: React.CSSProperties = {
     display: 'flex',
@@ -46,20 +30,6 @@ export default function TodoCard({ id, task, isCompleted, onToggle, onDelete }: 
     transition: 'all 0.2s ease', 
   };
 
-
-  const deleteButtonStyle: React.CSSProperties = {
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: '4px', 
-    fontSize: '20px', 
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    opacity: isHovered ? 1 : 0.5, 
-    transition: 'opacity 0.2s',
-  };
-
   const textStyle: React.CSSProperties = {
     font: 'var(--font-body)',
     color: isCompleted ? 'var(--text-secondary)' : 'var(--text)',
@@ -69,10 +39,8 @@ export default function TodoCard({ id, task, isCompleted, onToggle, onDelete }: 
 
   return (
     <div
-      style={cardStyle}
+      className="todo-card" 
       onClick={() => onToggle(id)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div style={contentSectionStyle}>
         <div style={checkboxStyle}>
@@ -86,7 +54,7 @@ export default function TodoCard({ id, task, isCompleted, onToggle, onDelete }: 
       </div>
 
       <button 
-        style={deleteButtonStyle} 
+        className="delete-button"
         onClick={(e) => {
           e.stopPropagation(); 
           onDelete(id);
