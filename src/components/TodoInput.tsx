@@ -1,19 +1,21 @@
 import {useState} from 'react';
 
-export default function TodoForm({onAddTodo} : {onAddTodo: (text:string) => void}) {
-    let [works, setWorks] = useState('');
+export default function TodoInput({onAddTodo} : {onAddTodo: (text:string) => void}) {
+    let [todoText, setTodoText] = useState('');
 
     function handleWorksChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setWorks(e.target.value);
+        setTodoText(e.target.value);
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        if (!works.trim()) return;
+        const trimmed = todoText.trim();
+
+        if (!trimmed) return;
       
-        onAddTodo(works);
-        setWorks('');
+        onAddTodo(trimmed);
+        setTodoText('');
     }
 
     return (
@@ -27,7 +29,7 @@ export default function TodoForm({onAddTodo} : {onAddTodo: (text:string) => void
                             focus:text-[#1F2937]
                             focus:outline-none'
                 placeholder='할 일을 입력하세요'
-                value={works}
+                value={todoText}
                 onChange={handleWorksChange}
             />
             <button

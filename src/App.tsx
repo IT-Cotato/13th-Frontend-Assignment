@@ -1,6 +1,6 @@
 import TodoHeader from './components/TodoHeader'
 import TodoList from './components/TodoList'
-import TodoForm from './components/TodoInput'
+import TodoInput from './components/TodoInput'
 import {todoData} from './data/TodoData'
 import {useState} from 'react';
 
@@ -37,7 +37,7 @@ function App() {
     <div className="flex min-h-screen w-full items-start bg-[#F5F5F5]">
       <div className="mx-auto flex w-full max-w-[640px] flex-col items-start gap-[22px]">
         <TodoHeader />
-        <TodoForm onAddTodo={handleAddTodo} />
+        <TodoInput onAddTodo={handleAddTodo} />
         <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
       </div>
     </div>
