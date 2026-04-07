@@ -1,0 +1,35 @@
+.todo-stats-wrapper {
+  display: flex;
+  height: 45px; 
+  padding: 12px 16px; 
+  align-items: flex-start;
+  gap: 12px; 
+  flex-shrink: 0;
+  align-self: stretch; 
+
+  border-radius: 12px; 
+  background: var(--bg-card);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10); 
+  box-sizing: border-box; 
+
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.todo-stats-content {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary); 
+  align-items: center; 
+}
+
+.stat-item {
+  display: flex;
+  gap: 4px;
+}
+
+.stat-all { color: var(--text); }
+.stat-complete { color: var(--text-complete); }
+.stat-progress { color: var(--text-progress); }
