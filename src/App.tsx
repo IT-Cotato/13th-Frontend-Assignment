@@ -1,5 +1,6 @@
 import './App.css';
 import EmptyList from './components/EmptyList';
+import TodoCount from './components/TodoCount';
 import TodoHeader from './components/TodoHeader';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
@@ -46,6 +47,7 @@ function App() {
   return (
     <div className="todo">
       <TodoHeader title="오늘의 할 일" />
+      <TodoCount todos={todos} />
       <TodoInput
         value={inputValue}
         onChange={onInputChange}
