@@ -20,9 +20,6 @@ export default function TodoInput({ value, onChange, onAdd }: TodoInputProps) {
         type="text"
         placeholder="할 일을 입력하세요"
         value={value}
-        onFocus={() => {
-          if (!value) onChange('새로운 할 일');
-        }}
         onChange={(e) => onChange(e.target.value)}
       />
       <button type="submit" className="todo-button">
