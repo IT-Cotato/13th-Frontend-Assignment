@@ -1,41 +1,35 @@
-import checkedIcon from "../assets/icons/checkedIcon.svg";
-
-interface TodoCardProps {
-  id: number;
-  text: string;
-  completed: boolean;
-  onDelete: (id: number) => void;
-}
+import CheckBox from "./CheckBox";
 
 export default function TodoCard({
   id,
   text,
   completed,
-  onDelete,
-}: TodoCardProps) {
-  function handleClick() {
-    onDelete(id);
-  }
-
+  handleCompletedStatus,
+  handleDeleteTodo
+}: {
+  id: number;
+  text: string;
+  completed: boolean;
+  handleCompletedStatus: (targetId: number) => void;
+  handleDeleteTodo: (deletedId: number) => void;
+}) {
   if (completed) {
     return (
       <li className={`item checked`}>
-        <div className="CheckedBox">
-          <img src={checkedIcon} alt="checked" />
-        </div>
+        <CheckBox completed={completed} onToggle={() => handleCompletedStatus(id)} />
         <div className="text">
           <del>{text}</del>
         </div>
-        <button className="delBtn">🗑</button>
+        <button className="delBtn" onClick={() => handleDeleteTodo(id)}>🗑</button>
       </li>
     );
   }
 
   return (
     <li className="item">
-      <div className="UncheckedBox"></div>
+      <CheckBox completed={completed} onToggle={() => handleCompletedStatus(id)} />
       <div className="text">{text}</div>
-      <button className="delBtn" onClick={handleClick}>
+      <button className="delBtn" onClick={() => handleDeleteTodo(id)}>
         🗑
       </button>
     </li>
