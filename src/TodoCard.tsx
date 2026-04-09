@@ -18,7 +18,11 @@ export default function TodoCard({
         {text}
       </div>
 
-      <button className="deleteButton" onClick={onDelete}>
+      <button
+        className="deleteButton"
+        onClick={onDelete}
+        aria-label="할 일 삭제"
+      >
         🗑️
       </button>
     </div>

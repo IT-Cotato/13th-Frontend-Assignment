@@ -19,12 +19,13 @@ function App() {
     setInputValue(e.target.value);
   };
 
-  const handleAddTodo = () => {
+  const handleAddTodo = (e: React.FormEvent) => {
+    e.preventDefault();
     if (inputValue.trim() === "") return;
 
     const newTodo = {
       id: Date.now(),
-      text: inputValue,
+      text: inputValue.trim(),
       isCompleted: false,
     };
 
@@ -44,7 +45,7 @@ function App() {
         <TodoHeader />
       </div>
 
-      <div className="inputContainer">
+      <form className="inputContainer" onSubmit={handleAddTodo}>
         <input
           className="todoInput"
           type="text"
@@ -52,10 +53,10 @@ function App() {
           value={inputValue}
           onChange={handleInputChange}
         />
-        <button className="addButton" onClick={handleAddTodo}>
+        <button className="addButton" type="submit">
           추가
         </button>
-      </div>
+      </form>
 
       <div className="container">
         <TodoList todos={todos} onDelete={handleDeleteTodo} />
