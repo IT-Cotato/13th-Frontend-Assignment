@@ -3,7 +3,7 @@ import TodoCard from "./TodoCard";
 type Todo = {
   id: number;
   text: string;
-  done: boolean;
+  completed: boolean;
 };
 
 type TodoListProps = {
@@ -13,8 +13,6 @@ type TodoListProps = {
   onAdd: () => void;
   onDelete: (id: number) => void;
   onToggle: (id: number) => void;
-  onFocus: () => void;
-  onBlur: () => void;
 };
 
 export default function TodoList({
@@ -24,11 +22,25 @@ export default function TodoList({
   onAdd,
   onDelete,
   onToggle,
-  onFocus,
-  onBlur,
 }: TodoListProps) {
+  const total = items.length;
+  const completed = items.filter((item) => item.completed).length;
+  const notCompleted = total - completed;
+
   return (
     <div className="todo-list">
+      <div className="todo-counter">
+        <span className="todo-counter__item">
+          전체 <strong className="todo-counter__count">{total}</strong>개
+        </span>
+        <span className="todo-counter__item">
+          완료 <strong className="todo-counter__count todo-counter__count--done">{completed}</strong>개
+        </span>
+        <span className="todo-counter__item">
+          미완료 <strong className="todo-counter__count todo-counter__count--not">{notCompleted}</strong>개
+        </span>
+      </div>
+
       <div className="todo-input-card">
         <input
           type="text"
@@ -37,8 +49,6 @@ export default function TodoList({
           value={inputValue}
           onChange={(e) => onInputChange(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && onAdd()}
-          onFocus={onFocus}
-          onBlur={onBlur}
         />
         <button className="add-button" onClick={onAdd}>
           추가
@@ -51,15 +61,18 @@ export default function TodoList({
           <p className="todo-empty__text">{"아직 할 일이 없어요"}</p>
         </div>
       ) : (
-        items.map((item) => (
-          <TodoCard
-            key={item.id}
-            text={item.text}
-            done={item.done}
-            onDelete={() => onDelete(item.id)}
-            onToggle={() => onToggle(item.id)}
-          />
-        ))
+        <ul className="todo-items">
+          {items.map((item) => (
+            <li key={item.id}>
+              <TodoCard
+                text={item.text}
+                completed={item.completed}
+                onDelete={() => onDelete(item.id)}
+                onToggle={() => onToggle(item.id)}
+              />
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

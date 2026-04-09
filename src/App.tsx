@@ -6,31 +6,27 @@ import "./App.css";
 interface Todo {
   id: number;
   text: string;
-  done: boolean;
+  completed: boolean;
 }
 
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([
-    { id: 1, text: "리액트 공식문서 읽기", done: true },
-    { id: 2, text: "알고리즘 문제 풀기", done: true },
-    { id: 3, text: "운동 30분 하기", done: false },
-    { id: 4, text: "프로젝트 회의 준비", done: false },
-    { id: 5, text: "장보기", done: false },
+    { id: 1, text: "리액트 공식문서 읽기", completed: true },
+    { id: 2, text: "알고리즘 문제 풀기", completed: true },
+    { id: 3, text: "운동 30분 하기", completed: false },
+    { id: 4, text: "프로젝트 회의 준비", completed: false },
+    { id: 5, text: "장보기", completed: false },
   ]);
   const [inputValue, setInputValue] = useState<string>("");
 
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-
-  const weekLabel = isFocused
-    ? "week3 - 입력 중(focus)"
-    : "week3 - 기본 상태";
+  const weekLabel = "week4";
     
 
   const handleAdd = () => {
     if (inputValue.trim() === "") return;
     setTodos((prev) => [
       ...prev,
-      { id: Date.now(), text: inputValue.trim(), done: false },
+      { id: Date.now(), text: inputValue.trim(), completed: false },
     ]);
     setInputValue("");
   };
@@ -42,7 +38,7 @@ export default function App() {
   const handleToggle = (id: number) => {
     setTodos((prev) =>
       prev.map((todo) =>
-        todo.id === id ? { ...todo, done: !todo.done } : todo
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
@@ -59,8 +55,6 @@ export default function App() {
           onAdd={handleAdd}
           onDelete={handleDelete}
           onToggle={handleToggle}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
         />
       </div>
     </div>
