@@ -25,6 +25,14 @@ function App() {
   const handleDelete = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
+//토글
+  const handleToggle = (id: number) => {
+  setTodos(
+    todos.map((todo) =>
+      todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
 
   return (
     <div className="frame3">
@@ -40,7 +48,11 @@ function App() {
       />
 
       <div className="container">
-        <TodoList todos={todos} onDelete={handleDelete} />
+        <TodoList 
+          todos={todos} 
+          onDelete={handleDelete} 
+          onToggle={handleToggle} 
+        />
       </div>
     </div>
   );

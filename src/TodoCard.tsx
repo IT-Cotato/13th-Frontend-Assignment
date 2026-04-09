@@ -1,7 +1,15 @@
-function TodoCard({ text, isDone, onDelete }: { text: string; isDone: boolean; onDelete: () => void }) {
+function TodoCard({ text, isDone, onDelete, onToggle }: {
+  text: string;
+  isDone: boolean;
+  onDelete: () => void;
+  onToggle: () => void;
+}) {
   return (
     <div className="card">
-      <div className={`checkbox ${isDone ? "done" : ""}`}>
+      <div 
+        className={`checkbox ${isDone ? "done" : ""}`}
+        onClick={onToggle}
+      >
         {isDone && (
           <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
             <path
@@ -19,9 +27,9 @@ function TodoCard({ text, isDone, onDelete }: { text: string; isDone: boolean; o
         className="delete-button" 
         onClick={onDelete}
         aria-label="할 일 삭제"
-        >
-          🗑️
-        </button>
+      >
+        🗑️
+      </button>
     </div>
   );
 }

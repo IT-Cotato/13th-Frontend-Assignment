@@ -1,7 +1,15 @@
 import TodoCard from "./TodoCard";
 import type { Todo } from "./types/todo.types";
 
-function TodoList({ todos, onDelete }: { todos: Todo[]; onDelete: (id: number) => void }) {
+function TodoList({ 
+  todos, 
+  onDelete, 
+  onToggle 
+}: { 
+  todos: Todo[]; 
+  onDelete: (id: number) => void; 
+  onToggle: (id: number) => void; 
+}) {
   if (todos.length === 0) {
     return (
       <div className="empty-container">
@@ -15,7 +23,12 @@ function TodoList({ todos, onDelete }: { todos: Todo[]; onDelete: (id: number) =
     <ul className="frame1">
       {todos.map((todo) => (
         <li key={todo.id}>
-          <TodoCard text={todo.text} isDone={todo.isDone} onDelete={() => onDelete(todo.id)} />
+          <TodoCard 
+            text={todo.text} 
+            isDone={todo.isDone} 
+            onDelete={() => onDelete(todo.id)} 
+            onToggle={() => onToggle(todo.id)}
+          />
         </li>
       ))}
     </ul>
