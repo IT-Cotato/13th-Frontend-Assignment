@@ -1,4 +1,5 @@
 
+
 body { background-color: #F8F9FA; margin: 0; font-family: Pretendard, sans-serif; }
 
 .app-container {
@@ -11,18 +12,45 @@ body { background-color: #F8F9FA; margin: 0; font-family: Pretendard, sans-serif
   gap: 64px; 
 }
 
-.demo-section { display: flex; flex-direction: column; gap: 32px; }
+.demo-section { display: flex; flex-direction: column; gap: 24px; }
+
+.todo-header { display: flex; flex-direction: column; gap: 42px; margin: 0; margin-bottom: 8px; }
+.subtitle { color: #6B7280; font-size: 16px; font-weight: 600; margin: 0; }
+.title { color: #1F2937; font-size: 28px; font-weight: 800; margin: 0; }
 
 
-.todo-header { display: flex; flex-direction: column; gap: 42px; margin: 0; }
-.subtitle { color: #6B7280; font-size: 16px; font-weight: 400; margin: 0; line-height: 1; }
-.title { color: #1F2937; font-size: 28px; font-weight: 800; margin: 0; line-height: 1; }
 
-
-.input-section {
+.stats-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 16px 24px;
   display: flex;
-  gap: 12px;
+  justify-content: flex-start; 
+  align-items: center;
+  gap: 16px;
+  font-size: 15px;
+  color: #4B5563;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
 }
+
+.stats-card strong {
+  font-weight: 700;
+  font-size: 16px;
+  margin-left: 4px;
+}
+
+
+.text-black { color: #1F2937; }
+.text-green { color: #10B981; }
+.text-blue  { color: #3B82F6; }
+
+.divider { color: #D1D5DB; }
+
+
+
+
+.input-row { display: flex; gap: 12px; }
 
 .todo-input {
   flex: 1; 
@@ -33,18 +61,17 @@ body { background-color: #F8F9FA; margin: 0; font-family: Pretendard, sans-serif
   border-radius: 12px;
   background-color: #FFFFFF;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s;
+  outline: none;
+  transition: border-color 0.2s;
   color: #1F2937;
 }
 
 
-
 .todo-input:focus,
 .todo-input.focused {
-  outline: none;
   border: 1px solid #3B82F6; 
 }
-
+.todo-input::placeholder { color: #9CA3AF; }
 
 .add-button {
   padding: 0 24px;
@@ -55,15 +82,17 @@ body { background-color: #F8F9FA; margin: 0; font-family: Pretendard, sans-serif
   border: none;
   border-radius: 12px;
   cursor: pointer;
+  white-space: nowrap;
 }
 .add-button:hover { background-color: #2563EB; }
+
 
 
 .todo-list { display: flex; flex-direction: column; gap: 16px; }
 
 .todo-card {
   background-color: #FFFFFF;
-  padding: 24px 20px;
+  padding: 20px 24px;
   border-radius: 16px;
   border: 1px solid #E5E7EB;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
@@ -72,32 +101,26 @@ body { background-color: #F8F9FA; margin: 0; font-family: Pretendard, sans-serif
   align-items: center;
 }
 
-.card-left { display: flex; align-items: center; gap: 12px; }
-
+.card-left { display: flex; align-items: center; gap: 16px; flex: 1; }
 
 .checkbox-container {
   display: flex; width: 24px; height: 24px;
   justify-content: center; align-items: center;
   border-radius: 50%; flex-shrink: 0;
+  cursor: pointer; 
 }
-
-.checkbox-container.unchecked { 
-  border: 2px solid #E5E7EB; 
-  background-color: transparent; 
-}
-
-
+.checkbox-container.unchecked { border: 2px solid #E5E7EB; background-color: transparent; }
 .checkbox-container.checked { 
   background: #3B82F6;
   border: 2px solid #3B82F6;
-  border-radius: 13421800px;
-    opacity: 0.4; 
+  border-radius: 13421800px; 
+  opacity: 0.4; 
 }
 
-.task-text { color: #1F2937; font-size: 16px; font-weight: 400; margin: 0; line-height: 21px; }
+.task-text { color: #1F2937; font-size: 16px; font-weight: 400; margin: 0; }
 .done-text { color: #9CA3AF; text-decoration: line-through; }
 
-
+/* 삭제 버튼 */
 .delete-button {
   background: none;
   border: none;
@@ -107,7 +130,6 @@ body { background-color: #F8F9FA; margin: 0; font-family: Pretendard, sans-serif
   align-items: center;
   cursor: pointer;
 }
-
 
 .delete-button svg path { transition: fill 0.2s; }
 .delete-button:hover svg path { fill: #4B5563; }
