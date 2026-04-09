@@ -46,10 +46,18 @@ function App() {
     setTodos(nextTodos);
   };
 
+  const totalCount = todos.length;
+  const completedCount = todos.filter((todo) => todo.isCompleted).length;
+  const incompleteCount = totalCount - completedCount;
+
   return (
     <div className="frame3">
       <div className="frame2">
-        <TodoHeader />
+        <TodoHeader
+          totalCount={totalCount}
+          completedCount={completedCount}
+          incompleteCount={incompleteCount}
+        />
       </div>
 
       <form className="inputContainer" onSubmit={handleAddTodo}>
