@@ -17,7 +17,7 @@ function App() {
     if (input.trim() === "") return;
     setTodos([
       ...todos,
-      { id: Date.now(), text: input.trim(), isDone: false },
+      { id: Date.now(), text: input.trim(), completed: false },
     ]);
     setInput("");
   };
@@ -30,7 +30,7 @@ function App() {
   const handleToggle = (id: number) => {
   setTodos(
     todos.map((todo) =>
-      todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };

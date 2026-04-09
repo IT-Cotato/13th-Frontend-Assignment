@@ -2,7 +2,7 @@ import type { Todo } from "./types/todo.types";
 
 function Summary({ todos }: { todos: Todo[] }) {
   const total = todos.length;
-  const completed = todos.filter((todo) => todo.isDone).length;
+  const completed = todos.filter((todo) => todo.completed).length; 
   const notCompleted = total - completed;
 
   return (

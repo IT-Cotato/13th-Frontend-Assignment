@@ -25,7 +25,7 @@ function TodoList({
         <li key={todo.id}>
           <TodoCard 
             text={todo.text} 
-            isDone={todo.isDone} 
+            completed={todo.completed}
             onDelete={() => onDelete(todo.id)} 
             onToggle={() => onToggle(todo.id)}
           />
