@@ -5,6 +5,7 @@ import { todos as initialTodos } from "./todos.data";
 import InputTodo from "./InputTodo";
 import { useState } from "react";
 import type { Todo } from "./types/todo.types";
+import Summary from "./Summary";
 
 function App() {
   // 오늘의 할 일
@@ -39,6 +40,7 @@ function App() {
       <div className="frame2">
         <TodoHeader />
       </div>
+      <Summary todos={todos} />
 
       <InputTodo
         input={input}
