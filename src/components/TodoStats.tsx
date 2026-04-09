@@ -19,13 +19,13 @@ export default function TodoStats({ todos }: TodoStatsProps) {
     <div className="todo-stats-wrapper">
       <div className="todo-stats-content">
         <div className="stat-item">
-          전체 <span className="stat-all">{totalCount}개</span>
+          전체 <span className="stat-all">{totalCount}</span>개
         </div>
         <div className="stat-item">
-          완료 <span className="stat-complete">{completedCount}개</span>
+          완료 <span className="stat-complete">{completedCount}</span>개
         </div>
         <div className="stat-item">
-          미완료 <span className="stat-progress">{progressCount}개</span>
+          미완료 <span className="stat-progress">{progressCount}</span>개
         </div>
       </div>
     </div>
