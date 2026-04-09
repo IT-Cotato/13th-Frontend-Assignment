@@ -199,13 +199,3 @@
 .delete-button:hover {
   opacity: 1;
 }
-
-.empty-text {
-  color: #0A0A0A;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 30px;
-}

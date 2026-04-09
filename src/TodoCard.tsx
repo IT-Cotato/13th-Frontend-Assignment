@@ -15,7 +15,13 @@ function TodoCard({ text, isDone, onDelete }: { text: string; isDone: boolean; o
         )}
       </div>
       <div className={`card-text ${isDone ? "done" : ""}`}>{text}</div>
-      <button className="delete-button" onClick={onDelete}>🗑️</button>
+      <button 
+        className="delete-button" 
+        onClick={onDelete}
+        aria-label="할 일 삭제"
+        >
+          🗑️
+        </button>
     </div>
   );
 }
