@@ -39,6 +39,13 @@ function App() {
     setTodos(nextTodos);
   };
 
+  const handleToggleTodo = (id: number) => {
+    const nextTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
+    );
+    setTodos(nextTodos);
+  };
+
   return (
     <div className="frame3">
       <div className="frame2">
@@ -59,7 +66,11 @@ function App() {
       </form>
 
       <div className="container">
-        <TodoList todos={todos} onDelete={handleDeleteTodo} />
+        <TodoList
+          todos={todos}
+          onDelete={handleDeleteTodo}
+          onToggle={handleToggleTodo}
+        />
       </div>
     </div>
   );

@@ -9,9 +9,11 @@ interface Todo {
 export default function TodoList({
   todos,
   onDelete,
+  onToggle,
 }: {
   todos: Todo[];
   onDelete: (id: number) => void;
+  onToggle: (id: number) => void;
 }) {
   if (todos.length === 0) {
     return (
@@ -30,6 +32,7 @@ export default function TodoList({
             text={todo.text}
             isCompleted={todo.isCompleted}
             onDelete={() => onDelete(todo.id)}
+            onToggle={() => onToggle(todo.id)}
           />
         </li>
       ))}

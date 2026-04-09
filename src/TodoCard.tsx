@@ -4,14 +4,21 @@ export default function TodoCard({
   text,
   isCompleted,
   onDelete,
+  onToggle,
 }: {
   text: string;
   isCompleted: boolean;
   onDelete: () => void;
+  onToggle: () => void;
 }) {
   return (
     <div className="TodoCard">
-      <div className={`TodoCard-checkbox ${isCompleted ? "checked" : ""}`}>
+      <div
+        className={`TodoCard-checkbox ${isCompleted ? "checked" : ""}`}
+        onClick={onToggle}
+        style={{ cursor: "pointer" }}
+        aria-label={isCompleted ? "할 일 완료 취소" : "할 일 완료"}
+      >
         {isCompleted && <CheckIcon />}
       </div>
       <div className={`TodoCard-text ${isCompleted ? "completed" : ""}`}>
