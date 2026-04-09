@@ -4,9 +4,6 @@ import TodoList from './components/TodoList';
 import './App.css';
 
 const App = () => {
-  // ==========================================
-  // 1. 단일 상태
-  // ==========================================
   const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState([
     { id: 1, text: "리액트 공식문서 읽기", completed: true },
@@ -16,54 +13,63 @@ const App = () => {
     { id: 5, text: "장보기 하기", completed: false },
   ]);
   
-  // 입력창이 포커스(클릭) 되었는지 확인하는 상태
   const [isFocused, setIsFocused] = useState(false);
 
   const handleAdd = () => {
-    if (inputText.trim() === "") return; // 빈 문자열 방지
+    if (inputText.trim() === "") return;
     const newTodo = {
-      id: Date.now(), // 고유 ID 생성
+      id: Date.now(),
       text: inputText,
       completed: false,
     };
     setTodos([...todos, newTodo]);
-    setInputText(""); // 입력창 초기화
+    setInputText("");
   };
 
   const handleDelete = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  // ==========================================
-  // 조건부 렌더링 적용
-  // ==========================================
+  const handleToggle = (id: number) => {
+    setTodos(todos.map((todo) => 
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  };
+
   return (
     <div className="app-layout">
       <div className="todo-container">
         <div className="section">
           
+          {isFocused && (
+            <p style={{ fontSize: '14px', color: '#6B7280', margin: '0 0 16px 0' }}>
+              Week 3 — 입력 중 (Focus)
+            </p>
+          )}
 
-
-          <TodoHeader />
+          {/* ✅ 핵심 포인트: TodoHeader에 todos 데이터를 꼭 넘겨주어야 합니다! */}
+          <TodoHeader todos={todos} />
           
           <div className="todo-input-container">
             <input 
               type="text" 
-              // isFocused가 참일 때 'focused-input' 클래스 추가
               className={`todo-input ${isFocused ? 'focused-input' : ''}`}
               placeholder="할 일을 입력하세요" 
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              onFocus={() => setIsFocused(true)}  // 입력창을 클릭했을 때
-              onBlur={() => setIsFocused(false)}  // 입력창 바깥을 클릭했을 때
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
             />
             <button className="todo-submit-btn" onClick={handleAdd}>
               추가
             </button>
           </div>
 
-          {/* 데이터 유무에 따른 빈 화면(Empty state) 조건부 렌더링은 이미 TodoList 내부에 구현되어 작동합니다 */}
-          <TodoList todos={todos} onDelete={handleDelete} />
+          <TodoList 
+            todos={todos} 
+            onDelete={handleDelete} 
+            onToggle={handleToggle} 
+          />
           
         </div>
       </div>
