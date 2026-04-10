@@ -1,6 +1,5 @@
-// 아이콘 라이브러리
-import { FaCheck } from "react-icons/fa6";
 import DeleteButton from "./DeleteButton";
+import CheckButton from "./CheckButton";
 
 export default function TodoCard({
     id,
@@ -23,9 +22,7 @@ export default function TodoCard({
                     readOnly
                 />
                 <label>
-                    <span className="check-icon">
-                        {completed && <FaCheck color="white" size={14} />}
-                    </span>
+                    <CheckButton completed={completed} />
                     {completed ? <del>{text}</del> : text}
                 </label>
                 <DeleteButton onDelete={() => onDelete(id)} />
