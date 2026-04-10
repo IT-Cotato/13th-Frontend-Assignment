@@ -1,6 +1,6 @@
-import "./App.css";
-import TodoHeader from "./TodoHeader";
-import TodoInput from "./TodoInput";
+import "./css/App.css";
+import TodoHeader from "./ui/TodoHeader";
+import TodoInput from "./ui/TodoInput";
 import TodoList from "./TodoList";
 import { useState } from "react";
 import { todoItems } from "./data";

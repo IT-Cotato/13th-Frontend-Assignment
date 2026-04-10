@@ -1,6 +1,6 @@
-import checkIcon from "./resource/checked-icon.png";
+import checkIcon from "../resource/checked-icon.png";
 import { useState, type Dispatch, type SetStateAction } from "react";
-import type { TodoItem } from "./types";
+import type { TodoItem } from "../types";
 
 export default function CheckButton({
     selectCardId,

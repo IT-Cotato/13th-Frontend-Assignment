@@ -1,6 +1,6 @@
 import DeleteButton from "./DeleteButton";
 import CheckButton from "./CheckButton";
-import type { TodoItem } from "./types";
+import type { TodoItem } from "../types";
 import type { Dispatch, SetStateAction } from "react";
 
 export default function TodoCard({

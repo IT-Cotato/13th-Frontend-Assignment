@@ -1,6 +1,10 @@
-import trashIcon from "./resource/trashcan-icon.png";
+import trashIcon from "../resource/trashcan-icon.png";
 
-export default function DeleteButton({ onDelete }) {
+export default function DeleteButton({
+    onDelete,
+}: {
+    onDelete: (id: number) => void;
+}) {
     return (
         <>
             <button id="delete-button" onClick={() => onDelete()}>

@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
-import Empty from "./Empty";
-import TodoCard from "./TodoCard";
+import Empty from "./ui/Empty";
+import TodoCard from "./ui/TodoCard";
 import type { TodoItem } from "./types";
 
 export default function TodoList({
