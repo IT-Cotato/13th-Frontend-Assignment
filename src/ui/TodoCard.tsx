@@ -8,10 +8,8 @@ export default function TodoCard({
     text,
     completed,
     setListState,
-    onDelete,
 }: TodoItem & {
     setListState: Dispatch<SetStateAction<TodoItem[]>>;
-    onDelete: (id: number) => void;
 }) {
     return (
         <>
@@ -30,7 +28,7 @@ export default function TodoCard({
                     />
                     {completed ? <del>{text}</del> : text}
                 </label>
-                <DeleteButton onDelete={() => onDelete(id)} />
+                <DeleteButton selectCardId={id} setListState={setListState} />
             </li>
         </>
     );
