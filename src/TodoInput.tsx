@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TodoItem } from "./types";
+import type { TodoItem } from "./types";
 
 export default function TodoInput({
     listState,

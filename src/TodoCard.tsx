@@ -1,13 +1,18 @@
 import DeleteButton from "./DeleteButton";
 import CheckButton from "./CheckButton";
 import type { TodoItem } from "./types";
+import type { Dispatch, SetStateAction } from "react";
 
 export default function TodoCard({
     id,
     text,
     completed,
+    setListState,
     onDelete,
-}: TodoItem & { onDelete: (id: number) => void }) {
+}: TodoItem & {
+    setListState: Dispatch<SetStateAction<TodoItem[]>>;
+    onDelete: (id: number) => void;
+}) {
     return (
         <>
             <li className={"todoCard " + (completed ? "checked" : "")}>
@@ -18,7 +23,11 @@ export default function TodoCard({
                     readOnly
                 />
                 <label>
-                    <CheckButton completed={completed} />
+                    <CheckButton
+                        selectCardId={id}
+                        setListState={setListState}
+                        completed={completed}
+                    />
                     {completed ? <del>{text}</del> : text}
                 </label>
                 <DeleteButton onDelete={() => onDelete(id)} />

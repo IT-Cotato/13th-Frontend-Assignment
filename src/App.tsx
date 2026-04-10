@@ -9,7 +9,7 @@ export default function App() {
     // 투두리스트 상태 관리
     const [listState, setListState] = useState(todoItems);
 
-    function handleDelete(id) {
+    function handleDelete(id: number) {
         setListState((prevList) => prevList.filter((item) => item.id !== id));
     }
 
