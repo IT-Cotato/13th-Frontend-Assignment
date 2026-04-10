@@ -1,17 +1,13 @@
 import DeleteButton from "./DeleteButton";
 import CheckButton from "./CheckButton";
+import type { TodoItem } from "./types";
 
 export default function TodoCard({
     id,
     text,
     completed,
     onDelete,
-}: {
-    id: number;
-    text: string;
-    completed: boolean;
-    onDelete: (id: number) => void;
-}) {
+}: TodoItem & { onDelete: (id: number) => void }) {
     return (
         <>
             <li className={"todoCard " + (completed ? "checked" : "")}>

@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { TodoItem } from "./types";
 
-export default function TodoInput({ listState, setListState }) {
+export default function TodoInput({
+    listState,
+    setListState,
+}: {
+    listState: TodoItem[];
+    setListState: React.Dispatch<React.SetStateAction<TodoItem[]>>;
+}) {
     const [inputText, setInputText] = useState<string>("");
 
     const onChange = (event) => {
