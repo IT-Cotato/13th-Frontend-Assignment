@@ -1,29 +1,19 @@
 import { useState } from "react";
-import type { TodoItem } from "../types.ts";
 
 export default function TodoInput({
-    listState,
-    setListState,
+    onAdd,
 }: {
-    listState: TodoItem[];
-    setListState: React.Dispatch<React.SetStateAction<TodoItem[]>>;
+    onAdd: (inputText: string) => void;
 }) {
     const [inputText, setInputText] = useState<string>("");
 
-    const onChange = (event) => {
+    const onInput = (event) => {
         setInputText(event.target.value);
     };
 
-    function handleAddTodo() {
-        if (inputText == "") return;
-
-        const newId =
-            listState.length > 0 ? listState[listState.length - 1].id + 1 : 1;
-        setListState((prevList) => [
-            ...prevList,
-            { id: newId, completed: false, text: inputText },
-        ]);
-
+    function handleSubmit() {
+        if (inputText === "") return;
+        onAdd(inputText);
         setInputText("");
     }
 
@@ -38,11 +28,11 @@ export default function TodoInput({
                 <input
                     type="text"
                     placeholder="할 일을 입력하세요"
-                    onChange={onChange}
+                    onChange={onInput}
                     value={inputText}
                 ></input>
 
-                <button id="addButton" type="submit" onClick={handleAddTodo}>
+                <button id="addButton" type="submit" onClick={handleSubmit}>
                     <span className="buttonText">추가</span>
                 </button>
             </form>

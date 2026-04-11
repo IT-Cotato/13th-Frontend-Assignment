@@ -24,6 +24,18 @@ export default function App() {
         setListState((prevList) => prevList.filter((item) => item.id !== id));
     }
 
+    // 투두 추가 이벤트 핸들러
+    function handleAddTodo(inputText: string) {
+        if (inputText == "") return;
+
+        const newId =
+            listState.length > 0 ? listState[listState.length - 1].id + 1 : 1;
+        setListState((prevList) => [
+            ...prevList,
+            { id: newId, completed: false, text: inputText },
+        ]);
+    }
+
     // 투두 카운터 계산
     const totalCount = listState.length;
     const completedCount = listState.filter((item) => item.completed).length;
@@ -37,7 +49,7 @@ export default function App() {
                 completedCount={completedCount}
                 remainingCount={remainingCount}
             />
-            <TodoInput listState={listState} setListState={setListState} />
+            <TodoInput onAdd={handleAddTodo} />
             <TodoList
                 listState={listState}
                 onDelete={handleDelete}
