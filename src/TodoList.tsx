@@ -1,14 +1,15 @@
-import type { Dispatch, SetStateAction } from "react";
 import Empty from "./ui/Empty";
 import TodoCard from "./ui/TodoCard";
 import type { TodoItem } from "./types";
 
 export default function TodoList({
     listState,
-    setListState,
+    onToggle,
+    onDelete,
 }: {
     listState: TodoItem[];
-    setListState: Dispatch<SetStateAction<TodoItem[]>>;
+    onToggle: (id: number) => void;
+    onDelete: (id: number) => void;
 }) {
     if (listState.length === 0) {
         return <Empty />;
@@ -17,9 +18,11 @@ export default function TodoList({
         <TodoCard
             key={todoItems.id}
             {...todoItems}
-            setListState={setListState}
+            onToggle={onToggle}
+            onDelete={onDelete}
         />
     ));
+
     return (
         <>
             <ul id="todoList">{todoItem}</ul>

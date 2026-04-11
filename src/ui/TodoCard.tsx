@@ -1,15 +1,16 @@
 import DeleteButton from "./DeleteButton";
 import CheckButton from "./CheckButton";
 import type { TodoItem } from "../types";
-import type { Dispatch, SetStateAction } from "react";
 
 export default function TodoCard({
     id,
     text,
     completed,
-    setListState,
+    onToggle,
+    onDelete,
 }: TodoItem & {
-    setListState: Dispatch<SetStateAction<TodoItem[]>>;
+    onToggle: (id: number) => void;
+    onDelete: (id: number) => void;
 }) {
     return (
         <>
@@ -22,13 +23,12 @@ export default function TodoCard({
                 />
                 <label>
                     <CheckButton
-                        selectCardId={id}
-                        setListState={setListState}
                         completed={completed}
+                        onToggle={() => onToggle(id)}
                     />
                     {completed ? <del>{text}</del> : text}
                 </label>
-                <DeleteButton selectCardId={id} setListState={setListState} />
+                <DeleteButton onDelete={() => onDelete(id)} />
             </li>
         </>
     );
