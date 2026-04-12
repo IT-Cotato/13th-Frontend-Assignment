@@ -15,12 +15,19 @@ function TodoCard({ text, completed, onToggle, onDelete }: TodoCardProps) {
         completed ? "opacity-50" : ""
       }`}
     >
-      <div className="flex items-center gap-3">
+      <label className="flex cursor-pointer items-center gap-3">
+        <input
+          type="checkbox"
+          checked={completed}
+          onChange={onToggle}
+          className="sr-only"
+        />
+
         <img
           src={completed ? checked : unchecked}
-          alt={completed ? "완료" : "미완료"}
-          className="h-6 w-6 shrink-0 cursor-pointer"
-          onClick={onToggle}
+          alt=""
+          aria-hidden="true"
+          className="h-6 w-6 shrink-0"
         />
 
         {completed ? (
@@ -32,12 +39,12 @@ function TodoCard({ text, completed, onToggle, onDelete }: TodoCardProps) {
             {text}
           </span>
         )}
-      </div>
+      </label>
 
       <button
         type="button"
         onClick={onDelete}
-        className="shrink-0 text-lg leading-none text-gray-500"
+        className="shrink-0 text-base text-gray-500"
         aria-label="할 일 삭제"
       >
         🗑️
