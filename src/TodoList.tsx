@@ -1,23 +1,16 @@
 import Empty from "./Empty";
 import TodoCard from "./TodoCard";
-import { todoItems } from "./data";
 
-export default function TodoList() {
-    const cardsList = todoItems.map((todoItems) => (
-        <TodoCard
-            key={todoItems.key}
-            text={todoItems.text}
-            isChecked={todoItems.isChecked}
-        />
-    ));
-    if (cardsList.length === 0) {
+export default function TodoList({ listState, onDelete }) {
+    if (listState.length === 0) {
         return <Empty />;
     }
+    const todoItem = listState.map((todoItems) => (
+        <TodoCard key={todoItems.id} {...todoItems} onDelete={onDelete} />
+    ));
     return (
         <>
-            <ul id="todoList" className="control-container">
-                {cardsList}
-            </ul>
+            <ul id="todoList">{todoItem}</ul>
         </>
     );
 }
