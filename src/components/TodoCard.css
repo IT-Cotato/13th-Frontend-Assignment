@@ -18,6 +18,10 @@
   line-height: 21px;
 }
 
+.checkbox-hidden {
+  display: none;
+}
+
 .check-circle {
   width: 24px;
   height: 24px;

@@ -7,8 +7,13 @@ type Props = {
 };
 
 function TodoInput({ inputText, onChangeInput, onAddTodo }: Props) {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onAddTodo();
+  };
+
   return (
-    <div className="input-section">
+    <form className="input-section" onSubmit={handleSubmit}>
       <input 
         type="text" 
         placeholder="할 일을 입력하세요" 
@@ -16,8 +21,8 @@ function TodoInput({ inputText, onChangeInput, onAddTodo }: Props) {
         value={inputText}
         onChange={(e) => onChangeInput(e.target.value)}
       />
-      <button className="add-button" onClick={onAddTodo}>추가</button>
-    </div>
+      <button type="submit" className="add-button">추가</button>
+    </form>
   );
 }
 

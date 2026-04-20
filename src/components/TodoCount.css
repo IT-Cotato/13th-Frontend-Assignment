@@ -1,0 +1,49 @@
+.todo-count {
+  display: flex;
+  height: 45px;
+  padding: 12px 16px;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
+  box-sizing: border-box;
+}
+
+.count-item {
+  color: #6B7280;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.count-number1 {
+  color: #1F2937;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px;
+}
+
+.count-number2 {
+  color: #22C55E;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px;
+}
+
+.count-number3 {
+  color: #3B82F6;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px;
+}

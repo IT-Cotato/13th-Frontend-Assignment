@@ -11,15 +11,17 @@ type Props = {
 function TodoCard({ text, completed, onToggle, onDelete }: Props) {
   return (
     <div className={`card ${completed ? 'done' : ''}`}>
-      <button
-        type="button"
-        className={`check-circle ${completed ? 'checked' : ''}`}
-        onClick={onToggle}
-      >        
+      <label className={`check-circle ${completed ? 'checked' : ''}`}>
+        <input
+          type="checkbox"
+          checked={completed}
+          onChange={onToggle}
+          className="checkbox-hidden"
+        />
         {completed && <img src={checkIcon} className="check-img" />}
-      </button>
+      </label>
       <span className="card-done">{text}</span>
-      <button className="delete-icon" onClick={onDelete}>🗑</button>
+      <button className="delete-icon" onClick={onDelete} aria-label="할 일 삭제">🗑</button>
     </div>
   );
 }
