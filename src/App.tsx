@@ -1,17 +1,24 @@
-import {useState} from 'react';
-import {TODO_ITEMS} from './constants/todoData';
+import { useState } from 'react';
+import { TODO_ITEMS } from './constants/todoData';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 import EmptyState from './components/EmptyState';
 import TodoInput from './components/TodoInput';
+import TodoStats from './components/TodoStats';
+
+interface Todo {
+  id: string;
+  task: string;
+  isCompleted: boolean;
+}
 
 export default function App() {
-  const [todoItems, setTodoItems] = useState(TODO_ITEMS);
+  const [todoItems, setTodoItems] = useState<Todo[]>(TODO_ITEMS);
 
   const addTodo = (task: string) => {
-    const newTodo = {
+    const newTodo: Todo = {
       id: `todo-${Date.now()}`, 
-      task,
+      task, 
       isCompleted: false,
     };
     setTodoItems((prev) => [...prev, newTodo]); 
@@ -54,6 +61,7 @@ export default function App() {
     <div style={appBackgroundStyle}>
       <main style={todoContainerStyle}>
         <TodoHeader title="✅ 오늘의 할 일" />
+        <TodoStats todos={todoItems} />
         <TodoInput onAdd={addTodo} />
         {todoItems.length > 0 ? (
           <TodoList items={todoItems} onToggle={toggleTodo} onDelete={deleteTodo} />
