@@ -35,6 +35,7 @@ export default function TodoCard({ content, checked, onToggle, onDelete }: TodoC
       </div>
       <button 
         onClick={onDelete}
+        aria-label="할 일 삭제"
         className="w-10 h-10 flex items-center justify-center rounded-[8px] text-[20px] leading-[30px]"
       >
         🗑️

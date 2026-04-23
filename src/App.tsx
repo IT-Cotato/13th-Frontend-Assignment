@@ -3,6 +3,7 @@ import TodoHeader from "./component/TodoHeader"
 import TodoList from "./component/TodoList"
 import TodoInput from "./component/TodoInput"
 import { useState } from "react";
+import TodoState from "./component/TodoState";
 
 interface TodoItem {
   id: number;
@@ -19,6 +20,11 @@ function App() {
     { id: 4, content: "프로젝트 회의 준비", isDone: false },
     { id: 5, content: "장보기 하기", isDone: false },
   ]);
+
+
+  const totalCount = todos.length;
+  const doneCount = todos.filter((todo) => todo.isDone).length;
+  const pendingCount = totalCount - doneCount;
 
   const handleAdd = (text: string) => {
     const newTodo: TodoItem = {
@@ -45,6 +51,11 @@ function App() {
     <>
     <div className="flex flex-col w-[640px] mt-[80px] ml-[445px] mr-[464px] gap-[22px]">
       <TodoHeader />
+      <TodoState
+        total={totalCount} 
+        done={doneCount} 
+        pending={pendingCount}
+      />
       <TodoInput onAdd={handleAdd} />
       {todos.length > 0 ? (
         <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
