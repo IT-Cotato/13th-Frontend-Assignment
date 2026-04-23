@@ -1,19 +1,15 @@
 import { useState } from "react";
 import TodoHeader from "./components/TodoHeader";
 import TodoInput from "./components/TodoInput";
+import TodoCounter from "./components/TodoCounter";
 import TodoList from "./components/TodoList";
-
-export type Todo = {
-  id: number;
-  text: string;
-  completed: boolean;
-};
+import type { Todo } from "./types/todo";
 
 function App() {
   const title = "오늘의 할 일";
   const icon = "✅";
 
-  const [inputValue, setInputValue] = useState<string>("새로운 할 일");
+  const [inputValue, setInputValue] = useState<string>("");
 
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: "운동 30분 하기", completed: false },
@@ -49,15 +45,27 @@ function App() {
     setInputValue("");
   };
 
+  const totalCount = todos.length;
+  const completedCount = todos.filter((todo) => todo.completed).length;
+  const activeCount = todos.filter((todo) => !todo.completed).length;
+
   return (
     <div className="min-h-screen bg-neutral-100 p-10">
       <div className="flex flex-col items-start gap-5">
         <TodoHeader icon={icon} title={title} />
+
+        <TodoCounter
+          totalCount={totalCount}
+          completedCount={completedCount}
+          activeCount={activeCount}
+        />
+
         <TodoInput
           value={inputValue}
           onChange={setInputValue}
           onAdd={handleAddTodo}
         />
+
         <TodoList
           todos={todos}
           onToggle={handleToggleTodo}
