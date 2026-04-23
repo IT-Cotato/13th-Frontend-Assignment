@@ -73,6 +73,9 @@ export default function App() {
     setFocusTodo("");
   }
 
+  const todoCompletedCount = todoItems.filter((item) => item.checked).length;
+  const focusCompletedCount = focusItems.filter((item) => item.checked).length;
+
   return (
     <main className="page">
       <section className="design-frame">
@@ -80,6 +83,20 @@ export default function App() {
           <section className="todo-panel" aria-labelledby="toggle-title">
             <p className="eyebrow">Week 3 - 기본 상태</p>
             <TodoHeader icon="✅" title="오늘의 할 일" headingId="toggle-title" />
+            <div className="todo-summary" aria-label="할 일 현황">
+              <span>
+                전체 <strong>{todoItems.length}개</strong>
+              </span>
+              <span>
+                완료 <strong className="todo-summary-complete-count">{todoCompletedCount}</strong>개
+              </span>
+              <span>
+                미완료{" "}
+                <strong className="todo-summary-pending-count">
+                  {todoItems.length - todoCompletedCount}
+                </strong>개
+              </span>
+            </div>
             <form className="todo-form" onSubmit={handleAdd}>
               <input
                 className="todo-input"
@@ -99,6 +116,20 @@ export default function App() {
           <section className="todo-panel" aria-labelledby="focus-title">
             <p className="eyebrow">Week 3 - 입력 중 (Focus)</p>
             <TodoHeader icon="✅" title="오늘의 할 일" headingId="focus-title" />
+            <div className="todo-summary" aria-label="할 일 현황">
+              <span>
+                전체 <strong>{focusItems.length}개</strong>
+              </span>
+              <span>
+                완료 <strong className="todo-summary-complete-count">{focusCompletedCount}</strong>개
+              </span>
+              <span>
+                미완료{" "}
+                <strong className="todo-summary-pending-count">
+                  {focusItems.length - focusCompletedCount}
+                </strong>개
+              </span>
+            </div>
             <form className="todo-form" onSubmit={handleFocusAdd}>
               <input
                 className="todo-input"
