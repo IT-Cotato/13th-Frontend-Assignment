@@ -4,7 +4,6 @@
 * {
   margin: 0;
   padding: 0;
-  height : 100%
   box-sizing: border-box;
   font-family: "Pretendard", sans-serif; /*프로젝트 전체 폰트 적용*/
 }
@@ -196,4 +195,46 @@ html, body {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+
+/* 통계 바 스타일*/
+.todo-stats {
+  background-color: #ffffff;
+  border-radius: 8px; /* 둥글기 적용 */
+  padding: 12px 16px;
+  margin-bottom: 24px; /* 아래 요소와의 간격 */
+  flex-shrink:0;
+  align-self : strtch;
+
+  
+  display: flex;
+  gap: 20px; /* 전체, 완료, 미완료 사이의 간격 */
+  align-items: center;
+  
+  font-size: 14px;
+  color: #6B7280; /* 기본 글씨 색상*/
+}
+
+/* 숫자(strong) 주변 간격 조정 */
+.todo-stats strong {
+  margin: 0 2px;
+}
+
+/* 개별 숫자 컬러 및 굵기 포인트 */
+.count-total {
+  color: #1F2937;
+  font-weight: 600;
+}
+
+.count-done {
+  color: #22C55E;
+  font-weight: 600;
+  font-size: 14px
+}
+
+.count-not-done {
+  color: #3B82F6;
+  font-weight: 600;
+  line-height: 21px;
 }

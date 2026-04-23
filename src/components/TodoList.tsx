@@ -1,3 +1,4 @@
+// src/components/TodoList.tsx
 import TodoCard from './TodoCard';
 
 interface Todo {
@@ -6,13 +7,14 @@ interface Todo {
   completed: boolean;
 }
 
-// 부모로부터 onDelete 함수를 받을 수 있도록 타입 추가
+// 부모로부터 onToggle 함수를 받을 수 있도록 타입 추가
 interface TodoListProps {
   todos: Todo[];
   onDelete: (id: number) => void;
+  onToggle: (id: number) => void; // ✅ 추가됨
 }
 
-const TodoList = ({ todos, onDelete }: TodoListProps) => {
+const TodoList = ({ todos, onDelete, onToggle }: TodoListProps) => {
   return (
     <div className="todo-list-wrapper">
       
@@ -28,9 +30,8 @@ const TodoList = ({ todos, onDelete }: TodoListProps) => {
               key={todo.id}
               text={todo.text}
               completed={todo.completed}
-
-              // 삭제 버튼 클릭 시 현재 항목의 id를 담아 실행하도록 함수 전달
               onDelete={() => onDelete(todo.id)} 
+              onToggle={() => onToggle(todo.id)} // ✅ 개별 카드에 토글 함수와 id 전달
             />
           ))}
         </div>
