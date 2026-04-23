@@ -2,26 +2,35 @@ import checkIcon from "../assets/check.svg";
 
 type TodoCardProps = {
   text: string;
-  done: boolean;
+  completed: boolean;
   onDelete: () => void;
   onToggle: () => void;
 };
 
-export default function TodoCard({ text, done, onDelete, onToggle }: TodoCardProps) {
+export default function TodoCard({ text, completed, onDelete, onToggle }: TodoCardProps) {
   return (
     <div className="todo-card">
-      <div
-        className={`todo-card__check ${done ? "todo-card__check--done" : ""}`}
-        onClick={onToggle}
-      >
-        {done && (
-          <img src={checkIcon} alt="완료" className="todo-card__check-icon" />
-        )}
-      </div>
-      <span className={`todo-card__text ${done ? "todo-card__text--done" : ""}`}>
+      <label className="todo-card__check-label">
+        <input 
+          type="checkbox" // input type checkbox로 수정
+          className="todo-card__check-input"
+          checked={completed}
+          onChange={onToggle}
+        />
+        <span className={`todo-card__check ${completed ? "todo-card__check--done" : ""}`}>
+          {completed && (
+            <img src={checkIcon} alt="" className="todo-card__check-icon" />
+          )}
+        </span>
+      </label>
+      <span className={`todo-card__text ${completed ? "todo-card__text--done" : ""}`}>
         {text}
       </span>
-      <button className="delete-button" onClick={onDelete}>
+      <button
+        className="delete-button"
+        onClick={onDelete}
+        aria-label="삭제" // 삭제 버튼
+      >
         🗑️
       </button>
     </div>
