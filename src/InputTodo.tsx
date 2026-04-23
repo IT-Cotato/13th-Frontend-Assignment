@@ -6,24 +6,25 @@ interface InputTodoProps {
 }
 
 function InputTodo({ input, setInput, onAdd, placeholder }: InputTodoProps) {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") onAdd();
-  };
-
   return (
-    <div className="input-row">
+    <form
+      className="input-row"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onAdd();
+      }}
+    >
       <input
         className="todo-input"
         type="text"
-        placeholder={placeholder} 
+        placeholder={placeholder}
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
       />
-      <button className="add-button" onClick={onAdd}>
+      <button className="add-button" type="submit">
         추가
       </button>
-    </div>
+    </form>
   );
 }
 
