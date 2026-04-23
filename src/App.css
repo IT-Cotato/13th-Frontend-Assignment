@@ -39,6 +39,42 @@ body {
   line-height: 36px; /* 150% */
 }
 
+.counterContainer {
+  display: flex;
+  padding: 12px 16px;
+  align-items: flex-start;
+  gap: 12px;
+  flex-shrink: 0;
+  align-self: stretch;
+
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
+
+  color: #6B7280;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+
+  margin-bottom: 24px;
+}
+
+.todoStatusTotal {
+  color: #1F2937;
+  font-weight: 600;
+}
+
+.todoStatusCompleted {
+  color: #22C55E;
+  font-weight: 600;
+}
+
+.todoStatusUncompleted {
+  color: #3B82F6;
+  font-weight: 600;
+}
+
 .emptyList {
   display: flex;
   width: 640px;

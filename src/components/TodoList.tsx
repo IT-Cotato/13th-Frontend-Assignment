@@ -1,16 +1,14 @@
 import TodoCard from "./TodoCard";
 
-interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
-}
-interface TodoListProps {
-  todos: Todo[];
-  onDelete: (id: number) => void;
-}
-
-export default function TodoList({ todos, onDelete }: TodoListProps) {
+export default function TodoList({
+  todos,
+  handleCompletedStatus,
+  handleDeleteTodo,
+}: {
+  todos: { id: number; text: string; completed: boolean }[];
+  handleCompletedStatus: (targetId: number) => void;
+  handleDeleteTodo: (dleletedId: number) => void;
+}) {
   const isEmpty = todos.length === 0;
 
   return (
@@ -32,7 +30,8 @@ export default function TodoList({ todos, onDelete }: TodoListProps) {
               id={todo.id}
               text={todo.text}
               completed={todo.completed}
-              onDelete={onDelete}
+              handleCompletedStatus={handleCompletedStatus}
+              handleDeleteTodo={handleDeleteTodo}
             />
           ))}
         </ul>
