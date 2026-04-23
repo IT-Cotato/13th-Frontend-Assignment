@@ -1,5 +1,6 @@
 import './App.css';
 import EmptyList from './components/EmptyList';
+import TodoCount from './components/TodoCount';
 import TodoHeader from './components/TodoHeader';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
@@ -27,15 +28,17 @@ function App() {
 
 
   const onAdd = () => {
-    // 2. 새로운 Todo 객체 생성 및 추가
+    const trimmed = inputValue.trim();
+    if (!trimmed) return;
+
     const newTodo = {
-      id: Date.now(), // 겹치지 않는 고유 ID 생성
-      text: inputValue,
+      id: Date.now(),
+      text: trimmed,
       isChecked: false,
     };
-    
+
     setTodos((prev) => [...prev, newTodo]);
-    setInputValue(''); // 추가 후 입력창 비우기
+    setInputValue('');
   };
 
   const onDelete = (id: number) => {
@@ -46,6 +49,7 @@ function App() {
   return (
     <div className="todo">
       <TodoHeader title="오늘의 할 일" />
+      <TodoCount todos={todos} />
       <TodoInput
         value={inputValue}
         onChange={onInputChange}

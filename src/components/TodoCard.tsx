@@ -27,7 +27,7 @@ export default function TodoCard({ id, text, isChecked, onCheck, onDelete }: Pro
         <span className="card-text">{text}</span>
       </label>
 
-      <button
+      <button aria-label='Todo-delete'
         type="button"
         className="card-delete-button"
         onClick={() => onDelete(id)}
