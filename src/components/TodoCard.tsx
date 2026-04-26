@@ -1,6 +1,7 @@
 import EmptyCircleIcon from "../icons/EmptyCircleIcon"
 import CheckIcon from "../icons/CheckIcon"
 
+
 function Item({todo, isCompleted, onToggle}: {todo: string; isCompleted: boolean; onToggle: () => void }) {
   return(
     <label className="flex items-center gap-[12px] cursor-pointer">
@@ -8,20 +9,13 @@ function Item({todo, isCompleted, onToggle}: {todo: string; isCompleted: boolean
         type="checkbox"
         checked={isCompleted}
         onChange={onToggle}
-        className="hidden"
+        className="sr-only"
       />
 
-      {isCompleted ? (
-        <div className= "flex items-center gap-[12px] text-[#1F2937] opacity-50">
-          <CheckIcon />
-          <del>{todo}</del>
-        </div>
-      ) : (
-        <div className= "flex items-center gap-[12px] text-[#1F2937]">
-          <EmptyCircleIcon />
-          <span>{todo}</span>
-        </div>
-      )}
+      <div className={`flex items-center gap-[12px] text-[#1F2937] ${isCompleted ? "opacity-50" : ""}`}>
+        {isCompleted ? <CheckIcon /> : <EmptyCircleIcon />}
+        {isCompleted ? <del>{todo}</del> : <span>{todo}</span>}
+      </div>
   </label>
   )
 }
