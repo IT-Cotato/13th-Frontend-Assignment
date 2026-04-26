@@ -1,9 +1,9 @@
 import {useState} from 'react';
 
 export default function TodoInput({onAddTodo} : {onAddTodo: (text:string) => void}) {
-    let [todoText, setTodoText] = useState('');
+    const [todoText, setTodoText] = useState('');
 
-    function handleWorksChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleTodoTextChange(e: React.ChangeEvent<HTMLInputElement>) {
         setTodoText(e.target.value);
     }
 
@@ -30,7 +30,7 @@ export default function TodoInput({onAddTodo} : {onAddTodo: (text:string) => voi
                             focus:outline-none'
                 placeholder='할 일을 입력하세요'
                 value={todoText}
-                onChange={handleWorksChange}
+                onChange={handleTodoTextChange}
             />
             <button
                 type='submit'
