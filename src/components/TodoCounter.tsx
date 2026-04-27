@@ -1,13 +1,13 @@
 type TodoCounterProps = {
   totalCount: number;
   completedCount: number;
-  activeCount: number;
+  incompleteCount: number;
 };
 
 function TodoCounter({
   totalCount,
   completedCount,
-  activeCount,
+  incompleteCount,
 }: TodoCounterProps) {
   return (
     <div className="flex h-[45px] w-[640px] items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-[0px_1px_3px_rgba(0,0,0,0.10)]">
@@ -22,7 +22,7 @@ function TodoCounter({
 
       <div className="text-sm leading-[21px] text-gray-500">
         미완료{" "}
-        <span className="font-semibold text-blue-500">{activeCount}</span>개
+        <span className="font-semibold text-blue-500">{incompleteCount}</span>개
       </div>
     </div>
   );
