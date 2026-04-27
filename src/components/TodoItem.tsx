@@ -52,7 +52,7 @@ function TodoItem({
 
   if (isEditing) {
     return (
-      <div className="w-[640px] rounded-xl bg-white p-4 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.10)]">
+      <div className="w-full rounded-xl bg-white p-4 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.10)]">
         <div className="flex flex-1 items-center gap-3">
           <label className="flex h-6 w-6 items-center justify-center">
             <input
@@ -108,7 +108,7 @@ function TodoItem({
 
   return (
     <div
-      className={`w-[640px] rounded-xl bg-white p-4 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.10)] ${
+      className={`w-full rounded-xl bg-white p-4 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.10)] ${
         completed ? "opacity-50" : ""
       }`}
     >

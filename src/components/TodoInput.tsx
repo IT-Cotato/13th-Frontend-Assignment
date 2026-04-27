@@ -51,7 +51,7 @@ function TodoInput({
   };
 
   return (
-    <div className="flex w-[640px] flex-col gap-3">
+    <div className="flex w-full flex-col gap-3">
       <form onSubmit={handleSubmit} className="flex items-start gap-3">
         <input
           type="text"

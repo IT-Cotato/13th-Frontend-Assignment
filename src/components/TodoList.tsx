@@ -25,7 +25,7 @@ function TodoList({
   onCancelEdit,
 }: TodoListProps) {
   return (
-    <ul className="flex list-none flex-col gap-4 p-0">
+    <ul className="flex w-full list-none flex-col gap-4 p-0">
       {todos.map((todo) => (
         <li key={todo.id}>
           <TodoItem
