@@ -5,8 +5,8 @@ import { useState } from "react";
 const categoryTagStyles: Record<string, string> = {
   공부: "bg-[#3B82F6]/[0.125] text-[#3B82F6]",
   운동: "bg-[#22C55E]/[0.125] text-[#22C55E]",
-  개인: "bg-[#F59E0B]/[0.125] text-[#F59E0B]",
-  업무: "bg-[#A855F7]/[0.125] text-[#A855F7]",
+  개인: "bg-[#A855F7]/[0.125] text-[#A855F7]",
+  업무: "bg-[#F59E0B]/[0.125] text-[#F59E0B]",
 };
 
 function Item({todo, isCompleted, category, onToggle}: {todo: string; isCompleted: boolean; category: string; onToggle: () => void }) {
