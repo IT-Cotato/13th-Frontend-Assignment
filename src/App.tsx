@@ -2,8 +2,8 @@ import TodoHeader from './components/TodoHeader'
 import TodoList from './components/TodoList'
 import TodoInput from './components/TodoInput'
 import TodoOverview from './components/TodoOverview'
-import {todoData} from './data/TodoData'
-import {useState} from 'react';
+import { todoData } from './data/TodoData'
+import { useState } from 'react';
 
 function App() {
   const [todos, setTodos] = useState(todoData);
@@ -34,13 +34,23 @@ function App() {
       item.id !== id ));
   }
 
+  function handleUpdate(id: number, newText: string) {
+    setTodos((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? {...item, todo: newText }
+          : item
+        )
+      );
+  }
+
   return (
     <div className="flex min-h-screen w-full items-start bg-[#F5F5F5]">
       <div className="mx-auto flex w-full max-w-[640px] flex-col items-start gap-[22px]">
         <TodoHeader />
         <TodoOverview todos={todos} />
         <TodoInput onAddTodo={handleAddTodo} />
-        <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
+        <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
       </div>
     </div>
   )
