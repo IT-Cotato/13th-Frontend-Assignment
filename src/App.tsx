@@ -2,17 +2,21 @@ import TodoHeader from './components/TodoHeader'
 import TodoList from './components/TodoList'
 import TodoInput from './components/TodoInput'
 import TodoOverview from './components/TodoOverview'
+import TodoCategorySelector from './components/TodoCategorySelector'
+import type { Category } from './components/TodoCategorySelector';
 import { todoData } from './data/TodoData'
 import { useState } from 'react';
 
 function App() {
   const [todos, setTodos] = useState(todoData);
+  const [ selectedCategory, setSelectedCategory ] = useState<Category>("공부");
 
   function handleAddTodo(text: string) {
     const newTodo = {
       id : Date.now(),
       todo : text,
-      isCompleted : false
+      isCompleted : false,
+      category : selectedCategory 
     };
 
     setTodos((prev) => [...prev, newTodo])
@@ -50,6 +54,7 @@ function App() {
         <TodoHeader />
         <TodoOverview todos={todos} />
         <TodoInput onAddTodo={handleAddTodo} />
+        <TodoCategorySelector selectedCategory={selectedCategory} onChangeCategory={setSelectedCategory}/>
         <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
       </div>
     </div>
