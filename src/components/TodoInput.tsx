@@ -7,8 +7,11 @@ export default function TodoInput({
 }) {
   const [text, setText] = useState("");
 
-  function handleClick() {
-    if (text.length === 0) {
+  function handleSubmit(e: React.FormEvent) {
+
+    e.preventDefault();
+    
+    if (text.length === 0 || text === null) {
       return;
     }
 
@@ -18,16 +21,16 @@ export default function TodoInput({
   }
 
   return (
-    <div className="toDoInputContainer">
+    <form className="toDoInputContainer" onSubmit={handleSubmit}>
       <input
         className="toDoInput"
         placeholder="할 일을 입력하세요"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button className="toDoInputBtn" onClick={handleClick}>
+      <button className="toDoInputBtn" type="submit">
         추가
       </button>
-    </div>
+    </form>
   );
 }
