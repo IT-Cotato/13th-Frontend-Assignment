@@ -6,8 +6,6 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
   font-family: 'Pretendard';
   
 }
@@ -20,9 +18,12 @@ body {
   align-items: center;
 }
 
-.container {
+.todoContainer {
+  display: flex;
+  flex-direction: column;
   width: 640px;
   margin-top: 90px;
+  gap: 24px;
 }
 
 .title {
@@ -30,7 +31,6 @@ body {
   gap: 16.95px;
   padding: 10px 0px;
   font-size: 24px;
-  margin-bottom: 33px;
 }
 
 .name {
@@ -56,8 +56,6 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 21px;
-
-  margin-bottom: 24px;
 }
 
 .todoStatusTotal {
@@ -119,9 +117,9 @@ body {
   height: 46.6px;
   padding-right: 0;
   gap: 12px;
-  padding-bottom: 24px;
 
 }
+
 
 .toDoInput {
   padding: 12px 16px;
@@ -184,6 +182,38 @@ body {
   opacity: 0.5;
 }
 
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: auto;
+
+  gap: 15px;
+}
+
+.updateBtn {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+
+  color: #0A0A0A;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 150% */
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+}
+
 .delBtn {
   display: flex;
   width: 40px;
@@ -191,7 +221,6 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  margin-left: auto;
 
   color: #0A0A0A;
   text-align: center;

@@ -1,0 +1,10 @@
+@import "./tailwind.css";
+
+@import "./App.css";
+
+@theme {
+  --color-study: #3B82F6;
+  --color-exercise: #22C55E;
+  --color-personal: #A855F7;
+  --color-work: #F59E0B;
+}
