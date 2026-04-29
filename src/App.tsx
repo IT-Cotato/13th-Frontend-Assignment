@@ -54,13 +54,18 @@ function App() {
   };
   
   const handleSaveEdit = (id: number) => {
-    setTodos(prev =>
-      prev.map(todo =>
+    const trimmedText = editingText.trim();
+
+    if (trimmedText === '') return;
+
+    setTodos((prev) =>
+      prev.map((todo) =>
         todo.id === id
-          ? { ...todo, text: editingText }
+          ? { ...todo, text: trimmedText }
           : todo
       )
     );
+    
     setEditingId(null);
     setEditingText('');
   };
