@@ -538,10 +538,6 @@ body {
   border-radius: 12px;
 }
 
-.todo-item-main-edit:focus-within {
-  outline: none;
-}
-
 @media (max-width: 768px) {
   .design-frame {
     padding: 28px 16px 56px;
