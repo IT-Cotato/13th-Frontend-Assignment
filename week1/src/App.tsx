@@ -15,9 +15,13 @@ export default function App() {
   const [todoItems, setTodoItems] = useState(initialTodoItems);
   const [newTodo, setNewTodo] = useState("");
   const [newCategory, setNewCategory] = useState<TodoCategory>("study");
+  const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
+  const [editingTodoText, setEditingTodoText] = useState("");
   const [focusItems, setFocusItems] = useState(focusPreviewItems);
   const [focusTodo, setFocusTodo] = useState("");
   const [focusCategory, setFocusCategory] = useState<TodoCategory>("exercise");
+  const [editingFocusId, setEditingFocusId] = useState<number | null>(null);
+  const [editingFocusText, setEditingFocusText] = useState("");
 
   function handleToggle(id: number) {
     setTodoItems((currentItems) =>
@@ -29,6 +33,37 @@ export default function App() {
 
   function handleDelete(id: number) {
     setTodoItems((currentItems) => currentItems.filter((item) => item.id !== id));
+
+    if (editingTodoId === id) {
+      setEditingTodoId(null);
+      setEditingTodoText("");
+    }
+  }
+
+  function handleEditStart(id: number, text: string) {
+    setEditingTodoId(id);
+    setEditingTodoText(text);
+  }
+
+  function handleEditCancel() {
+    setEditingTodoId(null);
+    setEditingTodoText("");
+  }
+
+  function handleEditSave(id: number) {
+    const trimmedTodo = editingTodoText.trim();
+
+    if (!trimmedTodo) {
+      return;
+    }
+
+    setTodoItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === id ? { ...item, text: trimmedTodo } : item
+      )
+    );
+    setEditingTodoId(null);
+    setEditingTodoText("");
   }
 
   function handleFocusToggle(id: number) {
@@ -41,6 +76,37 @@ export default function App() {
 
   function handleFocusDelete(id: number) {
     setFocusItems((currentItems) => currentItems.filter((item) => item.id !== id));
+
+    if (editingFocusId === id) {
+      setEditingFocusId(null);
+      setEditingFocusText("");
+    }
+  }
+
+  function handleFocusEditStart(id: number, text: string) {
+    setEditingFocusId(id);
+    setEditingFocusText(text);
+  }
+
+  function handleFocusEditCancel() {
+    setEditingFocusId(null);
+    setEditingFocusText("");
+  }
+
+  function handleFocusEditSave(id: number) {
+    const trimmedTodo = editingFocusText.trim();
+
+    if (!trimmedTodo) {
+      return;
+    }
+
+    setFocusItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === id ? { ...item, text: trimmedTodo } : item
+      )
+    );
+    setEditingFocusId(null);
+    setEditingFocusText("");
   }
 
   function handleAdd(event: FormEvent<HTMLFormElement>) {
@@ -143,7 +209,17 @@ export default function App() {
                   </button>
                 ))}
               </div>
-              <TodoList items={todoItems} onToggle={handleToggle} onDelete={handleDelete} />
+              <TodoList
+                items={todoItems}
+                editingId={editingTodoId}
+                editingText={editingTodoText}
+                onEditingTextChange={setEditingTodoText}
+                onEditStart={handleEditStart}
+                onEditSave={handleEditSave}
+                onEditCancel={handleEditCancel}
+                onToggle={handleToggle}
+                onDelete={handleDelete}
+              />
             </div>
           </section>
 
@@ -194,6 +270,12 @@ export default function App() {
               </div>
               <TodoList
                 items={focusItems}
+                editingId={editingFocusId}
+                editingText={editingFocusText}
+                onEditingTextChange={setEditingFocusText}
+                onEditStart={handleFocusEditStart}
+                onEditSave={handleFocusEditSave}
+                onEditCancel={handleFocusEditCancel}
                 onToggle={handleFocusToggle}
                 onDelete={handleFocusDelete}
               />
