@@ -27,6 +27,7 @@ function TodoList({ todos, onToggleTodo, onDeleteTodo }: Props) {
            <TodoCard
             text={todo.text}
             completed={todo.completed}
+            category={todo.category}
             onToggle={() => onToggleTodo(todo.id)}
             onDelete={() => onDeleteTodo(todo.id)}
           />

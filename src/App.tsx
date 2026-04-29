@@ -4,16 +4,18 @@ import TodoHeader from './components/TodoHeader';
 import TodoCount from './components/TodoCount';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
-import type { Todo } from './types/todo';
+import type { Todo, TodoCategory } from './types/todo';
 
 function App() {
   const [inputText, setInputText] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<TodoCategory>('공부');
+
   const [todos, setTodos] = useState<Todo[]>([
-    { id: 1, text: '리액트 공식문서 읽기', completed: true },
-    { id: 2, text: '알고리즘 문제 풀기', completed: true },
-    { id: 3, text: '운동 30분 하기', completed: false },
-    { id: 4, text: '프로젝트 회의 준비', completed: false },
-    { id: 5, text: '장보기 하기', completed: false },
+    { id: 1, text: '리액트 공식문서 읽기', completed: true, category: '공부' },
+    { id: 2, text: '알고리즘 문제 풀기', completed: true, category: '공부' },
+    { id: 3, text: '운동 30분 하기', completed: false, category: '운동' },
+    { id: 4, text: '프로젝트 회의 준비', completed: false, category: '업무' },
+    { id: 5, text: '장보기 하기', completed: false, category: '개인' },
   ]);
 
   const handleChangeInput = (value: string) => {
@@ -29,6 +31,7 @@ function App() {
       id: Date.now(),
       text: trimmedText,
       completed: false,
+      category: selectedCategory,
     };
 
     setTodos((prev) => [...prev, newTodo]);
@@ -55,7 +58,9 @@ function App() {
       <TodoCount todos={todos} />
       <TodoInput
         inputText={inputText}
+        selectedCategory={selectedCategory}
         onChangeInput={handleChangeInput}
+        onChangeCategory={setSelectedCategory}
         onAddTodo={handleAddTodo} 
       />
       <TodoList 

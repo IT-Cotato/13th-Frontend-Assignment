@@ -64,6 +64,44 @@
   text-decoration: line-through;
 }
 
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-tag {
+  display: flex;
+  height: 26px;
+  width: fit-content;
+  padding: 3.6px 11.744px 4.4px 12px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 13421800px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.category-공부 {
+  background: #3B82F620;
+  color: #3b82f6;
+}
+
+.category-운동 {
+  background: #22C55E20;
+  color: #22c55e;
+}
+
+.category-개인 {
+  background: #A855F720;
+  color: #a855f7;
+}
+
+.category-업무 {
+  background: #F59E0B20;
+  color: #f59e0b;
+}
+
 .delete-icon {
   font-size: 20px;
   border: none;
