@@ -23,6 +23,7 @@ export default function TodoList({ items, onToggle, onDelete }: TodoListProps) {
           <TodoCard
             text={item.text}
             checked={item.checked}
+            category={item.category}
             onToggle={() => onToggle(item.id)}
             onDelete={onDelete ? () => onDelete(item.id) : undefined}
           />

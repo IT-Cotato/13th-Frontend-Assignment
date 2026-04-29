@@ -10,6 +10,10 @@
   --line-soft: #e5e7eb;
   --blue: #4a86f7;
   --blue-soft: #a9c4fb;
+  --category-study: #3b82f6;
+  --category-exercise: #22c55e;
+  --category-personal: #a855f7;
+  --category-work: #f59e0b;
   --white: #ffffff;
 }
 
@@ -112,6 +116,7 @@ body {
   align-items: stretch;
   gap: 12px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .todo-input {
@@ -161,7 +166,105 @@ body {
   transform: translateY(1px);
 }
 
+.category-box {
+  display: flex;
+  height: 724.2px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 100%;
+}
+
+.category-box .todo-form {
+  margin-bottom: 0;
+}
+
+.category-selector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.category-button {
+  min-width: 60px;
+  height: 40px;
+  padding: 0 18px;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--category-study);
+  font: inherit;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.category-button:hover {
+  background: color-mix(in srgb, currentColor 12%, white);
+}
+
+.category-button.is-complete {
+  color: #fff;
+}
+
+.category-button:active {
+  transform: translateY(1px);
+}
+
+.category-button.is-study {
+  color: var(--category-study);
+}
+
+.category-button.is-study.is-complete {
+  background: var(--category-study);
+  border-color: var(--category-study);
+  color: #fff;
+}
+
+.category-button.is-exercise {
+  color: var(--category-exercise);
+}
+
+.category-button.is-exercise.is-complete {
+  background: var(--category-exercise);
+  border-color: var(--category-exercise);
+  color: #fff;
+}
+
+.category-button.is-personal {
+  color: var(--category-personal);
+}
+
+.category-button.is-personal.is-complete {
+  background: var(--category-personal);
+  border-color: var(--category-personal);
+  color: #fff;
+}
+
+.category-button.is-work {
+  color: var(--category-work);
+}
+
+.category-button.is-work.is-complete {
+  background: var(--category-work);
+  border-color: var(--category-work);
+  color: #fff;
+}
+
+.category-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 .todo-list {
+  width: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -257,6 +360,49 @@ body {
 .todo-text {
   flex: 1;
   min-width: 0;
+}
+
+.todo-content {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.todo-category-badge {
+  width: fit-content;
+  min-width: 44px;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 14px;
+  border-radius: 999px;
+  color: var(--category-study);
+  background: color-mix(in srgb, var(--category-study) 14%, white);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.todo-category-badge.is-study {
+  color: var(--category-study);
+  background: color-mix(in srgb, var(--category-study) 14%, white);
+}
+
+.todo-category-badge.is-exercise {
+  color: var(--category-exercise);
+  background: color-mix(in srgb, var(--category-exercise) 14%, white);
+}
+
+.todo-category-badge.is-personal {
+  color: var(--category-personal);
+  background: color-mix(in srgb, var(--category-personal) 14%, white);
+}
+
+.todo-category-badge.is-work {
+  color: var(--category-work);
+  background: color-mix(in srgb, var(--category-work) 14%, white);
 }
 
 .todo-item.is-checked .todo-text {

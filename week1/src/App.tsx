@@ -2,12 +2,22 @@ import { FormEvent, useState } from "react";
 import TodoHeader from "./components/TodoHeader";
 import TodoList from "./components/TodoList";
 import { focusPreviewItems, initialTodoItems } from "./data";
+import type { TodoCategory } from "./types";
+
+const categories: { id: TodoCategory; label: string }[] = [
+  { id: "study", label: "공부" },
+  { id: "exercise", label: "운동" },
+  { id: "personal", label: "개인" },
+  { id: "work", label: "업무" },
+];
 
 export default function App() {
   const [todoItems, setTodoItems] = useState(initialTodoItems);
   const [newTodo, setNewTodo] = useState("");
+  const [newCategory, setNewCategory] = useState<TodoCategory>("study");
   const [focusItems, setFocusItems] = useState(focusPreviewItems);
   const [focusTodo, setFocusTodo] = useState("");
+  const [focusCategory, setFocusCategory] = useState<TodoCategory>("exercise");
 
   function handleToggle(id: number) {
     setTodoItems((currentItems) =>
@@ -48,6 +58,7 @@ export default function App() {
         id: Date.now(),
         text: trimmedTodo,
         checked: false,
+        category: newCategory,
       },
     ]);
     setNewTodo("");
@@ -67,6 +78,7 @@ export default function App() {
         id: Date.now(),
         text: trimmedTodo,
         checked: false,
+        category: focusCategory,
       },
       ...currentItems,
     ]);
@@ -75,6 +87,12 @@ export default function App() {
 
   const todoCompletedCount = todoItems.filter((item) => item.checked).length;
   const focusCompletedCount = focusItems.filter((item) => item.checked).length;
+
+  function isCategoryComplete(items: typeof todoItems, categoryId: TodoCategory) {
+    const categoryItems = items.filter((item) => item.category === categoryId);
+
+    return categoryItems.length > 0 && categoryItems.every((item) => item.checked);
+  }
 
   return (
     <main className="page">
@@ -97,20 +115,36 @@ export default function App() {
                 </strong>개
               </span>
             </div>
-            <form className="todo-form" onSubmit={handleAdd}>
-              <input
-                className="todo-input"
-                type="text"
-                value={newTodo}
-                onChange={(event) => setNewTodo(event.target.value)}
-                placeholder="할 일을 입력하세요"
-                aria-label="할 일 입력"
-              />
-              <button className="todo-add-button" type="submit">
-                추가
-              </button>
-            </form>
-            <TodoList items={todoItems} onToggle={handleToggle} onDelete={handleDelete} />
+            <div className="category-box">
+              <form className="todo-form" onSubmit={handleAdd}>
+                <input
+                  className="todo-input"
+                  type="text"
+                  value={newTodo}
+                  onChange={(event) => setNewTodo(event.target.value)}
+                  placeholder="할 일을 입력하세요"
+                  aria-label="할 일 입력"
+                />
+                <button className="todo-add-button" type="submit">
+                  추가
+                </button>
+              </form>
+              <div className="category-selector" aria-label="카테고리 선택">
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    type="button"
+                    className={`category-button is-${category.id} ${
+                      isCategoryComplete(todoItems, category.id) ? "is-complete" : ""
+                    }`}
+                    onClick={() => setNewCategory(category.id)}
+                  >
+                    {category.label}
+                  </button>
+                ))}
+              </div>
+              <TodoList items={todoItems} onToggle={handleToggle} onDelete={handleDelete} />
+            </div>
           </section>
 
           <section className="todo-panel" aria-labelledby="focus-title">
@@ -130,24 +164,40 @@ export default function App() {
                 </strong>개
               </span>
             </div>
-            <form className="todo-form" onSubmit={handleFocusAdd}>
-              <input
-                className="todo-input"
-                type="text"
-                value={focusTodo}
-                onChange={(event) => setFocusTodo(event.target.value)}
-                placeholder="할 일을 입력하세요"
-                aria-label="새로운 할 일 입력"
+            <div className="category-box">
+              <form className="todo-form" onSubmit={handleFocusAdd}>
+                <input
+                  className="todo-input"
+                  type="text"
+                  value={focusTodo}
+                  onChange={(event) => setFocusTodo(event.target.value)}
+                  placeholder="할 일을 입력하세요"
+                  aria-label="새로운 할 일 입력"
+                />
+                <button className="todo-add-button" type="submit">
+                  추가
+                </button>
+              </form>
+              <div className="category-selector" aria-label="카테고리 선택">
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    type="button"
+                    className={`category-button is-${category.id} ${
+                      isCategoryComplete(focusItems, category.id) ? "is-complete" : ""
+                    }`}
+                    onClick={() => setFocusCategory(category.id)}
+                  >
+                    {category.label}
+                  </button>
+                ))}
+              </div>
+              <TodoList
+                items={focusItems}
+                onToggle={handleFocusToggle}
+                onDelete={handleFocusDelete}
               />
-              <button className="todo-add-button" type="submit">
-                추가
-              </button>
-            </form>
-            <TodoList
-              items={focusItems}
-              onToggle={handleFocusToggle}
-              onDelete={handleFocusDelete}
-            />
+            </div>
           </section>
         </div>
       </section>
