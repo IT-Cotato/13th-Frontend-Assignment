@@ -1,9 +1,11 @@
 import TodoCard from './TodoCard';
+import type { Category } from './CategoryTag';
 
 interface TodoItem {
   id: string;
   task: string;
   isCompleted: boolean;
+  category: Category;
 }
 
 interface TodoListProps {
@@ -31,6 +33,7 @@ export default function TodoList({ items, onToggle, onDelete }: TodoListProps) {
             id={item.id}
             task={item.task}
             isCompleted={item.isCompleted}
+            category={item.category}
             onToggle={onToggle}
             onDelete={onDelete}
           />

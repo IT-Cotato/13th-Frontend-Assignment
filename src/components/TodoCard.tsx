@@ -1,20 +1,30 @@
 import './TodoCard.css';
+import CategoryBadge from './CategoryBadge';
+import type { Category } from './CategoryTag';
 
 interface TodoCardProps {
   id: string; 
   task: string;
   isCompleted: boolean;
+  category: Category; 
   onToggle: (id: string) => void;
-  onDelete: (id: string) => void; 
+  onDelete: (id: string) => void;
 }
 
-export default function TodoCard({ id, task, isCompleted, onToggle, onDelete }: TodoCardProps) {
+export default function TodoCard({ id, task, isCompleted, category, onToggle, onDelete }: TodoCardProps) {
 
   const contentSectionStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
     flex: 1, 
+  };
+
+  const textContainerStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+    alignItems: 'flex-start',
   };
 
   const checkboxStyle: React.CSSProperties = {
@@ -53,7 +63,10 @@ export default function TodoCard({ id, task, isCompleted, onToggle, onDelete }: 
             </svg>
           )}
         </div>
-        <span style={textStyle}>{task}</span>
+        <div style={textContainerStyle}>
+          <span style={textStyle}>{task}</span>
+          <CategoryBadge category={category} />
+        </div>
       </div>
 
       <button 
