@@ -16,6 +16,7 @@ function TodoInput({ inputText, onChangeInput, onAddTodo }: Props) {
     <form className="input-section" onSubmit={handleSubmit}>
       <input 
         type="text" 
+        aria-label="할 일 입력"
         placeholder="할 일을 입력하세요" 
         className="todo-input" 
         value={inputText}

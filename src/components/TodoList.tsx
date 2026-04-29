@@ -1,6 +1,6 @@
 import "./TodoList.css"
 import TodoCard from "./TodoCard";
-import type { Todo } from "../App";
+import type { Todo } from '../types/todo';
 
 type Props = {
   todos: Todo[];

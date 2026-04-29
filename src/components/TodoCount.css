@@ -21,29 +21,22 @@
   line-height: 21px;
 }
 
-.count-number1 {
+.count-number {
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px;
+}
+
+.count-total {
   color: #1F2937;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 21px;
 }
 
-.count-number2 {
+.count-completed {
   color: #22C55E;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 21px;
 }
 
-.count-number3 {
+.count-active {
   color: #3B82F6;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 21px;
 }

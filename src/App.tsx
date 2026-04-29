@@ -4,12 +4,7 @@ import TodoHeader from './components/TodoHeader';
 import TodoCount from './components/TodoCount';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
-
-export type Todo = {
-  id: number;
-  text: string;
-  completed: boolean;
-}
+import type { Todo } from './types/todo';
 
 function App() {
   const [inputText, setInputText] = useState('');
