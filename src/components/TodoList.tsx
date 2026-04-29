@@ -4,11 +4,17 @@ import type { Todo } from '../types/todo';
 
 type Props = {
   todos: Todo[];
+  editingId: number | null;
+  editingText: string;
+  onChangeEditText: (value: string) => void;
+  onStartEdit: (id: number, text: string) => void;
+  onSaveEdit: (id: number) => void;
+  onCancelEdit: () => void;
   onToggleTodo: (id: number) => void;
   onDeleteTodo: (id: number) => void;
 };
 
-function TodoList({ todos, onToggleTodo, onDeleteTodo }: Props) {
+function TodoList({ todos, editingId, editingText, onChangeEditText, onStartEdit, onSaveEdit, onCancelEdit, onToggleTodo, onDeleteTodo }: Props) {
    // 할 일이 없을 때
   if (todos.length === 0) {
     return (
@@ -28,6 +34,12 @@ function TodoList({ todos, onToggleTodo, onDeleteTodo }: Props) {
             text={todo.text}
             completed={todo.completed}
             category={todo.category}
+            isEditing={editingId === todo.id}
+            editingText={editingText}
+            onChangeEditText={onChangeEditText}
+            onStartEdit={() => onStartEdit(todo.id, todo.text)}
+            onSaveEdit={() => onSaveEdit(todo.id)}
+            onCancelEdit={onCancelEdit}
             onToggle={() => onToggleTodo(todo.id)}
             onDelete={() => onDeleteTodo(todo.id)}
           />

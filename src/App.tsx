@@ -9,6 +9,8 @@ import type { Todo, TodoCategory } from './types/todo';
 function App() {
   const [inputText, setInputText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<TodoCategory>('공부');
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingText, setEditingText] = useState('');
 
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: '리액트 공식문서 읽기', completed: true, category: '공부' },
@@ -46,6 +48,28 @@ function App() {
     );
   };
 
+  const handleStartEdit = (id: number, text: string) => {
+    setEditingId(id);
+    setEditingText(text);
+  };
+  
+  const handleSaveEdit = (id: number) => {
+    setTodos(prev =>
+      prev.map(todo =>
+        todo.id === id
+          ? { ...todo, text: editingText }
+          : todo
+      )
+    );
+    setEditingId(null);
+    setEditingText('');
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditingText('');
+  };
+
   const handleDeleteTodo = (id: number) => {
     setTodos((prev) => 
       prev.filter((todo) =>
@@ -65,6 +89,12 @@ function App() {
       />
       <TodoList 
         todos={todos} 
+        editingId={editingId}
+        editingText={editingText}
+        onChangeEditText={setEditingText}
+        onStartEdit={handleStartEdit}
+        onSaveEdit={handleSaveEdit}
+        onCancelEdit={handleCancelEdit}
         onToggleTodo={handleToggleTodo} 
         onDeleteTodo={handleDeleteTodo}
       />
