@@ -41,6 +41,14 @@ export default function App() {
     setTodoItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const updateTodo = (id: string, newTask: string) => {
+    setTodoItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, task: newTask } : item
+      )
+    );
+  };
+
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
     minHeight: '100vh',
@@ -73,7 +81,12 @@ export default function App() {
           onSelect={setSelectedCategory} 
         />
         {todoItems.length > 0 ? (
-          <TodoList items={todoItems} onToggle={toggleTodo} onDelete={deleteTodo} />
+          <TodoList 
+            items={todoItems} 
+            onToggle={toggleTodo} 
+            onDelete={deleteTodo} 
+            onUpdate={updateTodo}
+          />
         ) : (
           <EmptyState />
         )}

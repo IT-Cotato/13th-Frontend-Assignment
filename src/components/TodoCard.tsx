@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './TodoCard.css';
 import CategoryBadge from './CategoryBadge';
 import type { Category } from './CategoryTag';
@@ -9,9 +10,27 @@ interface TodoCardProps {
   category: Category; 
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
+  onUpdate: (id: string, newTask: string) => void;
 }
 
-export default function TodoCard({ id, task, isCompleted, category, onToggle, onDelete }: TodoCardProps) {
+export default function TodoCard({ 
+  id, 
+  task, 
+  isCompleted, 
+  category, 
+  onToggle, 
+  onDelete, 
+  onUpdate 
+}: TodoCardProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(task);
+
+  const handleUpdate = () => {
+    if (editText.trim()) {
+      onUpdate(id, editText);
+      setIsEditing(false);
+    }
+  };
 
   const contentSectionStyle: React.CSSProperties = {
     display: 'flex',
@@ -25,6 +44,7 @@ export default function TodoCard({ id, task, isCompleted, category, onToggle, on
     flexDirection: 'column',
     gap: '4px',
     alignItems: 'flex-start',
+    flex: 1,
   };
 
   const checkboxStyle: React.CSSProperties = {
@@ -38,6 +58,7 @@ export default function TodoCard({ id, task, isCompleted, category, onToggle, on
     alignItems: 'center',
     flexShrink: 0,
     transition: 'all 0.2s ease', 
+    cursor: 'pointer',
   };
 
   const textStyle: React.CSSProperties = {
@@ -47,16 +68,19 @@ export default function TodoCard({ id, task, isCompleted, category, onToggle, on
     transition: 'color 0.2s ease',
   };
 
-  return (
-    <button
-      type="button"
-      className="todo-card" 
-      onClick={() => onToggle(id)}
-      aria-pressed={isCompleted} 
-    >
+  const editInputStyle: React.CSSProperties = {
+    font: 'var(--font-body)',
+    border: '1px solid var(--primary)',
+    borderRadius: '4px',
+    padding: '2px 4px',
+    width: '100%',
+    outline: 'none',
+  };
 
+  return (
+    <div className="todo-card">
       <div style={contentSectionStyle}>
-        <div style={checkboxStyle}>
+        <div style={checkboxStyle} onClick={() => onToggle(id)}>
           {isCompleted && (
             <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
               <path d="M1 5L4.5 8.5L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -64,21 +88,39 @@ export default function TodoCard({ id, task, isCompleted, category, onToggle, on
           )}
         </div>
         <div style={textContainerStyle}>
-          <span style={textStyle}>{task}</span>
+          {isEditing ? (
+            <input 
+              style={editInputStyle}
+              value={editText}
+              onChange={(e) => setEditText(e.target.value)}
+              onBlur={handleUpdate} // 포커스 해제 시 저장
+              onKeyDown={(e) => e.key === 'Enter' && handleUpdate()} // 엔터 시 저장
+              autoFocus
+            />
+          ) : (
+            <span style={textStyle} onClick={() => onToggle(id)}>{task}</span>
+          )}
           <CategoryBadge category={category} />
         </div>
       </div>
 
-      <button 
-        className="delete-button"
-        onClick={(e) => {
-          e.stopPropagation(); 
-          onDelete(id);
-        }}
-        aria-label="삭제"
-      >
-        🗑
-      </button>
-    </button>
+      <div className="button-group" style={{ display: 'flex', gap: '8px' }}>
+        <button 
+          className="action-button"
+          onClick={() => setIsEditing(!isEditing)}
+          aria-label="수정"
+        >
+          ✏️
+        </button>
+
+        <button 
+          className="action-button"
+          onClick={() => onDelete(id)}
+          aria-label="삭제"
+        >
+          🗑
+        </button>
+      </div>
+    </div>
   );
 }
