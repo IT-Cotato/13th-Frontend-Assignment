@@ -5,21 +5,26 @@ import TodoList from './components/TodoList';
 import EmptyState from './components/EmptyState';
 import TodoInput from './components/TodoInput';
 import TodoStats from './components/TodoStats';
+import CategoryTag from './components/CategoryTag';
+import type { Category } from './components/CategoryTag';
 
 interface Todo {
   id: string;
   task: string;
   isCompleted: boolean;
+  category: Category;
 }
 
 export default function App() {
-  const [todoItems, setTodoItems] = useState<Todo[]>(TODO_ITEMS);
+  const [todoItems, setTodoItems] = useState<Todo[]>(TODO_ITEMS as Todo[]);
+  const [selectedCategory, setSelectedCategory] = useState<Category>('공부');
 
   const addTodo = (task: string) => {
     const newTodo: Todo = {
       id: `todo-${Date.now()}`, 
       task, 
       isCompleted: false,
+      category: selectedCategory,
     };
     setTodoItems((prev) => [...prev, newTodo]); 
   };
@@ -63,6 +68,10 @@ export default function App() {
         <TodoHeader title="✅ 오늘의 할 일" />
         <TodoStats todos={todoItems} />
         <TodoInput onAdd={addTodo} />
+        <CategoryTag 
+          selectedCategory={selectedCategory} 
+          onSelect={setSelectedCategory} 
+        />
         {todoItems.length > 0 ? (
           <TodoList items={todoItems} onToggle={toggleTodo} onDelete={deleteTodo} />
         ) : (
