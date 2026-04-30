@@ -41,9 +41,10 @@
 
 .edit-input {
   font: var(--font-body);
-  border: 1px solid var(--primary);
-  border-radius: 4px;
-  padding: 2px 4px;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  background: transparent;
+  padding: 4px 8px;
   width: 100%;
   outline: none;
 }
