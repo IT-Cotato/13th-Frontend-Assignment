@@ -8,30 +8,32 @@ import type { Todo } from "./types/todo.types";
 import Summary from "./Summary";
 
 function App() {
-  // 오늘의 할 일
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
   const [input, setInput] = useState("");
+  const [category, setCategory] = useState("공부");
 
-  // 추가
   const handleAdd = () => {
     if (input.trim() === "") return;
 
     setTodos((currentTodos) => [
       ...currentTodos,
-      { id: Date.now(), text: input.trim(), completed: false },
+      {
+        id: Date.now(),
+        text: input.trim(),
+        completed: false,
+        category: category,
+      },
     ]);
 
     setInput("");
   };
 
-  // 삭제
   const handleDelete = (id: number) => {
     setTodos((currentTodos) =>
       currentTodos.filter((todo) => todo.id !== id)
     );
   };
 
-  // 토글
   const handleToggle = (id: number) => {
     setTodos((currentTodos) =>
       currentTodos.map((todo) =>
@@ -54,6 +56,8 @@ function App() {
         input={input}
         setInput={setInput}
         onAdd={handleAdd}
+        category={category}
+        setCategory={setCategory}
         placeholder="할 일을 입력하세요"
       />
 

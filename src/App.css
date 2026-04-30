@@ -73,11 +73,12 @@
   align-items: center;
   border-radius: 50%;
   border: 2px solid #e5e7eb;
+  cursor: pointer;
 }
 
 .checkbox.done {
-  background: #3b82f6;
-  border: 2px solid #3b82f6;
+  background: #3B82F6;
+  border: 2px solid #3B82F6;
 }
 
 .card-text {
@@ -244,4 +245,68 @@
 
 .value.not-completed {
   color: #3B82F6;
+}
+
+.category-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.category-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.category-btn {
+  display: flex;
+  padding: 10px 18px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+}
+
+.category-btn.study {
+  border: 2px solid #3B82F6;
+  color: #3B82F6;
+}
+
+.category-btn.study.active {
+  background: #3B82F6;
+  color: #fff;
+}
+
+.category-btn.workout {
+  border: 2px solid #22C55E;
+  color: #22C55E;
+}
+
+.category-btn.workout.active {
+  background: #22C55E;
+  color: #fff;
+}
+
+.category-btn.personal {
+  border: 2px solid #A855F7;
+  color: #A855F7;
+}
+
+.category-btn.personal.active {
+  background: #A855F7;
+  color: #fff;
+}
+
+.category-btn.work {
+  border: 2px solid #F59E0B;
+  color: #F59E0B;
+}
+
+.category-btn.work.active {
+  background: #F59E0B;
+  color: #fff;
 }
