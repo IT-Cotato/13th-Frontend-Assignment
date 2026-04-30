@@ -1,5 +1,5 @@
 import TodoCard from "./TodoCard";
-import { Todo } from "./types/todo";
+import type Todo from "./types/todo";
 
 export default function TodoList({
   todos,

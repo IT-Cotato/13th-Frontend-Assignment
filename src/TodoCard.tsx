@@ -1,5 +1,5 @@
 import CheckIcon from "./CheckIcon";
-import { Todo } from "./types/todo";
+import type Todo from "./types/todo";
 
 export default function TodoCard({
   text,
