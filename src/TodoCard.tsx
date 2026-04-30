@@ -1,13 +1,12 @@
 import CheckIcon from "./CheckIcon";
+import { Todo } from "./types/todo";
 
 export default function TodoCard({
   text,
   isCompleted,
   onDelete,
   onToggle,
-}: {
-  text: string;
-  isCompleted: boolean;
+}: Pick<Todo, "text" | "isCompleted"> & {
   onDelete: () => void;
   onToggle: () => void;
 }) {

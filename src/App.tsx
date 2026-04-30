@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Todo } from "./types/todo";
 import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
 import "./App.css";
@@ -12,7 +13,7 @@ const fixedTodos = [
 ];
 
 function App() {
-  const [todos, setTodos] = useState(fixedTodos);
+  const [todos, setTodos] = useState<Todo[]>(fixedTodos);
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
