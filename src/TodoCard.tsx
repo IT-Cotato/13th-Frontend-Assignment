@@ -18,13 +18,7 @@ function TodoCard({
         onClick={onToggle}
       >
         {completed && (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="10"
-            viewBox="0 0 14 10"
-            fill="none"
-          >
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
             <path
               d="M1 5L5 9L13 1"
               stroke="white"
@@ -46,9 +40,10 @@ function TodoCard({
         </div>
       </div>
 
-      <button className="delete-button" onClick={onDelete}>
-        🗑️
-      </button>
+      <div className="card-actions">
+        <button className="icon-button edit-button" onClick={() => alert("수정")}>✏️</button>
+        <button className="icon-button delete-button" onClick={onDelete}>🗑️</button>
+      </div>
     </div>
   );
 }
