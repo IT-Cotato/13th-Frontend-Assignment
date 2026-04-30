@@ -4,9 +4,10 @@ import type Todo from "./types/todo";
 export default function TodoCard({
   text,
   isCompleted,
+  category,
   onDelete,
   onToggle,
-}: Pick<Todo, "text" | "isCompleted"> & {
+}: Pick<Todo, "text" | "isCompleted" | "category"> & {
   onDelete: () => void;
   onToggle: () => void;
 }) {
@@ -25,9 +26,13 @@ export default function TodoCard({
         </div>
       </label>
 
-      <div className={`TodoCard-text ${isCompleted ? "completed" : ""}`}>
-        {text}
+      <div className="TodoCard-content">
+        <div className={`TodoCard-text ${isCompleted ? "completed" : ""}`}>
+          {text}
+        </div>
+        <span className={`category-tag category-${category}`}>{category}</span>
       </div>
+
       <button
         className="deleteButton"
         onClick={onDelete}

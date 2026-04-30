@@ -26,6 +26,7 @@ export default function TodoList({
           <TodoCard
             text={todo.text}
             isCompleted={todo.isCompleted}
+            category={todo.category}
             onDelete={() => onDelete(todo.id)}
             onToggle={() => onToggle(todo.id)}
           />
