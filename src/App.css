@@ -497,16 +497,16 @@ html, body {
 }
 
 /* 카테고리별 테두리 및 텍스트 색상 */
-.category-btn.category-공부 { border: 1px solid #60A5FA; color: #60A5FA; }
-.category-btn.category-운동 { border: 1px solid #4ADE80; color: #4ADE80; }
-.category-btn.category-개인 { border: 1px solid #C084FC; color: #C084FC; }
-.category-btn.category-업무 { border: 1px solid #FBBF24; color: #FBBF24; }
+.category-btn.category-공부 { border: 2px solid #3B82F6; color: #3B82F6; }
+.category-btn.category-운동 { border: 2px solid #22C55E; color: #22C55E; }
+.category-btn.category-개인 { border: 2px solid #A855F7; color: #A855F7; }
+.category-btn.category-업무 { border: 2px solid #F59E0B; color: #F59E0B; }
 
 /* 선택된 상태의 스타일 (배경색 채우기) */
-.category-btn.category-공부.selected { background-color: #60A5FA; color: white; }
-.category-btn.category-운동.selected { background-color: #4ADE80; color: white; }
-.category-btn.category-개인.selected { background-color: #C084FC; color: white; }
-.category-btn.category-업무.selected { background-color: #FBBF24; color: white; }
+.category-btn.category-공부.selected { background-color: #3B82F6; color: white; }
+.category-btn.category-운동.selected { background-color: #22C55E; color: white; }
+.category-btn.category-개인.selected { background-color: #A855F7; color: white; }
+.category-btn.category-업무.selected { background-color: #F59E0B; color: white; }
 
 /* --- TodoCard 내부 구조 변경 --- */
 .todo-info {
@@ -534,10 +534,10 @@ html, body {
 }
 
 /* 태그별 연한 배경색과 텍스트 색상 */
-.tag-공부 { background-color: #EFF6FF; color: #60A5FA; }
-.tag-운동 { background-color: #F0FDF4; color: #4ADE80; }
-.tag-개인 { background-color: #FAF5FF; color: #C084FC; }
-.tag-업무 { background-color: #FFFBEB; color: #FBBF24; }
+.tag-공부 { background-color: #EFF6FF; color: #3B82F6; }
+.tag-운동 { background-color: #F0FDF4; color: #22C55E; }
+.tag-개인 { background-color: #FAF5FF; color: #A855F7; }
+.tag-업무 { background-color: #FFFBEB; color: #F59E0B; }
 
 /* 완료된 항목의 투명도 조절 */
 .done-card .tag-label {
