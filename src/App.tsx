@@ -10,6 +10,7 @@ const fixedTodos: Todo[] = [
   { id: 3, text: "운동 30분 하기", isCompleted: false, category: "운동" },
   { id: 4, text: "프로젝트 회의 준비", isCompleted: false, category: "업무" },
   { id: 5, text: "장보기 하기", isCompleted: false, category: "개인" },
+  { id: 6, text: "블로그 포스팅 작성", isCompleted: false, category: "업무" },
 ];
 
 function App() {
