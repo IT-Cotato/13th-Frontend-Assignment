@@ -15,22 +15,29 @@ function App() {
   // 추가
   const handleAdd = () => {
     if (input.trim() === "") return;
-    setTodos([
-      ...todos,
+
+    setTodos((currentTodos) => [
+      ...currentTodos,
       { id: Date.now(), text: input.trim(), completed: false },
     ]);
+
     setInput("");
   };
 
   // 삭제
   const handleDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((currentTodos) =>
+      currentTodos.filter((todo) => todo.id !== id)
+    );
   };
-//토글
+
+  // 토글
   const handleToggle = (id: number) => {
-  setTodos(
-    todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
+        todo.id === id
+          ? { ...todo, completed: !todo.completed }
+          : todo
       )
     );
   };
@@ -40,6 +47,7 @@ function App() {
       <div className="frame2">
         <TodoHeader />
       </div>
+
       <Summary todos={todos} />
 
       <InputTodo
@@ -50,10 +58,10 @@ function App() {
       />
 
       <div className="container">
-        <TodoList 
-          todos={todos} 
-          onDelete={handleDelete} 
-          onToggle={handleToggle} 
+        <TodoList
+          todos={todos}
+          onDelete={handleDelete}
+          onToggle={handleToggle}
         />
       </div>
     </div>

@@ -6,25 +6,17 @@ function TodoCard({ text, completed, onDelete, onToggle }: {
 }) {
   return (
     <div className="card">
-      <div 
-        className={`checkbox ${completed ? "done" : ""}`}
-        onClick={onToggle}
-      >
-        {completed && (
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-            <path
-              d="M1 5L5 9L13 1"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-      </div>
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={onToggle}
+        className="checkbox"
+      />
+
       <div className={`card-text ${completed ? "done" : ""}`}>
         {text}
       </div>
+
       <button 
         className="delete-button" 
         onClick={onDelete}
@@ -37,4 +29,3 @@ function TodoCard({ text, completed, onDelete, onToggle }: {
 }
 
 export default TodoCard;
-
