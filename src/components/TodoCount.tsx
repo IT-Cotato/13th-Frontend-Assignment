@@ -15,13 +15,13 @@ export default function TodoCount({ todos }: Props) {
       <span className="todo-count-item">
         전체 <span className="todo-count-num1">{total}</span>개
       </span>
-      
+
       <span className="todo-count-item">
-        완료 <span className="todo-count-num2">{completed}</span>
+        완료 <span className="todo-count-num2">{completed}</span>개
       </span>
 
       <span className="todo-count-item">
-        미완료 <span className="todo-count-num3">{incomplete}</span>
+        미완료 <span className="todo-count-num3">{incomplete}</span>개
       </span>
     </div>
   );

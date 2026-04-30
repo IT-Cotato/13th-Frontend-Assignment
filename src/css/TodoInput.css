@@ -1,49 +1,39 @@
-/* 공통 규칙 */
-.todo-form,
-.todo-input {
+.todo-input-section {
   width: 640px;
-  height: 46.6px;
-}
-
-/* App.css */
-.todo {
-  font-family: Pretendard, sans-serif;
-}
-
-.todo-form{
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-  padding-right: 0;
+.todo-form {
+  display: flex;
   align-items: flex-start;
   gap: 12px;
 }
 
-
-.todo-input{
+.todo-input {
+  width: 560px;
+  height: 46.6px;
   padding: 0 16px;
-
-
   border-radius: 8px;
-  border: 0.8px solid #E5E7EB;
-
+  border: 0.8px solid #e5e7eb;
+  outline: none;
+  color: #1f2937;
+  font-family: Pretendard, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .todo-input:focus {
-  border-radius: 8px;
-  border: 2px solid #3B82F6;
-  
-  background: rgba(255, 255, 255, 0.00);
-  
-  box-shadow: 0 0 0 4px #3B82F6;
+  border: 2px solid #3b82f6;
+  background: rgba(255, 255, 255, 0);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.todo-button{
+.todo-button {
   display: flex;
   height: 46.6px;
   border: none;
@@ -51,14 +41,70 @@
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-
   border-radius: 8px;
-  background: #3B82F6;
-
-  color: #FFF;
+  background: #3b82f6;
+  color: #fff;
   text-align: center;
+  font-family: Pretendard, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 21px;
+  cursor: pointer;
+}
+
+.category-selector {
+  display: flex;
+  gap: 12px;
+}
+
+.category-button {
+  height: 37px;
+  padding: 0 18px;
+  border-radius: 8px;
+  background: #fff;
+  font-family: Pretendard, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.category-button.is-selected {
+  color: #fff;
+}
+
+.category-공부 {
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
+}
+
+.category-공부.is-selected {
+  background: #3b82f6;
+}
+
+.category-운동 {
+  border: 2px solid #22c55e;
+  color: #22c55e;
+}
+
+.category-운동.is-selected {
+  background: #22c55e;
+}
+
+.category-개인 {
+  border: 2px solid #a855f7;
+  color: #a855f7;
+}
+
+.category-개인.is-selected {
+  background: #a855f7;
+}
+
+.category-업무 {
+  border: 2px solid #f59e0b;
+  color: #f59e0b;
+}
+
+.category-업무.is-selected {
+  background: #f59e0b;
 }

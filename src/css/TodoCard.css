@@ -1,59 +1,28 @@
 .card {
-  width: 640px; 
-  height: 56px;
+  width: 640px;
+  min-height: 82px;
   padding: 16px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 12px;
   align-self: stretch;
   border-radius: 12px;
-  background-color: #FFF;
+  background-color: #fff;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-
-  color: #1F2937;
-  font-family: 'Pretendard';
+  color: #1f2937;
+  font-family: Pretendard, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 21px;
 }
 
-.card-label:has(.card-input:checked) {
-  text-decoration: line-through;
-}
-
-.card:has(.card-input:checked){
-    opacity: 0.5;
-
-}
-.card-label:has(.card-input:checked) .card-checkbox-ui {
-  display: flex;
-  width: 24px;
-  height: 24px;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 9999px;
-  border: 2px solid #3B82F6;
-  background: #3B82F6;
-}
-
-.card-label:has(.card-input:checked) .card-checkbox-icon {
-  width: 14px;
-  height: 10px;
-  flex-shrink: 0;
-  display: block;
-  
-}
-
-
-
-.card-label {
+.card-main {
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: pointer;
   flex: 1;
   min-width: 0;
 }
@@ -62,24 +31,147 @@
   display: none;
 }
 
-.card-checkbox-ui {
-  width: 24px;
-  height: 24px; 
-
-  border-radius: 9999px;
-  border: 2px solid #E5E7EB;  
+.card-checkbox-label {
+  display: flex;
+  cursor: pointer;
 }
 
-.card-delete-button {
+.card-input:disabled + .card-checkbox-label {
+  cursor: default;
+}
+
+.card-checkbox-ui {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 2px solid #e5e7eb;
+}
+
+.card-input:checked + .card-checkbox-label .card-checkbox-ui {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: #3b82f6;
+  background: #3b82f6;
+}
+
+.card-checkbox-icon {
+  width: 14px;
+  height: 10px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.card:has(.card-input:checked):not(.is-editing) {
+  opacity: 0.5;
+}
+
+.card:has(.card-input:checked):not(.is-editing) .card-text {
+  text-decoration: line-through;
+}
+
+.card-content,
+.card-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.card-text {
+  overflow: hidden;
+  color: #1f2937;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-tag {
+  width: fit-content;
+  min-width: 36px;
+  height: 22px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.category-tag.category-공부 {
+  background: #dbeafe;
+  color: #3b82f6;
+}
+
+.category-tag.category-운동 {
+  background: #dcfce7;
+  color: #22c55e;
+}
+
+.category-tag.category-개인 {
+  background: #f3e8ff;
+  color: #a855f7;
+}
+
+.category-tag.category-업무 {
+  background: #fef3c7;
+  color: #f59e0b;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.card-icon-button {
+  width: 28px;
+  height: 28px;
   border: none;
   background: none;
   cursor: pointer;
-
-  color: #0A0A0A;
   text-align: center;
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 30px; /* 150% */
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.card-edit-input {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 2px solid #3b82f6;
+  outline: none;
+  color: #1f2937;
+  font-family: Pretendard, sans-serif;
+  font-size: 14px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+}
+
+.card-save-button,
+.card-cancel-button {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-family: Pretendard, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.card-save-button {
+  border: 1px solid #3b82f6;
+  background: #3b82f6;
+  color: #fff;
+}
+
+.card-cancel-button {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #6b7280;
 }
