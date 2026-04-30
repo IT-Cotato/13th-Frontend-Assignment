@@ -4,20 +4,28 @@ interface Todo {
   id: number;
   text: string;
   completed: boolean;
-  category: string; // 카테고리 속성 추가
+  category: string;
 }
 
 interface TodoListProps {
   todos: Todo[];
   onDelete: (id: number) => void;
   onToggle: (id: number) => void;
-  onEdit: (id: number, newText: string) => void; // onEdit 타입 추가
+  // 수정 관련 props 추가
+  editingId: number | null;
+  editingText: string;
+  onEditChange: (text: string) => void;
+  onStartEdit: (id: number, text: string) => void;
+  onSaveEdit: () => void;
+  onCancelEdit: () => void;
 }
 
-const TodoList = ({ todos, onDelete, onToggle, onEdit }: TodoListProps) => {
+const TodoList = ({ 
+  todos, onDelete, onToggle, 
+  editingId, editingText, onEditChange, onStartEdit, onSaveEdit, onCancelEdit 
+}: TodoListProps) => {
   return (
     <div className="todo-list-wrapper">
-      
       {todos.length === 0 ? (
         <div className="empty-state">
           <span className="empty-icon">📋</span>
@@ -25,18 +33,28 @@ const TodoList = ({ todos, onDelete, onToggle, onEdit }: TodoListProps) => {
         </div>
       ) : (
         <div className="todo-list">
-          {todos.map((todo) => (
-            <TodoCard
-              key={todo.id}
-              id={todo.id} // id 전달 추가 (수정/삭제 시 필요)
-              text={todo.text}
-              completed={todo.completed}
-              category={todo.category} // 카테고리 전달
-              onDelete={() => onDelete(todo.id)}
-              onToggle={() => onToggle(todo.id)}
-              onEdit={onEdit} // 수정 함수 전달
-            />
-          ))}
+          {todos.map((todo) => {
+            // 🌟 현재 카드가 수정 중인 카드인지 boolean으로 판별
+            const isEditing = editingId === todo.id;
+
+            return (
+              <TodoCard
+                key={todo.id}
+                id={todo.id}
+                text={todo.text}
+                completed={todo.completed}
+                category={todo.category}
+                isEditing={isEditing}         // props로 전달!
+                editingText={editingText}     // props로 전달!
+                onDelete={() => onDelete(todo.id)}
+                onToggle={() => onToggle(todo.id)}
+                onEditChange={onEditChange}
+                onStartEdit={() => onStartEdit(todo.id, todo.text)}
+                onSaveEdit={onSaveEdit}
+                onCancelEdit={onCancelEdit}
+              />
+            );
+          })}
         </div>
       )}
     </div>
