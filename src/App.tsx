@@ -4,17 +4,19 @@ import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
 import "./App.css";
 
-const fixedTodos = [
-  { id: 1, text: "리액트 공식문서 읽기", isCompleted: true },
-  { id: 2, text: "알고리즘 문제 풀기", isCompleted: true },
-  { id: 3, text: "운동 30분 하기", isCompleted: false },
-  { id: 4, text: "프로젝트 회의 준비", isCompleted: false },
-  { id: 5, text: "장보기 하기", isCompleted: false },
+const fixedTodos: Todo[] = [
+  { id: 1, text: "리액트 공식문서 읽기", isCompleted: true, category: "공부" },
+  { id: 2, text: "알고리즘 문제 풀기", isCompleted: true, category: "공부" },
+  { id: 3, text: "운동 30분 하기", isCompleted: false, category: "운동" },
+  { id: 4, text: "프로젝트 회의 준비", isCompleted: false, category: "업무" },
+  { id: 5, text: "장보기 하기", isCompleted: false, category: "개인" },
 ];
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>(fixedTodos);
   const [inputValue, setInputValue] = useState("");
+  const [selectedCategory, setSelectedCategory] =
+    useState<Todo["category"]>("공부");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -28,11 +30,13 @@ function App() {
       id: Date.now(),
       text: inputValue.trim(),
       isCompleted: false,
+      category: selectedCategory,
     };
 
     setTodos([...todos, newTodo]);
 
     setInputValue("");
+    setSelectedCategory("공부");
   };
 
   const handleDeleteTodo = (id: number) => {
@@ -73,6 +77,19 @@ function App() {
           추가
         </button>
       </form>
+
+      <div className="category-selector">
+        {(["공부", "운동", "개인", "업무"] as const).map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            className={`category-button category-${cat} ${selectedCategory === cat ? "selected" : ""}`}
+            onClick={() => setSelectedCategory(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
       <div className="container">
         <TodoList
