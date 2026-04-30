@@ -1,20 +1,20 @@
-// src/components/TodoList.tsx
 import TodoCard from './TodoCard';
 
 interface Todo {
   id: number;
   text: string;
   completed: boolean;
+  category: string; // 카테고리 속성 추가
 }
 
-// 부모로부터 onToggle 함수를 받을 수 있도록 타입 추가
 interface TodoListProps {
   todos: Todo[];
   onDelete: (id: number) => void;
-  onToggle: (id: number) => void; // ✅ 추가됨
+  onToggle: (id: number) => void;
+  onEdit: (id: number, newText: string) => void; // onEdit 타입 추가
 }
 
-const TodoList = ({ todos, onDelete, onToggle }: TodoListProps) => {
+const TodoList = ({ todos, onDelete, onToggle, onEdit }: TodoListProps) => {
   return (
     <div className="todo-list-wrapper">
       
@@ -28,15 +28,17 @@ const TodoList = ({ todos, onDelete, onToggle }: TodoListProps) => {
           {todos.map((todo) => (
             <TodoCard
               key={todo.id}
+              id={todo.id} // id 전달 추가 (수정/삭제 시 필요)
               text={todo.text}
               completed={todo.completed}
-              onDelete={() => onDelete(todo.id)} 
-              onToggle={() => onToggle(todo.id)} // ✅ 개별 카드에 토글 함수와 id 전달
+              category={todo.category} // 카테고리 전달
+              onDelete={() => onDelete(todo.id)}
+              onToggle={() => onToggle(todo.id)}
+              onEdit={onEdit} // 수정 함수 전달
             />
           ))}
         </div>
       )}
-
     </div>
   );
 };
