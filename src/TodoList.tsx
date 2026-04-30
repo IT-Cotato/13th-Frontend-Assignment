@@ -7,8 +7,14 @@ export default function TodoList({
   onToggle,
 }: {
   todos: Todo[];
+  editingId: number | null;
+  editingText: string;
   onDelete: (id: number) => void;
   onToggle: (id: number) => void;
+  onEditStart: (id: number, text: string) => void;
+  onEditSave: (id: number) => void;
+  onEditCancel: () => void;
+  onEditTextChange: (text: string) => void;
 }) {
   if (todos.length === 0) {
     return (

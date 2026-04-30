@@ -17,6 +17,8 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<Todo["category"]>("공부");
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingText, setEditingText] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -49,6 +51,29 @@ function App() {
         todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
       ),
     );
+  };
+
+  const handleEditStart = (id: number, text: string) => {
+    setEditingId(id);
+    setEditingText(text);
+  };
+
+  const handleEditSave = (id: number) => {
+    if (editingText.trim() === "") return;
+
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, text: editingText.trim() } : todo,
+      ),
+    );
+
+    setEditingId(null);
+    setEditingText("");
+  };
+
+  const handleEditCancel = () => {
+    setEditingId(null);
+    setEditingText("");
   };
 
   const totalCount = todos.length;
@@ -94,8 +119,14 @@ function App() {
       <div className="container">
         <TodoList
           todos={todos}
+          editingId={editingId}
+          editingText={editingText}
           onDelete={handleDeleteTodo}
           onToggle={handleToggleTodo}
+          onEditStart={handleEditStart}
+          onEditSave={handleEditSave}
+          onEditCancel={handleEditCancel}
+          onEditTextChange={setEditingText}
         />
       </div>
     </div>
