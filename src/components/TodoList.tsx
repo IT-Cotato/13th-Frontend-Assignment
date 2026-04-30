@@ -1,9 +1,10 @@
-import TodoCard from "./TodoCard";
+import TodoCard, { type Category } from "./TodoCard";
 
 type Todo = {
   id: number;
   text: string;
   completed: boolean;
+  category: Category;
 };
 
 type TodoListProps = {
@@ -13,7 +14,15 @@ type TodoListProps = {
   onAdd: () => void;
   onDelete: (id: number) => void;
   onToggle: (id: number) => void;
+  editingId: number | null;
+  editingText: string;
+  onEditStart: (id: number, text: string) => void;
+  onEditChange: (value: string) => void;
+  onEditSave: (id: number) => void;
+  onEditCancel: () => void;
 };
+
+const CATEGORIES: Category[] = ["공부", "운동", "개인", "업무"];
 
 export default function TodoList({
   items,
@@ -22,6 +31,12 @@ export default function TodoList({
   onAdd,
   onDelete,
   onToggle,
+  editingId,
+  editingText,
+  onEditStart,
+  onEditChange,
+  onEditSave,
+  onEditCancel,
 }: TodoListProps) {
   const total = items.length;
   const completed = items.filter((item) => item.completed).length;
@@ -45,7 +60,7 @@ export default function TodoList({
         <input
           type="text"
           className="todo-input"
-          placeholder="새로운 할 일"
+          placeholder="할 일을 입력하세요."
           value={inputValue}
           onChange={(e) => onInputChange(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && onAdd()}
@@ -53,6 +68,17 @@ export default function TodoList({
         <button className="add-button" onClick={onAdd}>
           추가
         </button>
+      </div>
+
+      <div className="category-select">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            className={`category-select__btn category-select__btn--${cat}`}
+          >
+            {cat}
+          </button>
+        ))}
       </div>
 
       {items.length === 0 ? (
@@ -67,8 +93,15 @@ export default function TodoList({
               <TodoCard
                 text={item.text}
                 completed={item.completed}
+                category={item.category}
+                isEditing={editingId === item.id}
+                editingText={editingId === item.id ? editingText : ""}
                 onDelete={() => onDelete(item.id)}
                 onToggle={() => onToggle(item.id)}
+                onEditStart={() => onEditStart(item.id, item.text)}
+                onEditChange={onEditChange}
+                onEditSave={() => onEditSave(item.id)}
+                onEditCancel={onEditCancel}
               />
             </li>
           ))}
