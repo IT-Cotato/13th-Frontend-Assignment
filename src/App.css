@@ -20,6 +20,13 @@ body {
   align-self: stretch;
 }
 
+.TodoHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: stretch;
+}
+
 .TodoCard {
   display: flex;
   padding: 16px;
