@@ -15,13 +15,13 @@ function App() {
   const handleAdd = () => {
     if (input.trim() === "") return;
 
-    setTodos((currentTodos) => [
-      ...currentTodos,
+    setTodos((prev) => [
+      ...prev,
       {
         id: Date.now(),
         text: input.trim(),
         completed: false,
-        category: category,
+        category,
       },
     ]);
 
@@ -29,14 +29,12 @@ function App() {
   };
 
   const handleDelete = (id: number) => {
-    setTodos((currentTodos) =>
-      currentTodos.filter((todo) => todo.id !== id)
-    );
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
   const handleToggle = (id: number) => {
-    setTodos((currentTodos) =>
-      currentTodos.map((todo) =>
+    setTodos((prev) =>
+      prev.map((todo) =>
         todo.id === id
           ? { ...todo, completed: !todo.completed }
           : todo
@@ -56,9 +54,9 @@ function App() {
         input={input}
         setInput={setInput}
         onAdd={handleAdd}
+        placeholder="할 일을 입력하세요"
         category={category}
         setCategory={setCategory}
-        placeholder="할 일을 입력하세요"
       />
 
       <div className="container">

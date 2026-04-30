@@ -1,14 +1,14 @@
 import TodoCard from "./TodoCard";
 import type { Todo } from "./types/todo.types";
 
-function TodoList({ 
-  todos, 
-  onDelete, 
-  onToggle 
-}: { 
-  todos: Todo[]; 
-  onDelete: (id: number) => void; 
-  onToggle: (id: number) => void; 
+function TodoList({
+  todos,
+  onDelete,
+  onToggle,
+}: {
+  todos: Todo[];
+  onDelete: (id: number) => void;
+  onToggle: (id: number) => void;
 }) {
   if (todos.length === 0) {
     return (
@@ -23,10 +23,11 @@ function TodoList({
     <ul className="frame1">
       {todos.map((todo) => (
         <li key={todo.id}>
-          <TodoCard 
-            text={todo.text} 
+          <TodoCard
+            text={todo.text}
             completed={todo.completed}
-            onDelete={() => onDelete(todo.id)} 
+            category={todo.category}
+            onDelete={() => onDelete(todo.id)}
             onToggle={() => onToggle(todo.id)}
           />
         </li>
