@@ -12,6 +12,9 @@ function App() {
   const [input, setInput] = useState("");
   const [category, setCategory] = useState("공부");
 
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editText, setEditText] = useState("");
+
   const handleAdd = () => {
     if (input.trim() === "") return;
 
@@ -42,6 +45,29 @@ function App() {
     );
   };
 
+  const handleEdit = (id: number, text: string) => {
+    setEditingId(id);
+    setEditText(text);
+  };
+
+  const handleUpdate = (id: number) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id
+          ? { ...todo, text: editText }
+          : todo
+      )
+    );
+
+    setEditingId(null);
+    setEditText("");
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+    setEditText("");
+  };
+
   return (
     <div className="frame3">
       <div className="frame2">
@@ -64,6 +90,13 @@ function App() {
           todos={todos}
           onDelete={handleDelete}
           onToggle={handleToggle}
+
+          editingId={editingId}
+          editText={editText}
+          setEditText={setEditText}
+          onEdit={handleEdit}
+          onUpdate={handleUpdate}
+          onCancel={handleCancel}
         />
       </div>
     </div>

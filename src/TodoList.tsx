@@ -5,10 +5,24 @@ function TodoList({
   todos,
   onDelete,
   onToggle,
+  editingId,
+  editText,
+  setEditText,
+  onEdit,
+  onUpdate,
+  onCancel,
 }: {
   todos: Todo[];
   onDelete: (id: number) => void;
   onToggle: (id: number) => void;
+
+  editingId: number | null;
+  editText: string;
+  setEditText: (text: string) => void;
+
+  onEdit: (id: number, text: string) => void;
+  onUpdate: (id: number) => void;
+  onCancel: () => void;
 }) {
   if (todos.length === 0) {
     return (
@@ -24,11 +38,16 @@ function TodoList({
       {todos.map((todo) => (
         <li key={todo.id}>
           <TodoCard
-            text={todo.text}
-            completed={todo.completed}
-            category={todo.category}
+            {...todo}
             onDelete={() => onDelete(todo.id)}
             onToggle={() => onToggle(todo.id)}
+
+            isEditing={editingId === todo.id}
+            editText={editText}
+            setEditText={setEditText}
+            onEdit={() => onEdit(todo.id, todo.text)}
+            onUpdate={() => onUpdate(todo.id)}
+            onCancel={onCancel}
           />
         </li>
       ))}
