@@ -35,15 +35,15 @@ function App() {
   };
 
   const handleDeleteTodo = (id: number) => {
-    const nextTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(nextTodos);
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   const handleToggleTodo = (id: number) => {
-    const nextTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
+      ),
     );
-    setTodos(nextTodos);
   };
 
   const totalCount = todos.length;
