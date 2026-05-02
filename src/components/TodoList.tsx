@@ -1,13 +1,16 @@
+import type { Todo } from "../types/todo";
 import TodoCard from "./TodoCard";
 
 export default function TodoList({
   todos,
   handleCompletedStatus,
+  handleUpdateTodo,
   handleDeleteTodo,
 }: {
-  todos: { id: number; text: string; completed: boolean }[];
+  todos: Todo[];
   handleCompletedStatus: (targetId: number) => void;
-  handleDeleteTodo: (dleletedId: number) => void;
+  handleUpdateTodo: (updatedId: number, updatedText: string) => void;
+  handleDeleteTodo: (deletedId: number) => void;
 }) {
   const isEmpty = todos.length === 0;
 
@@ -26,11 +29,9 @@ export default function TodoList({
         <ul className="toDoList">
           {todos.map((todo) => (
             <TodoCard
-              key={todo.id}
-              id={todo.id}
-              text={todo.text}
-              completed={todo.completed}
+              todo={todo}
               handleCompletedStatus={handleCompletedStatus}
+              handleUpdateTodo={handleUpdateTodo}
               handleDeleteTodo={handleDeleteTodo}
             />
           ))}

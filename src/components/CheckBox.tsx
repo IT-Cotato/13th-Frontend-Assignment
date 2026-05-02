@@ -8,12 +8,15 @@ export default function CheckBox({
   onToggle: () => void;
 }) {
   return (
-    <div
-      className={completed ? "CheckedBox" : "UncheckedBox"}
-      onClick={onToggle}
-      style={{ cursor: "pointer" }}
-    >
+    <label className={`cursor-pointer ${completed ? "CheckedBox" : "UncheckedBox"}`}>
+      <input
+        type="checkbox"
+        className="sr-only"
+        checked={completed}
+        onChange={onToggle}
+        aria-label={completed ? "완료" : "미완료"}
+      />
       {completed && <img src={checkedIcon} alt="checked" />}
-    </div>
+    </label>
   );
 }

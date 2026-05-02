@@ -1,42 +1,73 @@
 import { useState } from "react";
-import "./App.css";
 import TodoHeader from "./components/TodoHeader";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import TodoCounter from "./components/TodoCounter";
+import TodoCategory from "./components/TodoCategory";
+import type { Todo } from "./types/todo";
 
 function App() {
-  const [todos, setTodos] = useState([
-    { id: 0, text: "리액트 공식문서 읽기", completed: true },
-    { id: 1, text: "알고리즘 문제 풀기", completed: true },
-    { id: 2, text: "운동 30분 하기", completed: false },
-    { id: 3, text: "프로젝트 회의 준비", completed: false },
-    { id: 4, text: "장보기 하기", completed: false },
+  const [todos, setTodos] = useState<Todo[]>([
+    { id: 0, text: "리액트 공식문서 읽기", completed: true, category: "공부" },
+    { id: 1, text: "알고리즘 문제 풀기", completed: true, category: "공부" },
+    { id: 2, text: "운동 30분 하기", completed: false, category: "운동" },
+    { id: 3, text: "프로젝트 회의 준비", completed: false, category: "업무" },
+    { id: 4, text: "장보기 하기", completed: false, category: "개인" },
   ]);
+
+  const [selectedCategory, setSelectedCategory] = useState("공부");
 
   const completedTodos = todos.filter((todo) => todo.completed === true);
 
-  const uncompletedTodos = todos.filter((todo) => todo.completed === false);
+  const incompletedTodos = todos.filter((todo) => todo.completed === false);
 
   const handleAddTodo = (newTodoText: string) => {
-    const newIndex = todos.length > 0 ? todos[todos.length - 1].id + 1 : 0;
 
-    const newTodo = {
-      id: newIndex,
-      text: newTodoText,
-      completed: false,
-    };
+    const trimmedText = newTodoText.trim(); // 앞뒤 공백을 제거한 텍스트를 저장
 
-    setTodos([...todos, newTodo]);
+    if (trimmedText.length === 0) {
+      return;
+    }
+
+    setTodos((prevTodos) => {
+      const newIndex = prevTodos.length > 0 ? prevTodos[prevTodos.length - 1].id + 1 : 0;
+
+      const newTodo = {
+        id: newIndex,
+        text: newTodoText,
+        completed: false,
+        category: selectedCategory
+      };
+
+      return [...prevTodos, newTodo];
+
+    });
   };
 
-  const handleDeleteTodo = (dleletedId: number) => {
-    setTodos((todos) => todos.filter((todo) => todo.id !== dleletedId));
+  const handleUpdateTodo = (updatedId: number, updatedText: string) => {
+
+    const trimmedText = updatedText.trim();
+
+    if (trimmedText.length === 0) {
+      return;
+    }
+
+    setTodos((prevTodos) => {
+      const newTodos = prevTodos.map((todo) => 
+        todo.id === updatedId ? {...todo, text: updatedText} : todo
+      );
+
+      return newTodos;
+    });
+  }
+
+  const handleDeleteTodo = (deletedId: number) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== deletedId));
   };
 
   const handleCompletedStatus = (targetId: number) => {
-    setTodos((todos) =>
-      todos.map((todo) =>
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === targetId ? { ...todo, completed: !todo.completed } : todo,
       ),
     );
@@ -44,15 +75,16 @@ function App() {
 
   return (
     <>
-      <div className="container">
+      <div className="todoContainer">
         <TodoHeader />
         <TodoCounter
           totalCount={todos.length}
           completedCount={completedTodos.length}
-          uncompletedCount={uncompletedTodos.length}
+          incompletedCount={incompletedTodos.length}
         />
         <TodoInput handleAddTodo={handleAddTodo} />
-        <TodoList todos={todos} handleCompletedStatus={handleCompletedStatus} handleDeleteTodo={handleDeleteTodo} />
+        <TodoCategory selected={selectedCategory} onSelect={setSelectedCategory} />
+        <TodoList todos={todos} handleCompletedStatus={handleCompletedStatus} handleUpdateTodo={handleUpdateTodo} handleDeleteTodo={handleDeleteTodo} />
       </div>
     </>
   );
