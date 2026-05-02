@@ -6,6 +6,7 @@ export default function TodoCard({
     id,
     text,
     completed,
+    category,
     onToggle,
     onDelete,
 }: TodoItem & {
@@ -21,13 +22,15 @@ export default function TodoCard({
                     id={String(id)}
                     readOnly
                 />
-                <label>
-                    <CheckButton
-                        completed={completed}
-                        onToggle={() => onToggle(id)}
-                    />
-                    {completed ? <del>{text}</del> : text}
-                </label>
+                <CheckButton
+                    completed={completed}
+                    onToggle={() => onToggle(id)}
+                    id={id}
+                />
+                <div className="labelContainer">
+                    <label>{completed ? <del>{text}</del> : text}</label>
+                    <span className="category">{category}</span>
+                </div>
                 <DeleteButton onDelete={() => onDelete(id)} />
             </li>
         </>
