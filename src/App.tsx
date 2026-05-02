@@ -19,7 +19,6 @@ export default function App() {
         personal: "개인",
         work: "업무",
     };
-
     const [selectedCategory, setSelectedCategory] = useState("");
 
     // 카테고리 선택 이벤트 핸들러
@@ -41,6 +40,18 @@ export default function App() {
         setListState((prevList) => prevList.filter((item) => item.id !== id));
     }
 
+    // 수정 적용 핸들러
+    function handleChangeTodo(nextTodo) {
+        setListState(
+            listState.map((t) => {
+                if (t.id === nextTodo.id) {
+                    return nextTodo;
+                } else {
+                    return t;
+                }
+            }),
+        );
+    }
     // 투두 추가 이벤트 핸들러
     function handleAddTodo(inputText: string) {
         if (inputText == "") return;
@@ -86,6 +97,7 @@ export default function App() {
             />
             <TodoList
                 listState={listState}
+                onChange={handleChangeTodo}
                 onDelete={handleDelete}
                 onToggle={handleToggle}
             />
