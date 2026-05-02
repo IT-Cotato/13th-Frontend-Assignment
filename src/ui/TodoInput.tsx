@@ -26,6 +26,7 @@ export default function TodoInput({
                     placeholder="할 일을 입력하세요"
                     onChange={onInput}
                     value={inputText}
+                    className="todoInput"
                 ></input>
 
                 <button id="addButton" type="submit">

@@ -3,4 +3,5 @@ export type TodoItem = {
     text: string;
     completed: boolean;
     category: string;
+    categoryLabel: string;
 };

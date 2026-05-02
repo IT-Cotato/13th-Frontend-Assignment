@@ -1,9 +1,11 @@
 export default function CategorySelector({
     categories,
+    categoryLabels,
     selectedCategory,
     onSelectCategory,
 }: {
     categories: string[];
+    categoryLabels: Record<string, string>;
     selectedCategory: string;
     onSelectCategory: (category: string) => void;
 }) {
@@ -11,7 +13,14 @@ export default function CategorySelector({
         <>
             <div className="categorySelector">
                 {categories.map((category) => (
-                    <label key={category}>
+                    <label
+                        key={category}
+                        className={
+                            "categories " +
+                            (category === selectedCategory ? "checked" : "")
+                        }
+                        id={category}
+                    >
                         <input
                             type="radio"
                             name="category"
@@ -21,7 +30,7 @@ export default function CategorySelector({
                                 onSelectCategory(e.target.value);
                             }}
                         />
-                        {category}
+                        {categoryLabels[category]}
                     </label>
                 ))}
             </div>

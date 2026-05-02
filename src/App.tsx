@@ -12,7 +12,14 @@ export default function App() {
     const [listState, setListState] = useState(todoItems);
 
     // 카테고리 추가 상태 관리
-    const categories = ["공부", "운동", "개인", "업무"];
+    const categories = ["study", "exercise", "personal", "work"];
+    const categoryLabels: Record<string, string> = {
+        study: "공부",
+        exercise: "운동",
+        personal: "개인",
+        work: "업무",
+    };
+
     const [selectedCategory, setSelectedCategory] = useState("");
 
     // 카테고리 선택 이벤트 핸들러
@@ -51,6 +58,7 @@ export default function App() {
                     completed: false,
                     text: inputText,
                     category: selectedCategory,
+                    categoryLabel: categoryLabels[selectedCategory],
                 },
             ];
         });
@@ -72,6 +80,7 @@ export default function App() {
             <TodoInput onAdd={handleAddTodo} />
             <CategorySelector
                 categories={categories}
+                categoryLabels={categoryLabels}
                 selectedCategory={selectedCategory}
                 onSelectCategory={handleCategorySelect}
             />

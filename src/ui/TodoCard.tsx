@@ -7,6 +7,7 @@ export default function TodoCard({
     text,
     completed,
     category,
+    categoryLabel,
     onToggle,
     onDelete,
 }: TodoItem & {
@@ -29,7 +30,9 @@ export default function TodoCard({
                 />
                 <div className="labelContainer">
                     <label>{completed ? <del>{text}</del> : text}</label>
-                    <span className="category">{category}</span>
+                    <span className={"todoItemCategory " + category}>
+                        {categoryLabel}
+                    </span>
                 </div>
                 <DeleteButton onDelete={() => onDelete(id)} />
             </li>
