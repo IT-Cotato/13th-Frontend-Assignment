@@ -2,6 +2,7 @@ import DeleteButton from "./DeleteButton";
 import CheckButton from "./CheckButton";
 import type { TodoItem } from "../types";
 import { useState } from "react";
+import EditButton from "./EditButton";
 
 export default function TodoCard({
     id,
@@ -26,8 +27,9 @@ export default function TodoCard({
     if (isEditing) {
         todoContent = (
             <>
-                <div className="todoEditing">
+                <div className="todo-input-container">
                     <input
+                        className="todo-input-editing"
                         value={text}
                         onChange={(e) => {
                             onChange({
@@ -39,15 +41,22 @@ export default function TodoCard({
                             });
                         }}
                     />
+                    <span className={"todoItemCategory " + category}>
+                        {categoryLabel}
+                    </span>
+                </div>
+                <div className="editing-button-area">
                     <button
+                        id="save-button"
                         onClick={() => {
                             setBeforeText(text);
                             setIsEditing(false);
                         }}
                     >
-                        Save
+                        저장
                     </button>
                     <button
+                        id="cancle-button"
                         onClick={() => {
                             setIsEditing(false);
                             onChange({
@@ -59,12 +68,9 @@ export default function TodoCard({
                             });
                         }}
                     >
-                        Cancle
+                        취소
                     </button>
                 </div>
-                <span className={"todoItemCategory " + category}>
-                    {categoryLabel}
-                </span>
             </>
         );
     } else {
@@ -76,7 +82,7 @@ export default function TodoCard({
                         {categoryLabel}
                     </span>
                 </div>
-                <button onClick={() => setIsEditing(true)}>Edit</button>
+                <EditButton onEdit={() => setIsEditing(true)} />
                 <DeleteButton onDelete={() => onDelete(id)} />
             </>
         );
