@@ -5,10 +5,26 @@ import TodoList from "./TodoList";
 import { useState } from "react";
 import { todoItems } from "./data";
 import TodoCounter from "./ui/TodoCounter";
+import CategorySelector from "./ui/CategorySelector";
 
 export default function App() {
     // 투두리스트 상태 관리
     const [listState, setListState] = useState(todoItems);
+
+    // 카테고리 추가 상태 관리
+    const categories = ["study", "exercise", "personal", "work"];
+    const categoryLabels: Record<string, string> = {
+        study: "공부",
+        exercise: "운동",
+        personal: "개인",
+        work: "업무",
+    };
+    const [selectedCategory, setSelectedCategory] = useState("");
+
+    // 카테고리 선택 이벤트 핸들러
+    function handleCategorySelect(category: string) {
+        setSelectedCategory(category);
+    }
 
     // 체크 토글 이벤트 핸들러
     function handleToggle(id: number) {
@@ -24,16 +40,39 @@ export default function App() {
         setListState((prevList) => prevList.filter((item) => item.id !== id));
     }
 
+    // 수정 적용 핸들러
+    function handleChangeTodo(nextTodo) {
+        setListState(
+            listState.map((t) => {
+                if (t.id === nextTodo.id) {
+                    return nextTodo;
+                } else {
+                    return t;
+                }
+            }),
+        );
+    }
     // 투두 추가 이벤트 핸들러
     function handleAddTodo(inputText: string) {
         if (inputText == "") return;
 
-        const newId =
-            listState.length > 0 ? listState[listState.length - 1].id + 1 : 1;
-        setListState((prevList) => [
-            ...prevList,
-            { id: newId, completed: false, text: inputText },
-        ]);
+        setListState((prevList) => {
+            const newId =
+                listState.length > 0
+                    ? listState[listState.length - 1].id + 1
+                    : 1;
+
+            return [
+                ...prevList,
+                {
+                    id: newId,
+                    completed: false,
+                    text: inputText,
+                    category: selectedCategory,
+                    categoryLabel: categoryLabels[selectedCategory],
+                },
+            ];
+        });
     }
 
     // 투두 카운터 계산
@@ -50,8 +89,15 @@ export default function App() {
                 remainingCount={remainingCount}
             />
             <TodoInput onAdd={handleAddTodo} />
+            <CategorySelector
+                categories={categories}
+                categoryLabels={categoryLabels}
+                selectedCategory={selectedCategory}
+                onSelectCategory={handleCategorySelect}
+            />
             <TodoList
                 listState={listState}
+                onChange={handleChangeTodo}
                 onDelete={handleDelete}
                 onToggle={handleToggle}
             />
