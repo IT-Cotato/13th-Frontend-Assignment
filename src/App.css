@@ -1,135 +1,105 @@
-
-
-body { background-color: #F8F9FA; margin: 0; font-family: Pretendard, sans-serif; }
+body { background-color: #F8F9FA; margin: 0; font-family: 'Pretendard', sans-serif; }
 
 .app-container {
-  width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 32px 20px; 
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
-  gap: 64px; 
+  gap: 100px; 
 }
 
-.demo-section { display: flex; flex-direction: column; gap: 24px; }
+.section-subtitle {
+  font-size: 12px;
+  color: #9CA3AF;
+  margin-bottom: 12px;
+}
 
-.todo-header { display: flex; flex-direction: column; gap: 42px; margin: 0; margin-bottom: 8px; }
-.subtitle { color: #6B7280; font-size: 16px; font-weight: 600; margin: 0; }
-.title { color: #1F2937; font-size: 28px; font-weight: 800; margin: 0; }
-
-
+.todo-header { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+.header-icon { font-size: 24px; }
+.title { font-size: 24px; font-weight: 800; color: #1F2937; margin: 0; }
 
 .stats-card {
-  background-color: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  border-radius: 12px;
+  background: white;
   padding: 16px 24px;
+  border-radius: 12px;
   display: flex;
-  justify-content: flex-start; 
-  align-items: center;
-  gap: 16px;
-  font-size: 15px;
-  color: #4B5563;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  gap: 12px;
+  font-size: 14px;
+  color: #6B7280;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  margin-bottom: 24px;
 }
+.stats-card strong { color: #1F2937; }
+.text-green { color: #10B981 !important; }
+.text-blue { color: #3B82F6 !important; }
+.divider { color: #E5E7EB; }
 
-.stats-card strong {
-  font-weight: 700;
-  font-size: 16px;
-  margin-left: 4px;
-}
-
-
-.text-black { color: #1F2937; }
-.text-green { color: #10B981; }
-.text-blue  { color: #3B82F6; }
-
-.divider { color: #D1D5DB; }
-
-
-
-
-.input-row { display: flex; gap: 12px; }
-
+.input-row { display: flex; gap: 12px; margin-bottom: 20px; }
 .todo-input {
-  flex: 1; 
-  padding: 16px 20px;
-  font-size: 16px;
-  font-family: Pretendard, sans-serif;
-  border: 1px solid #E5E7EB;
-  border-radius: 12px;
-  background-color: #FFFFFF;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  outline: none;
-  transition: border-color 0.2s;
-  color: #1F2937;
+  flex: 1; padding: 14px 20px; border-radius: 12px;
+  border: 1px solid #E5E7EB; background: #F3F4F6; outline: none;
 }
-
-
-.todo-input:focus,
-.todo-input.focused {
-  border: 1px solid #3B82F6; 
-}
-.todo-input::placeholder { color: #9CA3AF; }
-
 .add-button {
-  padding: 0 24px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #FFFFFF;
-  background-color: #3B82F6;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  white-space: nowrap;
+  background: #6366F1; color: white; border: none;
+  padding: 0 24px; border-radius: 12px; font-weight: 600; cursor: pointer;
 }
-.add-button:hover { background-color: #2563EB; }
 
+.filter-row { display: flex; gap: 10px; margin-bottom: 24px; }
+.filter-btn {
+  padding: 8px 18px; border-radius: 10px; background: white;
+  font-weight: 600; font-size: 14px; cursor: pointer;
+}
+.filter-공부 { border: 1.5px solid #6366F1; color: #6366F1; }
+.filter-운동 { border: 1.5px solid #10B981; color: #10B981; }
+.filter-개인 { border: 1.5px solid #A855F7; color: #A855F7; }
+.filter-업무 { border: 1.5px solid #F59E0B; color: #F59E0B; }
 
-
-.todo-list { display: flex; flex-direction: column; gap: 16px; }
-
+.todo-list { display: flex; flex-direction: column; gap: 12px; }
 .todo-card {
-  background-color: #FFFFFF;
-  padding: 20px 24px;
-  border-radius: 16px;
-  border: 1px solid #E5E7EB;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
+  background: white; padding: 18px 24px; border-radius: 16px;
+  border: 1px solid #E5E7EB; display: flex; justify-content: space-between; align-items: center;
 }
 
 .card-left { display: flex; align-items: center; gap: 16px; flex: 1; }
-
 .checkbox-container {
-  display: flex; width: 24px; height: 24px;
-  justify-content: center; align-items: center;
-  border-radius: 50%; flex-shrink: 0;
-  cursor: pointer; 
+  width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.checkbox-container.unchecked { border: 2px solid #E5E7EB; background-color: transparent; }
-.checkbox-container.checked { 
-  background: #3B82F6;
-  border: 2px solid #3B82F6;
-  border-radius: 13421800px; 
-  opacity: 0.4; 
-}
+.unchecked { border: 2px solid #E5E7EB; }
+.checked { background: #A5B4FC; border: 2px solid #A5B4FC; }
 
-.task-text { color: #1F2937; font-size: 16px; font-weight: 400; margin: 0; }
+.task-info { display: flex; flex-direction: column; gap: 4px; }
+.task-text { font-size: 15px; color: #374151; font-weight: 500; }
 .done-text { color: #9CA3AF; text-decoration: line-through; }
 
-/* 삭제 버튼 */
-.delete-button {
-  background: none;
-  border: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+.category-tag {
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; width: fit-content;
+}
+.tag-공부 { background: #EEF2FF; color: #6366F1; }
+.tag-운동 { background: #ECFDF5; color: #10B981; }
+.tag-개인 { background: #F5F3FF; color: #A855F7; }
+.tag-업무 { background: #FFFBEB; color: #F59E0B; }
+
+/* 수정 모드 스타일 */
+.edit-mode-container { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.edit-input-wrapper { display: flex; gap: 8px; width: 100%; }
+.edit-input {
+  flex: 1; padding: 10px 16px; border: 2px solid #6366F1;
+  border-radius: 10px; font-size: 15px; outline: none; font-weight: 600;
+}
+.save-btn { background: #6366F1; color: white; border: none; padding: 0 16px; border-radius: 8px; cursor: pointer; }
+.cancel-btn { background: white; border: 1px solid #E5E7EB; color: #6B7280; padding: 0 16px; border-radius: 8px; cursor: pointer; }
+
+.item-actions { display: flex; gap: 8px; }
+.action-btn { background: none; border: none; cursor: pointer; opacity: 0.4; }
+.action-btn:hover { opacity: 1; }
+
+.category-tag.done-tag {
+  opacity: 0.4;
+  filter: grayscale(20%);
 }
 
-.delete-button svg path { transition: fill 0.2s; }
-.delete-button:hover svg path { fill: #4B5563; }
+.todo-card:has(.done-text) .action-btn {
+  opacity: 0.2;
+}
+
