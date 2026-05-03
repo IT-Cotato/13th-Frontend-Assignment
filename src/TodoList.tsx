@@ -1,19 +1,26 @@
 import TodoCard from "./TodoCard";
-
-interface Todo {
-  id: number;
-  text: string;
-  isCompleted: boolean;
-}
+import type Todo from "./types/todo";
 
 export default function TodoList({
   todos,
+  editingId,
+  editingText,
   onDelete,
   onToggle,
+  onEditStart,
+  onEditSave,
+  onEditCancel,
+  onEditTextChange,
 }: {
   todos: Todo[];
+  editingId: number | null;
+  editingText: string;
   onDelete: (id: number) => void;
   onToggle: (id: number) => void;
+  onEditStart: (id: number, text: string) => void;
+  onEditSave: (id: number) => void;
+  onEditCancel: () => void;
+  onEditTextChange: (text: string) => void;
 }) {
   if (todos.length === 0) {
     return (
@@ -31,8 +38,15 @@ export default function TodoList({
           <TodoCard
             text={todo.text}
             isCompleted={todo.isCompleted}
+            category={todo.category}
+            isEditing={editingId === todo.id}
+            editingText={editingText}
             onDelete={() => onDelete(todo.id)}
             onToggle={() => onToggle(todo.id)}
+            onEditStart={() => onEditStart(todo.id, todo.text)}
+            onEditSave={() => onEditSave(todo.id)}
+            onEditCancel={onEditCancel}
+            onEditTextChange={onEditTextChange}
           />
         </li>
       ))}

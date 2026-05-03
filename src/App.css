@@ -20,6 +20,13 @@ body {
   align-self: stretch;
 }
 
+.TodoHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: stretch;
+}
+
 .TodoCard {
   display: flex;
   padding: 16px;
@@ -58,6 +65,148 @@ body {
   flex: 1;
 }
 
+.TodoCard-content {
+  display: flex;
+  width: 488px;
+  height: 55px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.TodoCard-edit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.TodoCard-edit-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8.4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.TodoCard-edit-input {
+  height: 41px;
+  padding: 8px 12px;
+  align-items: center;
+  border-radius: 8px;
+  border: 4px solid #3b82f6;
+  background: rgba(255, 255, 255, 0);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.TodoCard-edit-buttons {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+.saveButton {
+  display: flex;
+  padding: 9.6px 15.744px 10.4px 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #3b82f6;
+  border: 2px solid #3b82f6;
+  white-space: nowrap;
+
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 150% */
+}
+
+.cancelButton {
+  display: flex;
+  padding: 9.6px 17.744px 10.4px 18px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  background: #fff;
+  white-space: nowrap;
+
+  color: #6b7280;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 150% */
+}
+
+.TodoCard-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.editButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+
+  color: #0a0a0a;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 150% */
+}
+
+.category-tag {
+  display: flex;
+  padding: 4px 11.75px 4px 12px;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 0;
+
+  font-family: "Pretendard Variable", "Pretendard", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 150% */
+}
+
+.category-tag.category-공부 {
+  border-radius: 999px;
+  border: none;
+  background: rgba(59, 130, 246, 0.13);
+  color: #3b82f6;
+}
+.category-tag.category-운동 {
+  border-radius: 999px;
+  border: none;
+  background-color: rgba(34, 197, 94, 0.13);
+  color: #22c55e;
+}
+.category-tag.category-개인 {
+  border-radius: 999px;
+  border: none;
+  background-color: rgba(168, 85, 247, 0.13);
+  color: #a855f7;
+}
+.category-tag.category-업무 {
+  border-radius: 999px;
+  border: none;
+  background-color: rgba(245, 158, 11, 0.13);
+  color: #f59e0b;
+}
+
 .TodoCard-checkbox {
   display: flex;
   width: 24px;
@@ -83,6 +232,20 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 21px; /* 150% */
+}
+
+.TodoCard-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.TodoCard-checkbox-wrapper {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .title {
@@ -169,6 +332,68 @@ body {
   padding-right: 0;
   align-items: flex-start;
   gap: 12px;
+}
+
+.category-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.category-button {
+  display: flex;
+  padding: 10px 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  text-align: center;
+  font-family: "Pretendard Variable", "Pretendard", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px; /* 150% */
+}
+
+.category-공부 {
+  border-radius: 8px;
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
+  background: #fff;
+}
+.category-운동 {
+  border-radius: 8px;
+  border: 2px solid #22c55e;
+  color: #22c55e;
+  background: #fff;
+}
+.category-개인 {
+  border-radius: 8px;
+  border: 2px solid #a855f7;
+  color: #a855f7;
+  background: #fff;
+}
+.category-업무 {
+  border-radius: 8px;
+  border: 2px solid #f59e0b;
+  color: #f59e0b;
+  background: #fff;
+}
+
+.category-공부.selected {
+  background: #3b82f6;
+  color: white;
+}
+.category-운동.selected {
+  background: #22c55e;
+  color: white;
+}
+.category-개인.selected {
+  background: #a855f7;
+  color: white;
+}
+.category-업무.selected {
+  background: #f59e0b;
+  color: white;
 }
 
 .todoInput {
