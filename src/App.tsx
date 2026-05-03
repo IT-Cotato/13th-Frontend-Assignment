@@ -8,31 +8,64 @@ import type { Todo } from "./types/todo.types";
 import Summary from "./Summary";
 
 function App() {
-  // 오늘의 할 일
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
   const [input, setInput] = useState("");
+  const [category, setCategory] = useState("공부");
 
-  // 추가
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editText, setEditText] = useState("");
+
   const handleAdd = () => {
     if (input.trim() === "") return;
-    setTodos([
-      ...todos,
-      { id: Date.now(), text: input.trim(), completed: false },
+
+    setTodos((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        text: input.trim(),
+        completed: false,
+        category,
+      },
     ]);
+
     setInput("");
   };
 
-  // 삭제
   const handleDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
-//토글
+
   const handleToggle = (id: number) => {
-  setTodos(
-    todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id
+          ? { ...todo, completed: !todo.completed }
+          : todo
       )
     );
+  };
+
+  const handleEdit = (id: number, text: string) => {
+    setEditingId(id);
+    setEditText(text);
+  };
+
+  const handleUpdate = (id: number) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id
+          ? { ...todo, text: editText }
+          : todo
+      )
+    );
+
+    setEditingId(null);
+    setEditText("");
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+    setEditText("");
   };
 
   return (
@@ -40,6 +73,7 @@ function App() {
       <div className="frame2">
         <TodoHeader />
       </div>
+
       <Summary todos={todos} />
 
       <InputTodo
@@ -47,13 +81,22 @@ function App() {
         setInput={setInput}
         onAdd={handleAdd}
         placeholder="할 일을 입력하세요"
+        category={category}
+        setCategory={setCategory}
       />
 
       <div className="container">
-        <TodoList 
-          todos={todos} 
-          onDelete={handleDelete} 
-          onToggle={handleToggle} 
+        <TodoList
+          todos={todos}
+          onDelete={handleDelete}
+          onToggle={handleToggle}
+
+          editingId={editingId}
+          editText={editText}
+          setEditText={setEditText}
+          onEdit={handleEdit}
+          onUpdate={handleUpdate}
+          onCancel={handleCancel}
         />
       </div>
     </div>
