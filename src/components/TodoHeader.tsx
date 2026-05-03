@@ -5,10 +5,10 @@ type Props = {
 };
 
 export default function TodoHeader({ title }: Props) {
-  return(
+  return (
     <div className="title">
       <span className="title-check">✅</span>
       <h1 className="title-text">{title}</h1>
     </div>
-  )
+  );
 }
