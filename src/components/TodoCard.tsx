@@ -27,8 +27,9 @@ export default function TodoCard({
   const [editText, setEditText] = useState(task);
 
   const handleUpdate = () => {
-    if (editText.trim()) {
-      onUpdate(id, editText);
+    const trimmedText = editText.trim();
+    if (trimmedText) {
+      onUpdate(id, trimmedText);
       setIsEditing(false);
     }
   };
