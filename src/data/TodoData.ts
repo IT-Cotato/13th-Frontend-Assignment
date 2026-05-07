@@ -1,4 +1,4 @@
-import type { Category } from '../components/TodoCategorySelector';
+import type { Category } from '../types/todo';
 
 export type Todo = {
     id: number;

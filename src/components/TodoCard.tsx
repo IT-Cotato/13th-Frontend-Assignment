@@ -1,7 +1,7 @@
 import EmptyCircleIcon from "../icons/EmptyCircleIcon"
 import CheckIcon from "../icons/CheckIcon"
 import { useState } from "react";
-import type { Category } from "./TodoCategorySelector";
+import type { Category } from '../types/todo';
 
 const categoryTagStyles: Record<Category, string> = {
   공부: "bg-[#3B82F6]/[0.125] text-[#3B82F6]",

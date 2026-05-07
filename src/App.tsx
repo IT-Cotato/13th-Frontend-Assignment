@@ -3,7 +3,7 @@ import TodoList from './components/TodoList'
 import TodoInput from './components/TodoInput'
 import TodoOverview from './components/TodoOverview'
 import TodoCategorySelector from './components/TodoCategorySelector'
-import type { Category } from './components/TodoCategorySelector';
+import type { Category } from './types/todo';
 import { todoData } from './data/TodoData'
 import { useState } from 'react';
 
