@@ -1,3 +1,4 @@
+// src/components/TodoCard.tsx
 import { useState } from 'react';
 
 interface TodoCardProps {
@@ -28,7 +29,6 @@ const TodoCard = ({ text, completed, category, onDelete, onToggle, onEdit }: Tod
   if (isEditing) {
     return (
       <div className="todo-card">
-        {/* 뱃지에 다이나믹 컬러 클래스 적용 */}
         <span className={`category-badge badge-${category}`}>{category}</span> 
         <input 
           className="todo-input edit-inline-input" 
@@ -60,7 +60,6 @@ const TodoCard = ({ text, completed, category, onDelete, onToggle, onEdit }: Tod
           )}
         </div>
         
-        {/* 일반 보기 모드 뱃지 컬러링 */}
         <span className={`category-badge badge-${category}`}>{category}</span>
         
         <p className={`card-text ${completed ? 'done-text' : ''}`}>
