@@ -178,6 +178,12 @@
   color: #fff;
 }
 
+.card-save-button:disabled {
+  border-color: #bfdbfe;
+  background: #bfdbfe;
+  cursor: not-allowed;
+}
+
 .card-cancel-button {
   border: 1px solid #e5e7eb;
   background: #fff;

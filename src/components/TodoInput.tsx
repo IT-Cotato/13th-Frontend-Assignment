@@ -47,6 +47,7 @@ export default function TodoInput({
             className={`category-button category-${category} ${
               selectedCategory === category ? 'is-selected' : ''
             }`}
+            aria-pressed={selectedCategory === category}
             onClick={() => onCategoryChange(category)}
           >
             {category}
