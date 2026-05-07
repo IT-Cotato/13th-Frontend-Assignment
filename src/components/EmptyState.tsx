@@ -1,4 +1,8 @@
-export default function EmptyState() {
+interface EmptyStateProps {
+  variant?: 'empty' | 'no-results';
+}
+
+export default function EmptyState({ variant = 'empty' }: EmptyStateProps) {
   const cardContainerStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
@@ -36,8 +40,10 @@ export default function EmptyState() {
   return (
     <div style={cardContainerStyle}>
       <div style={contentWrapperStyle}>
-        <span style={iconStyle} role="img" aria-label="clipboard">📋</span>
-        <p style={textStyle}>아직 할 일이 없어요</p>
+        <span style={iconStyle} role="img" aria-label={variant === 'no-results' ? 'search' : 'clipboard'}>
+          {variant === 'no-results' ? '🔍' : '📋'}
+        </span>
+        <p style={textStyle}>{variant === 'no-results' ? '검색 결과가 없습니다' : '아직 할 일이 없어요'}</p>
       </div>
     </div>
   );

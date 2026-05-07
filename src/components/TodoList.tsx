@@ -19,7 +19,7 @@ export default function TodoList({ items, onToggle, onDelete, onUpdate }: TodoLi
   const listStyle: React.CSSProperties = {
     listStyle: 'none',
     padding: 0,
-    margin: '22px 0 0 0',
+    margin: '24px 0 0 0',
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',
