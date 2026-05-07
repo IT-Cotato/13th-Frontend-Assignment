@@ -71,9 +71,8 @@ export default function TodoCard({
   const textStyle: React.CSSProperties = {
     font: 'var(--font-body)',
     color: isCompleted ? 'var(--text-secondary)' : 'var(--text)',
-    textDecoration: isCompleted ? 'line-through' : 'none', 
+    textDecoration: isCompleted ? 'line-through' : 'none',
     transition: 'color 0.2s ease',
-    cursor: 'pointer',
   };
 
   const editInputStyle: React.CSSProperties = {
@@ -89,27 +88,36 @@ export default function TodoCard({
   return (
     <div className="todo-card">
       <div style={contentSectionStyle}>
-        <div style={checkboxStyle} onClick={() => onToggle(id)}>
-          {isCompleted && (
-            <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
-              <path d="M1 5L4.5 8.5L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )}
-        </div>
-        <div style={textContainerStyle}>
-          {isEditing ? (
-            <input 
-              style={editInputStyle}
-              value={editText}
-              onChange={(e) => setEditText(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleUpdate()} 
-              autoFocus
-            />
-          ) : (
-            <span style={textStyle} onClick={() => onToggle(id)}>{task}</span>
-          )}
-          <CategoryBadge category={category} />
-        </div>
+        <input
+          type="checkbox"
+          id={id}
+          className="todo-checkbox"
+          checked={isCompleted}
+          onChange={() => onToggle(id)}
+        />
+        <label htmlFor={isEditing ? undefined : id} className="todo-checkbox-label">
+          <span style={checkboxStyle}>
+            {isCompleted && (
+              <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+                <path d="M1 5L4.5 8.5L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            )}
+          </span>
+          <div style={textContainerStyle}>
+            {isEditing ? (
+              <input
+                style={editInputStyle}
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
+                autoFocus
+              />
+            ) : (
+              <span style={textStyle}>{task}</span>
+            )}
+            <CategoryBadge category={category} />
+          </div>
+        </label>
       </div>
 
       <div className="button-group" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
