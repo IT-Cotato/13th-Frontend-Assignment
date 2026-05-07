@@ -12,11 +12,19 @@ function App() {
   const [todos, setTodos] = useState(todoData);
   const [ selectedCategory, setSelectedCategory ] = useState<Category>("공부");
   const [selectedFilterCategory, setSelectedFilterCategory] = useState<FilterCategory>("전체");
+  const [searchText, setSearchText] = useState("");
 
-  const filteredTodos =
-    selectedFilterCategory === "전체"
-      ? todos
-      : todos.filter((todo) => todo.category === selectedFilterCategory);
+  const filteredTodos = todos.filter((todo) => {
+  const matchCategory =
+    selectedFilterCategory === "전체" ||
+    todo.category === selectedFilterCategory;
+
+  const matchSearch = todo.todo
+    .toLowerCase()
+    .includes(searchText.toLowerCase());
+
+  return matchCategory && matchSearch;
+});
 
   function handleAddTodo(text: string) {
     const newTodo = {
@@ -62,8 +70,8 @@ function App() {
         <TodoOverview todos={todos} />
         <TodoInput onAddTodo={handleAddTodo} />
         <TodoCategorySelector selectedCategory={selectedCategory} onChangeCategory={setSelectedCategory}/>
-        <TodoFilter selectedFilterCategory={selectedFilterCategory} onChangeFilterCategory={setSelectedFilterCategory}/>
-        <TodoList todos={filteredTodos} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
+        <TodoFilter searchText={searchText} onChangeSearchText={setSearchText} selectedFilterCategory={selectedFilterCategory} onChangeFilterCategory={setSelectedFilterCategory}/>
+        <TodoList todos={filteredTodos} searchText={searchText} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
       </div>
     </div>
   )
