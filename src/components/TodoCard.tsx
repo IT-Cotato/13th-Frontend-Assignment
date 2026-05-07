@@ -1,15 +1,16 @@
 import EmptyCircleIcon from "../icons/EmptyCircleIcon"
 import CheckIcon from "../icons/CheckIcon"
 import { useState } from "react";
+import type { Category } from "./TodoCategorySelector";
 
-const categoryTagStyles: Record<string, string> = {
+const categoryTagStyles: Record<Category, string> = {
   공부: "bg-[#3B82F6]/[0.125] text-[#3B82F6]",
   운동: "bg-[#22C55E]/[0.125] text-[#22C55E]",
   개인: "bg-[#A855F7]/[0.125] text-[#A855F7]",
   업무: "bg-[#F59E0B]/[0.125] text-[#F59E0B]",
 };
 
-function Item({todo, isCompleted, category, onToggle}: {todo: string; isCompleted: boolean; category: string; onToggle: () => void }) {
+function Item({todo, isCompleted, category, onToggle}: {todo: string; isCompleted: boolean; category: Category; onToggle: () => void }) {
   return(
     <label className="flex items-center gap-[12px] cursor-pointer">
       <input
@@ -32,7 +33,7 @@ function Item({todo, isCompleted, category, onToggle}: {todo: string; isComplete
   )
 }
 
-export default function TodoCard({todo, isCompleted, category, onToggle, onDelete, onUpdate }: {todo: string; isCompleted: boolean; category: string; onToggle: () => void; onDelete: () => void; onUpdate: (newText: string) => void; }) {
+export default function TodoCard({todo, isCompleted, category, onToggle, onDelete, onUpdate }: {todo: string; isCompleted: boolean; category: Category; onToggle: () => void; onDelete: () => void; onUpdate: (newText: string) => void; }) {
   const [ isEditing, setIsEditing ] = useState(false);
   const [ editText, setEditText ] = useState(todo); 
 
