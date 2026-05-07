@@ -75,15 +75,6 @@ export default function TodoCard({
     transition: 'color 0.2s ease',
   };
 
-  const editInputStyle: React.CSSProperties = {
-    font: 'var(--font-body)',
-    border: '2px solid #3B82F6', 
-    borderRadius: '8px',
-    padding: '4px 8px',
-    width: '100%',
-    outline: 'none',
-    backgroundColor: 'transparent', 
-  };
 
   return (
     <div className="todo-card">
@@ -106,7 +97,7 @@ export default function TodoCard({
           <div style={textContainerStyle}>
             {isEditing ? (
               <input
-                style={editInputStyle}
+                className="edit-input"
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
