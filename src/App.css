@@ -1,9 +1,14 @@
 .frame3 {
   display: flex;
   width: 640px;
+  height: 1028px;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  gap: 22px;
+  gap: 24px;
+  flex-shrink: 0;
+  align-self: stretch;
+
   margin: 0 auto;
 }
 
@@ -251,12 +256,15 @@ display: flex;
 .add-button:hover {
   background: #2563eb;
 }
+
 .summary {
   display: flex;
-  height: 45px;
+  width: 640px;
   padding: 12px 16px;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
+
+  box-sizing: border-box;
 
   border-radius: 12px;
   background: #fff;
