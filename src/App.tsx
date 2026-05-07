@@ -78,6 +78,7 @@ function App() {
             <button 
               key={cat}
               onClick={() => setSelectedCategory(cat)}
+              aria-pressed={isSelected}
               className={`flex items-center justify-center px-[18px] py-[10px] rounded-[8px] border-2 text-body transition-all
                 ${isSelected? style.active: style.filter}`}
             >
