@@ -5,12 +5,14 @@ import TodoCount from './components/TodoCount';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import type { Todo, TodoCategory } from './types/todo';
+import SearchInput from './components/SearchInput';
 
 function App() {
   const [inputText, setInputText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<TodoCategory>('공부');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: '리액트 공식문서 읽기', completed: true, category: '공부' },
@@ -65,7 +67,7 @@ function App() {
           : todo
       )
     );
-    
+
     setEditingId(null);
     setEditingText('');
   };
@@ -81,6 +83,10 @@ function App() {
         todo.id !== id));
   };
 
+  const filteredTodos = todos.filter((todo) =>
+  todo.text.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <div className="todo">
       <TodoHeader title="오늘의 할 일" />
@@ -92,8 +98,12 @@ function App() {
         onChangeCategory={setSelectedCategory}
         onAddTodo={handleAddTodo} 
       />
+      <SearchInput
+        searchText={searchText}
+        onChangeSearch={setSearchText}
+      />
       <TodoList 
-        todos={todos} 
+        todos={filteredTodos} 
         editingId={editingId}
         editingText={editingText}
         onChangeEditText={setEditingText}

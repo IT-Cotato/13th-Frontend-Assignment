@@ -1,0 +1,21 @@
+.search-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+.search-input {
+  padding: 12px 16px;
+  align-items: center;
+  flex: 1 0 0;
+  border-radius: 8px;
+  border: 0.8px solid #E5E7EB;
+  color: #6B7280;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background-color: #F5F5F5;
+}
