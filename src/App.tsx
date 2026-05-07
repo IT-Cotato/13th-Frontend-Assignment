@@ -6,6 +6,7 @@ import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import type { Todo, TodoCategory } from './types/todo';
 import SearchInput from './components/SearchInput';
+import CategoryFilter from './components/CategoryFilter';
 
 function App() {
   const [inputText, setInputText] = useState('');
@@ -13,6 +14,7 @@ function App() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState('');
   const [searchText, setSearchText] = useState('');
+  const [filterCategory, setFilterCategory] = useState<'전체' | TodoCategory>('전체');
 
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: '리액트 공식문서 읽기', completed: true, category: '공부' },
@@ -83,9 +85,18 @@ function App() {
         todo.id !== id));
   };
 
-  const filteredTodos = todos.filter((todo) =>
-  todo.text.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredTodos = todos.filter((todo) => {
+    const matchesSearch = todo.text
+      .toLowerCase()
+      .includes(searchText.toLowerCase());
+
+    const matchesCategory =
+      filterCategory === '전체'
+        ? true
+        : todo.category === filterCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="todo">
@@ -101,6 +112,10 @@ function App() {
       <SearchInput
         searchText={searchText}
         onChangeSearch={setSearchText}
+      />
+      <CategoryFilter
+        selectedCategory={filterCategory}
+        onSelectCategory={setFilterCategory}
       />
       <TodoList 
         todos={filteredTodos} 
