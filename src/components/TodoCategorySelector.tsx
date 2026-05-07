@@ -34,6 +34,7 @@ export default function TodoCategorySelector({
         <button
           key={category}
           onClick={() => onChangeCategory(category)}
+          aria-pressed={selectedCategory === category}
           className={`rounded-[8px] px-[18px] py-[10px] ${
             selectedCategory === category
               ? categoryStyles[category].selected

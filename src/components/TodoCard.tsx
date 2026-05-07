@@ -67,6 +67,7 @@ export default function TodoCard({todo, isCompleted, category, onToggle, onDelet
                 <input
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
+                  aria-label={`${todo} 수정`}
                   className="w-full rounded-[8px] border-[2px] border-[#3B82F6] px-[12px] py-[8px] text-[14px] text-[#1F2937] outline-none"
                 />
 
@@ -90,6 +91,7 @@ export default function TodoCard({todo, isCompleted, category, onToggle, onDelet
           <>
             <button
               onClick={handleSave}
+              disabled={!editText.trim()}
               className="rounded-[8px] bg-[#3B82F6] px-[16px] py-[10px] text-[12px] text-white"
             >
               저장
