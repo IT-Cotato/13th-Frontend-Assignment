@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './TodoCard.css';
+import './TodoInput.css';
 import CategoryBadge from './CategoryBadge';
 import type { Category } from './CategoryTag';
 
@@ -32,10 +33,14 @@ export default function TodoCard({
     }
   };
 
+  const handleCancel = () => {
+    setEditText(task);
+    setIsEditing(false);
+  };
+
   const contentSectionStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    gap: '12px',
     flex: 1, 
   };
 
@@ -45,6 +50,7 @@ export default function TodoCard({
     gap: '4px',
     alignItems: 'flex-start',
     flex: 1,
+    marginRight: '12px', 
   };
 
   const checkboxStyle: React.CSSProperties = {
@@ -59,6 +65,7 @@ export default function TodoCard({
     flexShrink: 0,
     transition: 'all 0.2s ease', 
     cursor: 'pointer',
+    marginRight: '12px', 
   };
 
   const textStyle: React.CSSProperties = {
@@ -66,15 +73,17 @@ export default function TodoCard({
     color: isCompleted ? 'var(--text-secondary)' : 'var(--text)',
     textDecoration: isCompleted ? 'line-through' : 'none', 
     transition: 'color 0.2s ease',
+    cursor: 'pointer',
   };
 
   const editInputStyle: React.CSSProperties = {
     font: 'var(--font-body)',
-    border: '1px solid var(--primary)',
-    borderRadius: '4px',
-    padding: '2px 4px',
+    border: '2px solid #3B82F6', 
+    borderRadius: '8px',
+    padding: '4px 8px',
     width: '100%',
     outline: 'none',
+    backgroundColor: 'transparent', 
   };
 
   return (
@@ -93,8 +102,7 @@ export default function TodoCard({
               style={editInputStyle}
               value={editText}
               onChange={(e) => setEditText(e.target.value)}
-              onBlur={handleUpdate} // 포커스 해제 시 저장
-              onKeyDown={(e) => e.key === 'Enter' && handleUpdate()} // 엔터 시 저장
+              onKeyDown={(e) => e.key === 'Enter' && handleUpdate()} 
               autoFocus
             />
           ) : (
@@ -104,22 +112,41 @@ export default function TodoCard({
         </div>
       </div>
 
-      <div className="button-group" style={{ display: 'flex', gap: '8px' }}>
-        <button 
-          className="action-button"
-          onClick={() => setIsEditing(!isEditing)}
-          aria-label="수정"
-        >
-          ✏️
-        </button>
-
-        <button 
-          className="action-button"
-          onClick={() => onDelete(id)}
-          aria-label="삭제"
-        >
-          🗑
-        </button>
+      <div className="button-group" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        {isEditing ? (
+          <>
+            <button 
+              className="todo-add-button" 
+              onClick={handleUpdate}
+              style={{ padding: '6px 16px', height: '38px', minWidth: '52px' }} 
+            >
+              저장
+            </button>
+            <button 
+              className="cancel-button" 
+              onClick={handleCancel}
+            >
+              취소
+            </button>
+          </>
+        ) : (
+          <>
+            <button 
+              className="action-button"
+              onClick={() => setIsEditing(true)}
+              aria-label="수정"
+            >
+              ✏️
+            </button>
+            <button 
+              className="action-button"
+              onClick={() => onDelete(id)}
+              aria-label="삭제"
+            >
+              🗑
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
