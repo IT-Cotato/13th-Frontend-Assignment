@@ -6,6 +6,7 @@ import InputTodo from "./InputTodo";
 import { useState } from "react";
 import type { Todo } from "./types/todo.types";
 import Summary from "./Summary";
+import Search from "./Search";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
@@ -14,6 +15,9 @@ function App() {
 
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editText, setEditText] = useState("");
+
+  const [search, setSearch] = useState("");
+  const [filterCategory, setFilterCategory] = useState("전체");
 
   const handleAdd = () => {
     if (input.trim() === "") return;
@@ -51,10 +55,14 @@ function App() {
   };
 
   const handleUpdate = (id: number) => {
+    const trimmedText = editText.trim();
+
+    if (!trimmedText) return;
+
     setTodos((prev) =>
       prev.map((todo) =>
         todo.id === id
-          ? { ...todo, text: editText }
+          ? { ...todo, text: trimmedText }
           : todo
       )
     );
@@ -67,6 +75,18 @@ function App() {
     setEditingId(null);
     setEditText("");
   };
+
+  const filteredTodos = todos.filter((todo) => {
+    const matchSearch = todo.text
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const matchCategory =
+      filterCategory === "전체" ||
+      todo.category === filterCategory;
+
+    return matchSearch && matchCategory;
+  });
 
   return (
     <div className="frame3">
@@ -85,12 +105,20 @@ function App() {
         setCategory={setCategory}
       />
 
+      <div className="divider"></div>
+
+      <Search
+        search={search}
+        setSearch={setSearch}
+        filterCategory={filterCategory}
+        setFilterCategory={setFilterCategory}
+      />
+
       <div className="container">
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
           onDelete={handleDelete}
           onToggle={handleToggle}
-
           editingId={editingId}
           editText={editText}
           setEditText={setEditText}
