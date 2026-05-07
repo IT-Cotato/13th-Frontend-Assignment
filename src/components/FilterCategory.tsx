@@ -1,4 +1,4 @@
-import type { Category } from './CategoryTag';
+import type { Category } from '../types/todo';
 import './FilterCategory.css';
 
 export type FilterCategory = '전체' | Category;

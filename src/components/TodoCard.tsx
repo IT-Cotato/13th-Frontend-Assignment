@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './TodoCard.css';
 import './TodoInput.css';
 import CategoryBadge from './CategoryBadge';
-import type { Category } from './CategoryTag';
+import type { Category } from '../types/todo';
 
 interface TodoCardProps {
   id: string; 

@@ -1,15 +1,8 @@
 import TodoCard from './TodoCard';
-import type { Category } from './CategoryTag';
-
-interface TodoItem {
-  id: string;
-  task: string;
-  isCompleted: boolean;
-  category: Category;
-}
+import type { Todo } from '../types/todo';
 
 interface TodoListProps {
-  items: TodoItem[];
+  items: Todo[];
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onUpdate: (id: string, newTask: string) => void;

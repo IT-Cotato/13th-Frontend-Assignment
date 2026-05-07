@@ -8,18 +8,11 @@ import TodoStats from './components/TodoStats';
 import CategoryTag from './components/CategoryTag';
 import SearchInput from './components/SearchInput';
 import FilterCategory from './components/FilterCategory';
-import type { Category } from './components/CategoryTag';
+import type { Todo, Category } from './types/todo';
 import type { FilterCategory as FilterCategoryType } from './components/FilterCategory';
 
-interface Todo {
-  id: string;
-  task: string;
-  isCompleted: boolean;
-  category: Category;
-}
-
 export default function App() {
-  const [todoItems, setTodoItems] = useState<Todo[]>(TODO_ITEMS as Todo[]);
+  const [todoItems, setTodoItems] = useState<Todo[]>(TODO_ITEMS);
   const [selectedCategory, setSelectedCategory] = useState<Category>('공부');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<FilterCategoryType>('전체');
