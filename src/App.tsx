@@ -5,6 +5,7 @@ import TodoList from "./components/TodoList";
 import TodoCounter from "./components/TodoCounter";
 import TodoCategory from "./components/TodoCategory";
 import type { Todo } from "./types/todo";
+import Search from "./components/Search";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([
@@ -15,7 +16,10 @@ function App() {
     { id: 4, text: "장보기 하기", completed: false, category: "개인" },
   ]);
 
-  const [selectedCategory, setSelectedCategory] = useState("공부");
+  const [selectedInputCategory, setSelectedInputCategory] = useState("공부");
+  const [selectedSearchCategory, setSelectedSearchCategory] = useState("전체");
+
+  const [searchText, setSearchText] = useState("");
 
   const completedTodos = todos.filter((todo) => todo.completed === true);
 
@@ -34,9 +38,9 @@ function App() {
 
       const newTodo = {
         id: newIndex,
-        text: newTodoText,
+        text: trimmedText,
         completed: false,
-        category: selectedCategory
+        category: selectedInputCategory
       };
 
       return [...prevTodos, newTodo];
@@ -54,7 +58,7 @@ function App() {
 
     setTodos((prevTodos) => {
       const newTodos = prevTodos.map((todo) => 
-        todo.id === updatedId ? {...todo, text: updatedText} : todo
+        todo.id === updatedId ? {...todo, text: trimmedText} : todo
       );
 
       return newTodos;
@@ -73,6 +77,8 @@ function App() {
     );
   };
 
+  const filterTodos = todos.filter((todo) => ((todo.text.includes(searchText)) && (selectedSearchCategory==="전체" || todo.category===selectedSearchCategory)));
+  
   return (
     <>
       <div className="todoContainer">
@@ -83,8 +89,11 @@ function App() {
           incompletedCount={incompletedTodos.length}
         />
         <TodoInput handleAddTodo={handleAddTodo} />
-        <TodoCategory selected={selectedCategory} onSelect={setSelectedCategory} />
-        <TodoList todos={todos} handleCompletedStatus={handleCompletedStatus} handleUpdateTodo={handleUpdateTodo} handleDeleteTodo={handleDeleteTodo} />
+        <TodoCategory isShowAll={false} selected={selectedInputCategory} onSelect={setSelectedInputCategory} name="input" />
+        <hr className="border-[rgba(229,231,235,1)]" />
+        <Search searchText={searchText} onSeachChange={setSearchText} />
+        <TodoCategory isShowAll={true} selected={selectedSearchCategory} onSelect={setSelectedSearchCategory} name="search" />
+        <TodoList todos={filterTodos} searchText={searchText} handleCompletedStatus={handleCompletedStatus} handleUpdateTodo={handleUpdateTodo} handleDeleteTodo={handleDeleteTodo} />
       </div>
     </>
   );
