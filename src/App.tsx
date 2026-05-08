@@ -119,7 +119,7 @@ function App() {
 
   const totalCount = todos.length;
   const completedCount = todos.filter((todo) => todo.completed).length;
-  const activeCount = todos.filter((todo) => !todo.completed).length;
+  const inCompleteCount = todos.filter((todo) => !todo.completed).length;
 
   return (
     <div className="min-h-screen bg-neutral-100 p-10">
@@ -129,7 +129,7 @@ function App() {
         <TodoCounter
           totalCount={totalCount}
           completedCount={completedCount}
-          activeCount={activeCount}
+          inCompleteCount={inCompleteCount}
         />
 
         <TodoInput
