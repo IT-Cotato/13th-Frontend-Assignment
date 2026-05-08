@@ -3,6 +3,7 @@ import type { Todo } from "../types/todo";
 
 type TodoListProps = {
   todos: Todo[];
+  filteredTodos: Todo[];
   editingId: number | null;
   editingText: string;
   onToggle: (id: number) => void;
@@ -15,6 +16,7 @@ type TodoListProps = {
 
 function TodoList({
   todos,
+  filteredTodos,
   editingId,
   editingText,
   onToggle,
@@ -24,9 +26,31 @@ function TodoList({
   onSaveEdit,
   onCancelEdit,
 }: TodoListProps) {
+  if (todos.length === 0) {
+    return (
+      <div className="flex h-60 w-full flex-col items-center justify-center gap-3 rounded-xl bg-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.10)]">
+        <div className="text-5xl leading-[72px]">📋</div>
+        <div className="text-sm font-normal leading-5 text-gray-500">
+          아직 할 일이 없어요
+        </div>
+      </div>
+    );
+  }
+
+  if (filteredTodos.length === 0) {
+    return (
+      <div className="flex h-60 w-full flex-col items-center justify-center gap-3 rounded-xl bg-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.10)]">
+        <div className="text-5xl leading-[72px]">🔎</div>
+        <div className="text-sm font-normal leading-5 text-gray-500">
+          검색 결과가 없습니다
+        </div>
+      </div>
+    );
+  }
+
   return (
     <ul className="flex w-full list-none flex-col gap-4 p-0">
-      {todos.map((todo) => (
+      {filteredTodos.map((todo) => (
         <li key={todo.id}>
           <TodoItem
             text={todo.text}
