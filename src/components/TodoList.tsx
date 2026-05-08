@@ -101,6 +101,8 @@ export default function TodoList({
         ))}
       </div>
 
+      <hr className="divider" />
+
       {/* 검색 input */}
       <div className="todo-search-card">
         <span className="todo-search-card__icon">🔍</span>
