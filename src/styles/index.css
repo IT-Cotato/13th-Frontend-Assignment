@@ -3,6 +3,7 @@
 @import "./App.css";
 
 @theme {
+  --color-whole: #1F2937;
   --color-study: #3B82F6;
   --color-exercise: #22C55E;
   --color-personal: #A855F7;
