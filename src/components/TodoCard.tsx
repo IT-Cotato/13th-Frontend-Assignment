@@ -45,6 +45,7 @@ export default function TodoCard({
           className="todo-card__check-input"
           checked={completed}
           onChange={onToggle}
+          aria-label = {`${text} 완료 여부`}
         />
         <span className={`todo-card__check ${completed ? "todo-card__check--done" : ""}`}>
           {completed && <img src={checkIcon} alt="" className="todo-card__check-icon" />}
@@ -52,7 +53,6 @@ export default function TodoCard({
       </label>
 
       {isEditing ? (
-        // 편집 모드
         <div className="todo-card__body">
           <div className="todo-card__edit-row">
             <input
@@ -74,7 +74,6 @@ export default function TodoCard({
           </span>
         </div>
       ) : (
-        // 일반 모드
         <div className="todo-card__body">
           <span className={`todo-card__text ${completed ? "todo-card__text--done" : ""}`}>
             {text}
@@ -87,10 +86,10 @@ export default function TodoCard({
 
       {!isEditing && (
         <div className="todo-card__actions">
-          <button className="delete-button" onClick={onEditStart} aria-label="수정">
+          <button className="delete-button" onClick={onEditStart} aria-label={`${text} 수정`}>
             ✏️
           </button>
-          <button className="delete-button" onClick={onDelete} aria-label="삭제">
+          <button className="delete-button" onClick={onDelete} aria-label={`${text} 삭제`}>
             🗑️
           </button>
         </div>
