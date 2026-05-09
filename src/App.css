@@ -339,6 +339,11 @@ body {
   gap: 8px;
 }
 
+.filter-category-bar {
+  display: flex;
+  gap: 8px;
+}
+
 .category-button {
   display: flex;
   padding: 10px 18px;
@@ -379,6 +384,13 @@ body {
   background: #fff;
 }
 
+.category-전체 {
+  border-radius: 8px;
+  border: 2px solid #1f2937;
+  color: #1f2937;
+  background: #fff;
+}
+
 .category-공부.selected {
   background: #3b82f6;
   color: white;
@@ -393,6 +405,10 @@ body {
 }
 .category-업무.selected {
   background: #f59e0b;
+  color: white;
+}
+.category-전체.selected {
+  background: #1f2937;
   color: white;
 }
 

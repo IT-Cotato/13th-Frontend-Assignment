@@ -18,6 +18,7 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<Todo["category"]>("공부");
+  const [filterCategory, setFilterCategory] = useState<string>("전체");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -130,6 +131,20 @@ function App() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="search-input"
         />
+      </div>
+
+      <div className="filter-category-bar">
+        {["전체", "공부", "운동", "개인", "업무"].map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            className={`category-button category-${cat} ${filterCategory === cat ? "selected" : ""}`}
+            onClick={() => setFilterCategory(cat)}
+            aria-pressed={filterCategory === cat}
+          >
+            {cat}
+          </button>
+        ))}
       </div>
 
       <div className="container">
