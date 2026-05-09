@@ -83,6 +83,17 @@ function App() {
   const completedCount = todos.filter((todo) => todo.isCompleted).length;
   const incompleteCount = totalCount - completedCount;
 
+  const filteredTodos = todos.filter((todo) => {
+    const matchesSearch = todo.text
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    const matchesCategory =
+      filterCategory === "전체" || todo.category === filterCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <div className="frame3">
       <div className="frame2">
@@ -149,7 +160,7 @@ function App() {
 
       <div className="container">
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
           editingId={editingId}
           editingText={editingText}
           onDelete={handleDeleteTodo}
