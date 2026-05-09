@@ -159,17 +159,29 @@ function App() {
       </div>
 
       <div className="container">
-        <TodoList
-          todos={filteredTodos}
-          editingId={editingId}
-          editingText={editingText}
-          onDelete={handleDeleteTodo}
-          onToggle={handleToggleTodo}
-          onEditStart={handleEditStart}
-          onEditSave={handleEditSave}
-          onEditCancel={handleEditCancel}
-          onEditTextChange={setEditingText}
-        />
+        {todos.length === 0 ? (
+          <div className="empty-state">
+            <span className="empty-icon">📋</span>
+            <p className="empty-text">아직 할 일이 없어요</p>
+          </div>
+        ) : filteredTodos.length > 0 ? (
+          <TodoList
+            todos={filteredTodos}
+            editingId={editingId}
+            editingText={editingText}
+            onDelete={handleDeleteTodo}
+            onToggle={handleToggleTodo}
+            onEditStart={handleEditStart}
+            onEditSave={handleEditSave}
+            onEditCancel={handleEditCancel}
+            onEditTextChange={setEditingText}
+          />
+        ) : (
+          <div className="empty-state">
+            <span className="empty-icon">🔍</span>
+            <p className="empty-text">검색 결과가 없습니다.</p>
+          </div>
+        )}
       </div>
     </div>
   );
