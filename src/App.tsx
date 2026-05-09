@@ -111,6 +111,7 @@ function App() {
             type="button"
             className={`category-button category-${cat} ${selectedCategory === cat ? "selected" : ""}`}
             onClick={() => setSelectedCategory(cat)}
+            aria-pressed={selectedCategory === cat}
           >
             {cat}
           </button>
