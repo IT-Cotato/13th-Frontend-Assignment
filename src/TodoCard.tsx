@@ -47,6 +47,7 @@ export default function TodoCard({
               value={editingText}
               onChange={(e) => onEditTextChange(e.target.value)}
               autoFocus
+              aria-label={`${text} 수정`}
             />
             <span className={`category-tag category-${category}`}>
               {category}
