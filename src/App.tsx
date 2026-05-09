@@ -20,6 +20,7 @@ function App() {
     useState<Todo["category"]>("공부");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -116,6 +117,19 @@ function App() {
             {cat}
           </button>
         ))}
+      </div>
+
+      <hr className="divider" />
+
+      <div className="search-bar">
+        <span className="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder="할 일 검색..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
       </div>
 
       <div className="container">

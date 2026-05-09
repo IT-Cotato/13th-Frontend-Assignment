@@ -396,10 +396,46 @@ body {
   color: white;
 }
 
+.search-bar {
+  display: flex;
+  width: 640px;
+  height: 46.6px;
+  padding-right: 0;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  padding: 12px 12px 12px 12px;
+  z-index: 1;
+  pointer-events: none;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+
 .todoInput {
   display: flex;
   height: 46.6px;
   padding: 12px 16px;
+  align-items: center;
+  flex: 1 0 0;
+
+  border-radius: 8px;
+  border: 0.8px solid #e5e7eb;
+  outline: none;
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+}
+
+.search-input {
+  display: flex;
+  height: 46.6px;
+  padding: 12px 12px 12px 40px;
   align-items: center;
   flex: 1 0 0;
 
@@ -418,6 +454,14 @@ body {
   border: 2px solid #3b82f6;
   background: rgba(255, 255, 255, 0);
   box-shadow: 0 0 0 4px #3b82f6;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  border: none;
+  background: #e5e7eb;
+  flex-shrink: 0;
 }
 
 .addButton {
