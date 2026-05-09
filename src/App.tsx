@@ -36,7 +36,7 @@ function App() {
       category: selectedCategory,
     };
 
-    setTodos([...todos, newTodo]);
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
 
     setInputValue("");
     setSelectedCategory("공부");
