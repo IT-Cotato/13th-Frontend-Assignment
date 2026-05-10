@@ -20,7 +20,7 @@ export default function TodoCard({
 }) {
     // 수정 상태 관리
     const [isEditing, setIsEditing] = useState(false);
-    const [beforeText, setBeforeText] = useState(text);
+    const [editingText, setEditingText] = useState(text);
 
     let todoContent;
 
@@ -30,15 +30,9 @@ export default function TodoCard({
                 <div className="todo-input-container">
                     <input
                         className="todo-input-editing"
-                        value={text}
+                        value={editingText}
                         onChange={(e) => {
-                            onChange({
-                                id,
-                                completed,
-                                category,
-                                categoryLabel,
-                                text: e.target.value,
-                            });
+                            setEditingText(e.target.value);
                         }}
                     />
                     <span className={"todoItemCategory " + category}>
@@ -49,7 +43,13 @@ export default function TodoCard({
                     <button
                         id="save-button"
                         onClick={() => {
-                            setBeforeText(text);
+                            onChange({
+                                id,
+                                completed,
+                                category,
+                                categoryLabel,
+                                text: editingText,
+                            });
                             setIsEditing(false);
                         }}
                     >
@@ -59,13 +59,7 @@ export default function TodoCard({
                         id="cancle-button"
                         onClick={() => {
                             setIsEditing(false);
-                            onChange({
-                                id,
-                                completed,
-                                category,
-                                categoryLabel,
-                                text: beforeText,
-                            });
+                            setEditingText(text);
                         }}
                     >
                         취소

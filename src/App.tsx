@@ -43,8 +43,8 @@ export default function App() {
 
     // 수정 적용 핸들러
     function handleChangeTodo(nextTodo: TodoItem) {
-        setListState(
-            listState.map((t) => {
+        setListState((prevList) =>
+            prevList.map((t) => {
                 if (t.id === nextTodo.id) {
                     return nextTodo;
                 } else {

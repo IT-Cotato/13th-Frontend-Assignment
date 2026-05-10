@@ -32,8 +32,6 @@ export default function TodoInput({
                 <button id="addButton" type="submit">
                     <span className="buttonText">추가</span>
                 </button>
-
-                <input type="checkbox"></input>
             </form>
         </>
     );
