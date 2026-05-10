@@ -9,7 +9,7 @@ export default function TodoList({
     onDelete,
 }: {
     listState: TodoItem[];
-    onChange: (nextTodo: string) => void;
+    onChange: (nextTodo: TodoItem) => void;
     onToggle: (id: number) => void;
     onDelete: (id: number) => void;
 }) {

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { todoItems } from "./data";
 import TodoCounter from "./ui/TodoCounter";
 import CategorySelector from "./ui/CategorySelector";
+import type { TodoItem } from "./types";
 
 export default function App() {
     // 투두리스트 상태 관리
@@ -19,7 +20,7 @@ export default function App() {
         personal: "개인",
         work: "업무",
     };
-    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("study");
 
     // 카테고리 선택 이벤트 핸들러
     function handleCategorySelect(category: string) {
@@ -41,7 +42,7 @@ export default function App() {
     }
 
     // 수정 적용 핸들러
-    function handleChangeTodo(nextTodo) {
+    function handleChangeTodo(nextTodo: TodoItem) {
         setListState(
             listState.map((t) => {
                 if (t.id === nextTodo.id) {
