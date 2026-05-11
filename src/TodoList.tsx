@@ -25,15 +25,14 @@ export default function TodoList({
         />
     ));
 
+    if (totalCount === 0) {
+        return <Empty type="total" />;
+    }
+
     return (
         <>
-            {totalCount === 0 && <Empty />}
             <ul id="todoList">
-                {filteredList.length > 0 ? (
-                    todoItem
-                ) : (
-                    <div>검색 결과가 없습니다.</div>
-                )}
+                {filteredList.length > 0 ? todoItem : <Empty type="search" />}
             </ul>
         </>
     );
