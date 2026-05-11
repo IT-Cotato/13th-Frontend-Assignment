@@ -106,11 +106,16 @@ export default function App() {
         setSearchText(e.target.value);
     }
 
-    // 필터링된 투두리스트
-    const filteredList =
+    // 카테고리로 필터링된 투두리스트
+    const categoryFilteredList =
         filterCategory === "all"
             ? listState
             : listState.filter((item) => item.category === filterCategory);
+
+    // 카테고리 내에서 검색어로 필터링된 투두리스트
+    const searchFilteredList = categoryFilteredList.filter((item) =>
+        item.text.toLowerCase().includes(searchText.toLowerCase()),
+    );
 
     return (
         <>
@@ -136,10 +141,8 @@ export default function App() {
                 onFilterCategory={handleFilterCategory}
             />
             <TodoList
-                searchText={searchText}
-                filterCategory={filterCategory}
-                listState={listState}
-                filteredList={filteredList}
+                totalCount={listState.length}
+                filteredList={searchFilteredList}
                 onChange={handleChangeTodo}
                 onDelete={handleDelete}
                 onToggle={handleToggle}

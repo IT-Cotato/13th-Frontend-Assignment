@@ -3,13 +3,13 @@ import TodoCard from "./ui/TodoCard";
 import type { TodoItem } from "./types";
 
 export default function TodoList({
-    listState,
+    totalCount,
     filteredList,
     onChange,
     onToggle,
     onDelete,
 }: {
-    listState: TodoItem[];
+    totalCount: number;
     filteredList: TodoItem[];
     onChange: (nextTodo: TodoItem) => void;
     onToggle: (id: number) => void;
@@ -27,8 +27,14 @@ export default function TodoList({
 
     return (
         <>
-            {listState.length === 0 && <Empty />}
-            <ul id="todoList">{todoItem}</ul>
+            {totalCount === 0 && <Empty />}
+            <ul id="todoList">
+                {filteredList.length > 0 ? (
+                    todoItem
+                ) : (
+                    <div>검색 결과가 없습니다.</div>
+                )}
+            </ul>
         </>
     );
 }
