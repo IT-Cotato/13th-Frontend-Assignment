@@ -7,6 +7,7 @@ import { todoItems } from "./data";
 import TodoCounter from "./ui/TodoCounter";
 import CategorySelector from "./ui/CategorySelector";
 import type { TodoItem } from "./types";
+import TodoFilter from "./ui/TodoFilter";
 
 export default function App() {
     // 투두리스트 상태 관리
@@ -81,6 +82,36 @@ export default function App() {
     const completedCount = listState.filter((item) => item.completed).length;
     const remainingCount = listState.filter((item) => !item.completed).length;
 
+    // 카테고리 필터 상태 관리
+    const filters = ["all", "study", "exercise", "personal", "work"];
+    const filterLabels: Record<string, string> = {
+        all: "전체",
+        study: "공부",
+        exercise: "운동",
+        personal: "개인",
+        work: "업무",
+    };
+    const [filterCategory, setFilterCategory] = useState("all");
+
+    // 필터 선택 이벤트 핸들러
+    function handleFilterCategory(category: string) {
+        setFilterCategory(category);
+    }
+
+    // 투두 검색 텍스트 상태 관리
+    const [searchText, setSearchText] = useState("");
+
+    // 투두 검색 이벤트 핸들러
+    function handleSearchTodo(e: React.ChangeEvent<HTMLInputElement>) {
+        setSearchText(e.target.value);
+    }
+
+    // 필터링된 투두리스트
+    const filteredList =
+        filterCategory === "all"
+            ? listState
+            : listState.filter((item) => item.category === filterCategory);
+
     return (
         <>
             <TodoHeader />
@@ -96,8 +127,19 @@ export default function App() {
                 selectedCategory={selectedCategory}
                 onSelectCategory={handleCategorySelect}
             />
+            <TodoFilter
+                searchText={searchText}
+                onSearch={handleSearchTodo}
+                filters={filters}
+                filterLabels={filterLabels}
+                filterCategory={filterCategory}
+                onFilterCategory={handleFilterCategory}
+            />
             <TodoList
+                searchText={searchText}
+                filterCategory={filterCategory}
                 listState={listState}
+                filteredList={filteredList}
                 onChange={handleChangeTodo}
                 onDelete={handleDelete}
                 onToggle={handleToggle}

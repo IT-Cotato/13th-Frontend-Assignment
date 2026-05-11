@@ -4,19 +4,18 @@ import type { TodoItem } from "./types";
 
 export default function TodoList({
     listState,
+    filteredList,
     onChange,
     onToggle,
     onDelete,
 }: {
     listState: TodoItem[];
+    filteredList: TodoItem[];
     onChange: (nextTodo: TodoItem) => void;
     onToggle: (id: number) => void;
     onDelete: (id: number) => void;
 }) {
-    if (listState.length === 0) {
-        return <Empty />;
-    }
-    const todoItem = listState.map((todoItem) => (
+    const todoItem = filteredList.map((todoItem) => (
         <TodoCard
             key={todoItem.id}
             {...todoItem}
@@ -28,6 +27,7 @@ export default function TodoList({
 
     return (
         <>
+            {listState.length === 0 && <Empty />}
             <ul id="todoList">{todoItem}</ul>
         </>
     );
