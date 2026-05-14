@@ -1,8 +1,10 @@
+import type { Category } from '../types/todo';
+
 export type Todo = {
     id: number;
     todo: string;
     isCompleted: boolean;
-    category: string;
+    category: Category;
 };
 
 export const todoData: Todo[] = [

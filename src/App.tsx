@@ -3,13 +3,28 @@ import TodoList from './components/TodoList'
 import TodoInput from './components/TodoInput'
 import TodoOverview from './components/TodoOverview'
 import TodoCategorySelector from './components/TodoCategorySelector'
-import type { Category } from './components/TodoCategorySelector';
+import TodoFilter from './components/TodoFilter'
+import type { Category, FilterCategory } from './types/todo';
 import { todoData } from './data/TodoData'
 import { useState } from 'react';
 
 function App() {
   const [todos, setTodos] = useState(todoData);
   const [ selectedCategory, setSelectedCategory ] = useState<Category>("공부");
+  const [selectedFilterCategory, setSelectedFilterCategory] = useState<FilterCategory>("전체");
+  const [searchText, setSearchText] = useState("");
+
+  const filteredTodos = todos.filter((todo) => {
+  const matchCategory =
+    selectedFilterCategory === "전체" ||
+    todo.category === selectedFilterCategory;
+
+  const matchSearch = todo.todo
+    .toLowerCase()
+    .includes(searchText.toLowerCase());
+
+  return matchCategory && matchSearch;
+});
 
   function handleAddTodo(text: string) {
     const newTodo = {
@@ -50,12 +65,13 @@ function App() {
 
   return (
     <div className="flex min-h-screen w-full items-start bg-[#F5F5F5]">
-      <div className="mx-auto flex w-full max-w-[640px] flex-col items-start gap-[22px]">
+      <div className="mx-auto flex w-full max-w-[640px] flex-col items-start gap-[24px]">
         <TodoHeader />
         <TodoOverview todos={todos} />
         <TodoInput onAddTodo={handleAddTodo} />
         <TodoCategorySelector selectedCategory={selectedCategory} onChangeCategory={setSelectedCategory}/>
-        <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
+        <TodoFilter searchText={searchText} onChangeSearchText={setSearchText} selectedFilterCategory={selectedFilterCategory} onChangeFilterCategory={setSelectedFilterCategory}/>
+        <TodoList todos={filteredTodos} searchText={searchText} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
       </div>
     </div>
   )

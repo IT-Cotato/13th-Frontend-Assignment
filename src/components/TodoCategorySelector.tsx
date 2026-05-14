@@ -1,4 +1,4 @@
-export type Category = "공부" | "운동" | "개인" | "업무";
+import type { Category } from '../types/todo';
 
 const categories: Category[] = ["공부", "운동", "개인", "업무"];
 
@@ -34,6 +34,7 @@ export default function TodoCategorySelector({
         <button
           key={category}
           onClick={() => onChangeCategory(category)}
+          aria-pressed={selectedCategory === category}
           className={`rounded-[8px] px-[18px] py-[10px] ${
             selectedCategory === category
               ? categoryStyles[category].selected

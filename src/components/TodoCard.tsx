@@ -1,15 +1,16 @@
 import EmptyCircleIcon from "../icons/EmptyCircleIcon"
 import CheckIcon from "../icons/CheckIcon"
 import { useState } from "react";
+import type { Category } from '../types/todo';
 
-const categoryTagStyles: Record<string, string> = {
+const categoryTagStyles: Record<Category, string> = {
   공부: "bg-[#3B82F6]/[0.125] text-[#3B82F6]",
   운동: "bg-[#22C55E]/[0.125] text-[#22C55E]",
   개인: "bg-[#A855F7]/[0.125] text-[#A855F7]",
   업무: "bg-[#F59E0B]/[0.125] text-[#F59E0B]",
 };
 
-function Item({todo, isCompleted, category, onToggle}: {todo: string; isCompleted: boolean; category: string; onToggle: () => void }) {
+function Item({todo, isCompleted, category, onToggle}: {todo: string; isCompleted: boolean; category: Category; onToggle: () => void }) {
   return(
     <label className="flex items-center gap-[12px] cursor-pointer">
       <input
@@ -32,7 +33,7 @@ function Item({todo, isCompleted, category, onToggle}: {todo: string; isComplete
   )
 }
 
-export default function TodoCard({todo, isCompleted, category, onToggle, onDelete, onUpdate }: {todo: string; isCompleted: boolean; category: string; onToggle: () => void; onDelete: () => void; onUpdate: (newText: string) => void; }) {
+export default function TodoCard({todo, isCompleted, category, onToggle, onDelete, onUpdate }: {todo: string; isCompleted: boolean; category: Category; onToggle: () => void; onDelete: () => void; onUpdate: (newText: string) => void; }) {
   const [ isEditing, setIsEditing ] = useState(false);
   const [ editText, setEditText ] = useState(todo); 
 
@@ -66,6 +67,7 @@ export default function TodoCard({todo, isCompleted, category, onToggle, onDelet
                 <input
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
+                  aria-label={`${todo} 수정`}
                   className="w-full rounded-[8px] border-[2px] border-[#3B82F6] px-[12px] py-[8px] text-[14px] text-[#1F2937] outline-none"
                 />
 
@@ -89,6 +91,7 @@ export default function TodoCard({todo, isCompleted, category, onToggle, onDelet
           <>
             <button
               onClick={handleSave}
+              disabled={!editText.trim()}
               className="rounded-[8px] bg-[#3B82F6] px-[16px] py-[10px] text-[12px] text-white"
             >
               저장
