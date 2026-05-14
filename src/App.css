@@ -1,9 +1,14 @@
 .frame3 {
   display: flex;
   width: 640px;
+  height: 1028px;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  gap: 22px;
+  gap: 24px;
+  flex-shrink: 0;
+  align-self: stretch;
+
   margin: 0 auto;
 }
 
@@ -251,12 +256,15 @@ display: flex;
 .add-button:hover {
   background: #2563eb;
 }
+
 .summary {
   display: flex;
-  height: 45px;
+  width: 640px;
   padding: 12px 16px;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
+
+  box-sizing: border-box;
 
   border-radius: 12px;
   background: #fff;
@@ -312,3 +320,86 @@ display: flex;
 .category-btn.workout.active { background: #22c55e; }
 .category-btn.personal.active { background: #a855f7; }
 .category-btn.work.active { background: #f59e0b; }
+
+.category-filter.btn {
+  display: flex;
+  padding: 10px 18px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+}
+
+.category-filter.btn.전체 { border: 2px solid #1F2937; color: #1F2937; }
+.category-filter.btn.공부 { border: 2px solid #3b82f6; color: #3b82f6; }
+.category-filter.btn.운동 { border: 2px solid #22c55e; color: #22c55e; }
+.category-filter.btn.개인 { border: 2px solid #a855f7; color: #a855f7; }
+.category-filter.btn.업무 { border: 2px solid #f59e0b; color: #f59e0b; }
+
+.category-filter.btn.active {
+  color: #fff;
+}
+
+.category-filter.btn.전체.active { background: #1F2937; }
+.category-filter.btn.공부.active { background: #3b82f6; }
+.category-filter.btn.운동.active { background: #22c55e; }
+.category-filter.btn.개인.active { background: #a855f7; }
+.category-filter.btn.업무.active { background: #f59e0b; }
+
+
+
+.search-container {
+  display: flex;
+  width: 640px;
+  height: 47px;
+  padding: 12px 16px 12px 44px;
+  align-items: center;
+
+  position: relative;
+  box-sizing: border-box;
+
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+
+  color: #6b7280;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.search-bar {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  color: #6b7280;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.search-bar::placeholder {
+  color: #6b7280;
+}
+
+.divider {
+  width: 640px;
+  height: 1px;
+  flex-shrink: 0;
+
+  background: #e5e7eb;
+}
