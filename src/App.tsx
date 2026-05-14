@@ -5,6 +5,8 @@ import TodoInput from "./component/TodoInput"
 import { useState } from "react";
 import TodoStatus from "./component/TodoStatus";
 import { type CategoryType, CATEGORY_STYLES } from "./constants/category";
+import TodoSearch from "./component/TodoSearch";
+import TodoSearchEmpty from "./component/TodoSearchEmpty";
 
 interface TodoItem {
   id: number;
@@ -25,6 +27,14 @@ function App() {
   ]);
 
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>("공부");
+  const [filter, setFilter] = useState<CategoryType | "전체">("전체");
+  const [search, setSearch] = useState("");
+
+  const filteredTodos = todos.filter((todo) => {
+    const matchesCategory = filter === "전체" || todo.category === filter;
+    const matchesSearch = todo.content.toLowerCase().includes(search.toLocaleLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   const totalCount = todos.length;
   const doneCount = todos.filter((todo) => todo.isDone).length;
@@ -62,13 +72,14 @@ function App() {
 
   return (
     <>
-    <div className="flex flex-col w-[640px] mt-[80px] ml-[445px] mr-[464px] gap-[22px]">
+    <div className="flex flex-col w-[640px] mt-[80px] ml-[445px] mr-[464px] gap-6">
       <TodoHeader />
       <TodoStatus
         total={totalCount} 
         done={doneCount} 
         pending={pendingCount}
       />
+
       <TodoInput onAdd={handleAdd} />
       <div className="flex gap-3 h-[41px] items-center">
         {(["공부", "운동", "개인", "업무"] as CategoryType[]).map((cat) => {
@@ -78,6 +89,7 @@ function App() {
             <button 
               key={cat}
               onClick={() => setSelectedCategory(cat)}
+              aria-pressed={isSelected}
               className={`flex items-center justify-center px-[18px] py-[10px] rounded-[8px] border-2 text-body transition-all
                 ${isSelected? style.active: style.filter}`}
             >
@@ -87,10 +99,41 @@ function App() {
         })}
       </div>
 
-      {todos.length > 0 ? (
-        <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate}/>
-      ) : (
+      <hr className="w-full border-border" />
+
+      <TodoSearch value={search} onChange={setSearch} />
+
+      <div className="flex gap-3 h-[41px] items-center">
+        <button
+          onClick={() => setFilter("전체")}
+          className={`flex items-center justify-center px-[18px] py-[10px] rounded-[8px] border-2 text-body transition-all
+            ${filter === "전체" ? "bg-text border-text text-white" : "bg-white border-text text-text"}`}
+        >
+          전체
+        </button>
+        {(["공부", "운동", "개인", "업무"] as CategoryType[]).map((cat) => {
+          const isSelected = filter === cat;
+          const style = CATEGORY_STYLES[cat];
+          return (
+            <button 
+              key={cat}
+              onClick={() => setFilter(cat)}
+              aria-pressed={isSelected}
+              className={`flex items-center justify-center px-[18px] py-[10px] rounded-[8px] border-2 text-body transition-all
+                ${isSelected? style.active: style.filter}`}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
+
+      {todos.length ===  0 ? (
         <TodoEmpty />
+      ) : filteredTodos.length > 0 ? (
+        <TodoList todos={filteredTodos} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate}/>
+      ) : (
+        <TodoSearchEmpty />
       )}
     </div>
     </>

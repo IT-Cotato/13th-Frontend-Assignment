@@ -15,8 +15,10 @@ export default function TodoCard({ content, checked, category, onToggle, onDelet
   const [editValue, setEditValue] = useState(content);
 
   const handleSave = () => {
-    if (editValue.trim().length === 0) return;
-    onUpdate(editValue);
+    const trimmedValue = editValue.trim();
+    if (trimmedValue.length === 0) return;
+
+    onUpdate(trimmedValue);
     setIsEditing(false);
   };
 
