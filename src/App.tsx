@@ -5,12 +5,16 @@ import TodoCount from './components/TodoCount';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import type { Todo, TodoCategory } from './types/todo';
+import SearchInput from './components/SearchInput';
+import CategoryFilter from './components/CategoryFilter';
 
 function App() {
   const [inputText, setInputText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<TodoCategory>('공부');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const [filterCategory, setFilterCategory] = useState<'전체' | TodoCategory>('전체');
 
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: '리액트 공식문서 읽기', completed: true, category: '공부' },
@@ -65,7 +69,7 @@ function App() {
           : todo
       )
     );
-    
+
     setEditingId(null);
     setEditingText('');
   };
@@ -81,6 +85,19 @@ function App() {
         todo.id !== id));
   };
 
+  const filteredTodos = todos.filter((todo) => {
+    const matchesSearch = todo.text
+      .toLowerCase()
+      .includes(searchText.toLowerCase());
+
+    const matchesCategory =
+      filterCategory === '전체'
+        ? true
+        : todo.category === filterCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <div className="todo">
       <TodoHeader title="오늘의 할 일" />
@@ -92,8 +109,16 @@ function App() {
         onChangeCategory={setSelectedCategory}
         onAddTodo={handleAddTodo} 
       />
+      <SearchInput
+        searchText={searchText}
+        onChangeSearch={setSearchText}
+      />
+      <CategoryFilter
+        selectedCategory={filterCategory}
+        onSelectCategory={setFilterCategory}
+      />
       <TodoList 
-        todos={todos} 
+        todos={filteredTodos} 
         editingId={editingId}
         editingText={editingText}
         onChangeEditText={setEditingText}

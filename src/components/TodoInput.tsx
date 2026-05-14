@@ -30,7 +30,7 @@ function TodoInput({ inputText, selectedCategory, onChangeInput, onChangeCategor
         />
         <button type="submit" className="add-button">추가</button>
       </div>
-      
+
       <div className="category-list" aria-label="카테고리 선택">
         {categories.map((category) => (
           <button
@@ -40,6 +40,7 @@ function TodoInput({ inputText, selectedCategory, onChangeInput, onChangeCategor
               selectedCategory === category ? 'selected' : ''
             }`}
             onClick={() => onChangeCategory(category)}
+            aria-pressed={selectedCategory === category}
           >
             {category}
           </button>
