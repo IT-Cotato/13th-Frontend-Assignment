@@ -1,6 +1,7 @@
 import './CategoryTag.css';
+import type { Category } from '../types/todo';
 
-export type Category = '공부' | '운동' | '개인' | '업무';
+export type { Category };
 
 interface CategoryTagProps {
   selectedCategory: Category;

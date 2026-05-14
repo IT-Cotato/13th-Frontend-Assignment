@@ -6,18 +6,16 @@ import EmptyState from './components/EmptyState';
 import TodoInput from './components/TodoInput';
 import TodoStats from './components/TodoStats';
 import CategoryTag from './components/CategoryTag';
-import type { Category } from './components/CategoryTag';
-
-interface Todo {
-  id: string;
-  task: string;
-  isCompleted: boolean;
-  category: Category;
-}
+import SearchInput from './components/SearchInput';
+import FilterCategory from './components/FilterCategory';
+import type { Todo, Category } from './types/todo';
+import type { FilterCategory as FilterCategoryType } from './components/FilterCategory';
 
 export default function App() {
-  const [todoItems, setTodoItems] = useState<Todo[]>(TODO_ITEMS as Todo[]);
+  const [todoItems, setTodoItems] = useState<Todo[]>(TODO_ITEMS);
   const [selectedCategory, setSelectedCategory] = useState<Category>('공부');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterCategory, setFilterCategory] = useState<FilterCategoryType>('전체');
 
   const addTodo = (task: string) => {
     const newTodo: Todo = {
@@ -70,25 +68,43 @@ export default function App() {
     borderRadius: '16px',
   };
 
+  const dividerStyle: React.CSSProperties = {
+    borderBottom: '1px solid var(--border)',
+    paddingBottom: '24px',
+    marginBottom: '24px',
+  };
+
+  const filteredItems = todoItems.filter((item) => {
+    const matchesCategory = filterCategory === '전체' || item.category === filterCategory;
+    const matchesSearch = item.task.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
   return (
     <div style={appBackgroundStyle}>
       <main style={todoContainerStyle}>
         <TodoHeader title="✅ 오늘의 할 일" />
         <TodoStats todos={todoItems} />
-        <TodoInput onAdd={addTodo} />
-        <CategoryTag 
-          selectedCategory={selectedCategory} 
-          onSelect={setSelectedCategory} 
-        />
-        {todoItems.length > 0 ? (
-          <TodoList 
-            items={todoItems} 
-            onToggle={toggleTodo} 
-            onDelete={deleteTodo} 
+        <div style={dividerStyle}>
+          <TodoInput onAdd={addTodo} />
+          <CategoryTag
+            selectedCategory={selectedCategory}
+            onSelect={setSelectedCategory}
+          />
+        </div>
+        <SearchInput value={searchQuery} onChange={setSearchQuery} />
+        <div style={{ marginTop: '24px' }}>
+          <FilterCategory selected={filterCategory} onSelect={setFilterCategory} />
+        </div>
+        {filteredItems.length > 0 ? (
+          <TodoList
+            items={filteredItems}
+            onToggle={toggleTodo}
+            onDelete={deleteTodo}
             onUpdate={updateTodo}
           />
         ) : (
-          <EmptyState />
+          <EmptyState variant={searchQuery || filterCategory !== '전체' ? 'no-results' : 'empty'} />
         )}
       </main>
     </div>

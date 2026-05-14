@@ -1,4 +1,4 @@
-import type { Category } from './CategoryTag';
+import type { Category } from '../types/todo';
 
 interface CategoryBadgeProps {
   category: Category;

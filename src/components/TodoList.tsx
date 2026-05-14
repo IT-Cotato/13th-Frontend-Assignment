@@ -1,15 +1,8 @@
 import TodoCard from './TodoCard';
-import type { Category } from './CategoryTag';
-
-interface TodoItem {
-  id: string;
-  task: string;
-  isCompleted: boolean;
-  category: Category;
-}
+import type { Todo } from '../types/todo';
 
 interface TodoListProps {
-  items: TodoItem[];
+  items: Todo[];
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onUpdate: (id: string, newTask: string) => void;
@@ -19,7 +12,7 @@ export default function TodoList({ items, onToggle, onDelete, onUpdate }: TodoLi
   const listStyle: React.CSSProperties = {
     listStyle: 'none',
     padding: 0,
-    margin: '22px 0 0 0',
+    margin: '24px 0 0 0',
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',

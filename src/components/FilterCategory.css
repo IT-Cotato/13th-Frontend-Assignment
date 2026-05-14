@@ -1,0 +1,30 @@
+.filter-container {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+}
+
+.filter-button.전체 { border-color: #1F2937; color: #1F2937; }
+.filter-button.공부 { border-color: #3B82F6; color: #3B82F6; }
+.filter-button.운동 { border-color: #22C55E; color: #22C55E; }
+.filter-button.개인 { border-color: #A855F7; color: #A855F7; }
+.filter-button.업무 { border-color: #F59E0B; color: #F59E0B; }
+
+.filter-button.selected.전체 { background: #1F2937; color: #FFF; }
+.filter-button.selected.공부 { background: #3B82F6; color: #FFF; }
+.filter-button.selected.운동 { background: #22C55E; color: #FFF; }
+.filter-button.selected.개인 { background: #A855F7; color: #FFF; }
+.filter-button.selected.업무 { background: #F59E0B; color: #FFF; }
