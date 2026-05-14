@@ -427,3 +427,63 @@ body {
 .category-select__btn--운동  { border: 2px solid #22C55E; color: #22C55E; }
 .category-select__btn--개인  { border: 2px solid #A855F7; color: #A855F7; }
 .category-select__btn--업무  { border: 2px solid #F59E0B; color: #F59E0B; }
+
+/*카테고리 선택 시*/
+.category-select__btn--공부.category-select__btn--active  { background: #3B82F6; color: #fff; }
+.category-select__btn--운동.category-select__btn--active  { background: #22C55E; color: #fff; }
+.category-select__btn--개인.category-select__btn--active  { background: #A855F7; color: #fff; }
+.category-select__btn--업무.category-select__btn--active  { background: #F59E0B; color: #fff; }
+
+.category-select__btn--전체 { border-color: #1F2937; color: #1F2937; }
+.category-select__btn--전체.category-select__btn--active { background: #1F2937; color: #fff; }
+
+.todo-search-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 47px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  box-sizing: border-box;
+}
+
+.todo-search-card__icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  color: #6B7280;
+}
+
+.todo-search {
+  flex: 1;
+  color: #6B7280;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.todo-search::placeholder {
+  color: #6B7280;
+}
+
+.todo-empty__text {
+  color: #6B7280;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; /* 150% */
+}
+
+.divider {
+  border: none;
+  margin: 24px 0;
+  width: 640px;
+  height: 1px;
+  flex-shrink: 0;
+  background: #E5E7EB;
+}

@@ -11,6 +11,8 @@ interface Todo {
   category: Category;
 }
 
+type FilterCategory = Category | "전체";
+
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, text: "리액트 공식문서 읽기", completed: true,  category: "공부" },
@@ -21,18 +23,28 @@ export default function App() {
     { id: 6, text: "블로그 포스팅 작성", completed: false, category: "업무" },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [inputCategory, setInputCategory] = useState<Category>("공부");
 
   // 편집 관련 state
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState("");
 
-  const weekLabel = "week5";
+  // 검색/필터 관련 state
+  const [searchValue, setSearchValue] = useState("");
+  const [filterCategory, setFilterCategory] = useState<FilterCategory>("전체");
+
+  const weekLabel = "week6";
+
+  // 검색어 + 카테고리 조건 동시 적용
+  const filteredTodos = todos
+    .filter((todo) => filterCategory === "전체" || todo.category === filterCategory)
+    .filter((todo) => todo.text.includes(searchValue.trim()));
 
   const handleAdd = () => {
     if (inputValue.trim() === "") return;
     setTodos((prev) => [
       ...prev,
-      { id: Date.now(), text: inputValue.trim(), completed: false, category: "공부" },
+      { id: Date.now(), text: inputValue.trim(), completed: false, category: inputCategory },
     ]);
     setInputValue("");
   };
@@ -49,18 +61,15 @@ export default function App() {
     );
   };
 
-  // 편집 시작
   const handleEditStart = (id: number, text: string) => {
     setEditingId(id);
     setEditingText(text);
   };
 
-  // 편집 중 입력값 변경
   const handleEditChange = (value: string) => {
     setEditingText(value);
   };
 
-  // 저장 — map
   const handleEditSave = (id: number) => {
     if (editingText.trim() === "") return;
     setTodos((prev) =>
@@ -72,7 +81,6 @@ export default function App() {
     setEditingText("");
   };
 
-  // 취소 
   const handleEditCancel = () => {
     setEditingId(null);
     setEditingText("");
@@ -84,18 +92,24 @@ export default function App() {
         <p className="week-label">{weekLabel}</p>
         <TodoHeader icon="✅" title="오늘의 할 일" />
         <TodoList
-          items={todos}
+          items={filteredTodos}
           inputValue={inputValue}
           onInputChange={setInputValue}
           onAdd={handleAdd}
           onDelete={handleDelete}
           onToggle={handleToggle}
+          inputCategory={inputCategory}
+          onCategoryChange={setInputCategory}
           editingId={editingId}
           editingText={editingText}
           onEditStart={handleEditStart}
           onEditChange={handleEditChange}
           onEditSave={handleEditSave}
           onEditCancel={handleEditCancel}
+          searchValue={searchValue}
+          onSearchChange={setSearchValue}
+          filterCategory={filterCategory}
+          onFilterCategoryChange={setFilterCategory}
         />
       </div>
     </div>
