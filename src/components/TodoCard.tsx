@@ -31,8 +31,11 @@ export default function TodoCard({
   onEditSave,
   onEditCancel,
 }: Props) {
+  const isEditSaveDisabled = !editingText.trim();
+
   const handleEditSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isEditSaveDisabled) return;
     onEditSave(id);
   };
 
@@ -44,6 +47,7 @@ export default function TodoCard({
           id={`todo-${id}`}
           type="checkbox"
           checked={isChecked}
+          aria-label={`${text} 완료 상태 변경`}
           onChange={() => onCheck(id)}
           disabled={isEditing}
         />
@@ -61,6 +65,7 @@ export default function TodoCard({
               className="card-edit-input"
               type="text"
               value={editingText}
+              aria-label="할 일 수정"
               onChange={(e) => onEditChange(e.target.value)}
               autoFocus
             />
@@ -83,6 +88,7 @@ export default function TodoCard({
           <button
             type="button"
             className="card-save-button"
+            disabled={isEditSaveDisabled}
             onClick={() => onEditSave(id)}
           >
             저장
