@@ -18,6 +18,8 @@ export default function TodoCard({
   const [isEditing, setIsEditing] = useState(false);
   const [updateText, setUpdateText] = useState(text);
 
+  const isDisabled = updateText.trim() === "";
+  
   const handleSave = () => {
     handleUpdateTodo(id, updateText);
     setIsEditing(false);
@@ -38,20 +40,22 @@ export default function TodoCard({
     return (
       <li className="item editing">
         <CheckBox
-          completed={todo.completed}
-          onToggle={() => handleCompletedStatus(todo.id)}
+          completed={completed}
+          onToggle={() => handleCompletedStatus(id)}
         />
         <div className="itemInfo flex flex-col gap-3">
           <input
             className="px-3 py-2 rounded-lg border-2 border-blue-500 ring-4 ring-blue-500 outline-none"
             value={updateText}
             onChange={(e) => setUpdateText(e.target.value)}
+            aria-label="할 일 수정 입력창"
           />
-          <div className={`w-fit px-3 py-1 rounded-full ${styles[todo.category]}`}>{todo.category}</div>
+          <div className={`w-fit px-3 py-1 rounded-full ${styles[category]}`}>{category}</div>
         </div>
         <div className="flex gap-2 items-center ml-auto">
           <button
-            className="saveBtn bg-blue-500 text-white px-4 py-2.5 rounded-lg cursor-pointer"
+            disabled={isDisabled}
+            className="saveBtn bg-blue-500 text-white px-4 py-2.5 rounded-lg cursor-pointer disabled:bg-gray-200 disabled:cursor-not-allowed"
             onClick={handleSave}
           >
             저장

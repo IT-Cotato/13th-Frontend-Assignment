@@ -8,12 +8,7 @@ export default function TodoInput({
   const [text, setText] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
-
     e.preventDefault();
-    
-    if (text.length === 0 || text === null) {
-      return;
-    }
 
     handleAddTodo(text);
 

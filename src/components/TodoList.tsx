@@ -3,11 +3,13 @@ import TodoCard from "./TodoCard";
 
 export default function TodoList({
   todos,
+  searchText,
   handleCompletedStatus,
   handleUpdateTodo,
   handleDeleteTodo,
 }: {
   todos: Todo[];
+  searchText: string,
   handleCompletedStatus: (targetId: number) => void;
   handleUpdateTodo: (updatedId: number, updatedText: string) => void;
   handleDeleteTodo: (deletedId: number) => void;
@@ -20,7 +22,7 @@ export default function TodoList({
         <div className="emptyList">
           <div className="emptyContainer">
             <div className="emptyIcon">📋</div>
-            <div className="emptyText">아직 할 일이 없어요</div>
+            <div className="emptyText">{searchText ? "검색 결과가 없어요" : "아직 할 일이 없어요"}</div>
           </div>
         </div>
       )}
@@ -29,6 +31,7 @@ export default function TodoList({
         <ul className="toDoList">
           {todos.map((todo) => (
             <TodoCard
+              key={todo.id}
               todo={todo}
               handleCompletedStatus={handleCompletedStatus}
               handleUpdateTodo={handleUpdateTodo}
