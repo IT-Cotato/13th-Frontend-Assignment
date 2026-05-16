@@ -30,7 +30,7 @@ export default function TodoCard({
           type="checkbox"
           checked={isCompleted}
           onChange={onToggle}
-          aria-label={isCompleted ? "할 일 완료 취소" : "할 일 완료"}
+          aria-label={`${text} ${isCompleted ? "완료 취소" : "완료"}`}
           className="TodoCard-checkbox-input"
         />
         <div className={`TodoCard-checkbox ${isCompleted ? "checked" : ""}`}>
@@ -47,6 +47,7 @@ export default function TodoCard({
               value={editingText}
               onChange={(e) => onEditTextChange(e.target.value)}
               autoFocus
+              aria-label={`${text} 수정`}
             />
             <span className={`category-tag category-${category}`}>
               {category}

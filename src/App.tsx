@@ -18,8 +18,10 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<Todo["category"]>("공부");
+  const [filterCategory, setFilterCategory] = useState<string>("전체");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -36,7 +38,7 @@ function App() {
       category: selectedCategory,
     };
 
-    setTodos([...todos, newTodo]);
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
 
     setInputValue("");
     setSelectedCategory("공부");
@@ -81,6 +83,17 @@ function App() {
   const completedCount = todos.filter((todo) => todo.isCompleted).length;
   const incompleteCount = totalCount - completedCount;
 
+  const filteredTodos = todos.filter((todo) => {
+    const matchesSearch = todo.text
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    const matchesCategory =
+      filterCategory === "전체" || todo.category === filterCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <div className="frame3">
       <div className="frame2">
@@ -111,6 +124,34 @@ function App() {
             type="button"
             className={`category-button category-${cat} ${selectedCategory === cat ? "selected" : ""}`}
             onClick={() => setSelectedCategory(cat)}
+            aria-pressed={selectedCategory === cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <hr className="divider" />
+
+      <div className="search-bar">
+        <span className="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder="할 일 검색..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+      </div>
+
+      <div className="filter-category-bar">
+        {["전체", "공부", "운동", "개인", "업무"].map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            className={`category-button category-${cat} ${filterCategory === cat ? "selected" : ""}`}
+            onClick={() => setFilterCategory(cat)}
+            aria-pressed={filterCategory === cat}
           >
             {cat}
           </button>
@@ -118,17 +159,29 @@ function App() {
       </div>
 
       <div className="container">
-        <TodoList
-          todos={todos}
-          editingId={editingId}
-          editingText={editingText}
-          onDelete={handleDeleteTodo}
-          onToggle={handleToggleTodo}
-          onEditStart={handleEditStart}
-          onEditSave={handleEditSave}
-          onEditCancel={handleEditCancel}
-          onEditTextChange={setEditingText}
-        />
+        {todos.length === 0 ? (
+          <div className="empty-state">
+            <span className="empty-icon">📋</span>
+            <p className="empty-text">아직 할 일이 없어요</p>
+          </div>
+        ) : filteredTodos.length > 0 ? (
+          <TodoList
+            todos={filteredTodos}
+            editingId={editingId}
+            editingText={editingText}
+            onDelete={handleDeleteTodo}
+            onToggle={handleToggleTodo}
+            onEditStart={handleEditStart}
+            onEditSave={handleEditSave}
+            onEditCancel={handleEditCancel}
+            onEditTextChange={setEditingText}
+          />
+        ) : (
+          <div className="empty-state">
+            <span className="empty-icon">🔍</span>
+            <p className="empty-text">검색 결과가 없습니다.</p>
+          </div>
+        )}
       </div>
     </div>
   );
