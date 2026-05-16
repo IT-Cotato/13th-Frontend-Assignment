@@ -59,6 +59,7 @@ function TodoItem({
               type="checkbox"
               checked={completed}
               onChange={onToggle}
+              aria-label={`${isEditing ? editingText || text : text} 완료 여부`}
               className="sr-only"
             />
             <img
@@ -152,6 +153,7 @@ function TodoItem({
           <button
             type="button"
             onClick={onStartEdit}
+            aria-label="할 일 수정"
             className="flex h-8 w-8 items-center justify-center rounded-lg"
           >
             ✏️
@@ -159,6 +161,7 @@ function TodoItem({
           <button
             type="button"
             onClick={onDelete}
+            aria-label="할 일 삭제"
             className="flex h-8 w-8 items-center justify-center rounded-lg"
           >
             🗑️
