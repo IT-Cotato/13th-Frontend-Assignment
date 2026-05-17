@@ -144,11 +144,6 @@ body {
   box-shadow: 0 0 0 4px rgba(74, 134, 247, 0.18);
 }
 
-.todo-panel.is-focus-preview .todo-input {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 4px rgba(74, 134, 247, 0.18);
-}
-
 .todo-add-button {
   flex: 0 0 72px;
   height: 48px;
@@ -349,41 +344,26 @@ body {
 
 .filter-button.is-all {
   color: var(--text-main);
-}
-
-.filter-button.is-study {
-  color: var(--category-study);
-}
-
-.filter-button.is-exercise {
-  color: var(--category-exercise);
-}
-
-.filter-button.is-personal {
-  color: var(--category-personal);
-}
-
-.filter-button.is-work {
-  color: var(--category-work);
-}
-
-.filter-button.is-all {
   --filter-color: var(--text-main);
 }
 
 .filter-button.is-study {
+  color: var(--category-study);
   --filter-color: var(--category-study);
 }
 
 .filter-button.is-exercise {
+  color: var(--category-exercise);
   --filter-color: var(--category-exercise);
 }
 
 .filter-button.is-personal {
+  color: var(--category-personal);
   --filter-color: var(--category-personal);
 }
 
 .filter-button.is-work {
+  color: var(--category-work);
   --filter-color: var(--category-work);
 }
 

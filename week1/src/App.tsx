@@ -161,7 +161,6 @@ interface TodoPanelProps {
   onEditCancel: () => void;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
-  isFocusPreview?: boolean;
 }
 
 function TodoPanel({
@@ -188,7 +187,6 @@ function TodoPanel({
   onEditCancel,
   onToggle,
   onDelete,
-  isFocusPreview = false,
 }: TodoPanelProps) {
   const completedCategories = categories.reduce<Record<TodoCategory, boolean>>(
     (categoryStatus, category) => {
@@ -209,10 +207,7 @@ function TodoPanel({
   );
 
   return (
-    <section
-      className={`todo-panel ${isFocusPreview ? "is-focus-preview" : ""}`}
-      aria-labelledby={headingId}
-    >
+    <section className="todo-panel" aria-labelledby={headingId}>
       <p className="eyebrow">{eyebrow}</p>
       <TodoHeader icon="✅" title="오늘의 할 일" headingId={headingId} />
       <div className="todo-summary" aria-label="할 일 현황">
