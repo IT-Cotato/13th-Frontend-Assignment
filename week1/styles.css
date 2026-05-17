@@ -215,7 +215,7 @@ body {
 }
 
 .category-button.is-selected {
-  color: #fff;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 20%, transparent);
 }
 
 .category-button:active {
@@ -226,7 +226,7 @@ body {
   color: var(--category-study);
 }
 
-.category-button.is-study.is-selected {
+.category-button.is-study.is-complete {
   background: var(--category-study);
   border-color: var(--category-study);
   color: #fff;
@@ -236,7 +236,7 @@ body {
   color: var(--category-exercise);
 }
 
-.category-button.is-exercise.is-selected {
+.category-button.is-exercise.is-complete {
   background: var(--category-exercise);
   border-color: var(--category-exercise);
   color: #fff;
@@ -246,7 +246,7 @@ body {
   color: var(--category-personal);
 }
 
-.category-button.is-personal.is-selected {
+.category-button.is-personal.is-complete {
   background: var(--category-personal);
   border-color: var(--category-personal);
   color: #fff;
@@ -256,7 +256,7 @@ body {
   color: var(--category-work);
 }
 
-.category-button.is-work.is-selected {
+.category-button.is-work.is-complete {
   background: var(--category-work);
   border-color: var(--category-work);
   color: #fff;

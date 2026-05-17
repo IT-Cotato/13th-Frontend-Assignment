@@ -175,6 +175,24 @@ function TodoPanel({
   onDelete,
   isFocusPreview = false,
 }: TodoPanelProps) {
+  const completedCategories = categories.reduce<Record<TodoCategory, boolean>>(
+    (categoryStatus, category) => {
+      const categoryItems = items.filter((item) => item.category === category.id);
+
+      return {
+        ...categoryStatus,
+        [category.id]:
+          categoryItems.length > 0 && categoryItems.every((item) => item.checked),
+      };
+    },
+    {
+      study: false,
+      exercise: false,
+      personal: false,
+      work: false,
+    }
+  );
+
   return (
     <section
       className={`todo-panel ${isFocusPreview ? "is-focus-preview" : ""}`}
@@ -213,6 +231,7 @@ function TodoPanel({
         <div className="category-selector" aria-label="카테고리 선택">
           {categories.map((category) => {
             const isSelected = selectedCategory === category.id;
+            const isComplete = completedCategories[category.id];
 
             return (
               <button
@@ -220,6 +239,8 @@ function TodoPanel({
                 type="button"
                 className={`category-button is-${category.id} ${
                   isSelected ? "is-selected" : ""
+                } ${
+                  isComplete ? "is-complete" : ""
                 }`}
                 aria-pressed={isSelected}
                 onClick={() => onCategorySelect(category.id)}
