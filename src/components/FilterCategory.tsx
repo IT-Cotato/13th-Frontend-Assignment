@@ -18,6 +18,7 @@ export default function FilterCategory({ selected, onSelect }: FilterCategoryPro
           key={category}
           type="button"
           className={`filter-button ${category} ${selected === category ? 'selected' : ''}`}
+          aria-pressed={selected === category}
           onClick={() => onSelect(category)}
         >
           {category}
