@@ -57,16 +57,17 @@ export default function TodoCard({
   const checkboxStyle: React.CSSProperties = {
     width: '24px',
     height: '24px',
-    borderRadius: '50%', 
+    borderRadius: '50%',
     border: `2px solid ${isCompleted ? 'var(--primary)' : 'var(--border)'}`,
     backgroundColor: isCompleted ? 'var(--primary)' : 'transparent',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexShrink: 0,
-    transition: 'all 0.2s ease', 
-    cursor: 'pointer',
-    marginRight: '12px', 
+    transition: 'all 0.2s ease',
+    cursor: isEditing ? 'default' : 'pointer',
+    marginRight: '12px',
+    opacity: isEditing ? 0.4 : 1,
   };
 
   const textStyle: React.CSSProperties = {
@@ -86,8 +87,9 @@ export default function TodoCard({
           className="todo-checkbox"
           checked={isCompleted}
           onChange={() => onToggle(id)}
+          disabled={isEditing}
         />
-        <label htmlFor={isEditing ? undefined : id} className="todo-checkbox-label">
+        <label htmlFor={id} className="todo-checkbox-label">
           <span style={checkboxStyle}>
             {isCompleted && (
               <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
