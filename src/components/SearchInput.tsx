@@ -13,6 +13,7 @@ export default function SearchInput({ value, onChange }: SearchInputProps) {
         type="text"
         className="search-input"
         placeholder="할 일 검색..."
+        aria-label="할 일 검색"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
