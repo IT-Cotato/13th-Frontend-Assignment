@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './TodoCard.css';
-import './TodoInput.css';
 import CategoryBadge from './CategoryBadge';
 import type { Category } from '../types/todo';
 
@@ -117,10 +116,9 @@ export default function TodoCard({
       <div className="button-group" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
         {isEditing ? (
           <>
-            <button 
-              className="todo-add-button" 
+            <button
+              className="card-save-button"
               onClick={handleUpdate}
-              style={{ padding: '6px 16px', height: '38px', minWidth: '52px' }} 
             >
               저장
             </button>
