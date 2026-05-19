@@ -119,6 +119,7 @@ export default function TodoCard({
             <button
               className="card-save-button"
               onClick={handleUpdate}
+              disabled={!editText.trim()}
             >
               저장
             </button>

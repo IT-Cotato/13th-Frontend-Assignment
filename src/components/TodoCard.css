@@ -89,6 +89,11 @@
   transition: background-color 0.2s;
 }
 
-.card-save-button:hover {
+.card-save-button:hover:not(:disabled) {
   background-color: #2563EB;
+}
+
+.card-save-button:disabled {
+  background-color: #93C5FD;
+  cursor: not-allowed;
 }
