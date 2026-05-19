@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import { TODO_ITEMS } from './constants/todoData';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
@@ -8,44 +8,15 @@ import TodoStats from './components/TodoStats';
 import CategoryTag from './components/CategoryTag';
 import SearchInput from './components/SearchInput';
 import FilterCategory from './components/FilterCategory';
-import type { Todo, Category } from './types/todo';
+import { todoReducer } from './reducers/todoReducer';
+import type { Category } from './types/todo';
 import type { FilterCategory as FilterCategoryType } from './components/FilterCategory';
 
 export default function App() {
-  const [todoItems, setTodoItems] = useState<Todo[]>(TODO_ITEMS);
+  const [todoItems, dispatch] = useReducer(todoReducer, TODO_ITEMS);
   const [selectedCategory, setSelectedCategory] = useState<Category>('공부');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<FilterCategoryType>('전체');
-
-  const addTodo = (task: string) => {
-    const newTodo: Todo = {
-      id: `todo-${Date.now()}`, 
-      task, 
-      isCompleted: false,
-      category: selectedCategory,
-    };
-    setTodoItems((prev) => [...prev, newTodo]); 
-  };
-  
-  const toggleTodo = (id: string) => {
-    setTodoItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
-      )
-    );
-  };
-
-  const deleteTodo = (id: string) => {
-    setTodoItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const updateTodo = (id: string, newTask: string) => {
-    setTodoItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, task: newTask } : item
-      )
-    );
-  };
 
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
@@ -86,7 +57,9 @@ export default function App() {
         <TodoHeader title="✅ 오늘의 할 일" />
         <TodoStats todos={todoItems} />
         <div style={dividerStyle}>
-          <TodoInput onAdd={addTodo} />
+          <TodoInput
+            onAdd={(task) => dispatch({ type: 'ADD', payload: { task, category: selectedCategory } })}
+          />
           <CategoryTag
             selectedCategory={selectedCategory}
             onSelect={setSelectedCategory}
@@ -99,9 +72,9 @@ export default function App() {
         {filteredItems.length > 0 ? (
           <TodoList
             items={filteredItems}
-            onToggle={toggleTodo}
-            onDelete={deleteTodo}
-            onUpdate={updateTodo}
+            onToggle={(id) => dispatch({ type: 'TOGGLE', payload: { id } })}
+            onDelete={(id) => dispatch({ type: 'DELETE', payload: { id } })}
+            onUpdate={(id, task) => dispatch({ type: 'UPDATE', payload: { id, task } })}
           />
         ) : (
           <EmptyState variant={searchQuery || filterCategory !== '전체' ? 'no-results' : 'empty'} />
