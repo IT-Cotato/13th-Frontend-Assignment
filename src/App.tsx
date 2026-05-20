@@ -98,6 +98,16 @@ function App() {
     return matchesSearch && matchesCategory;
   });
 
+  const isFiltering =
+    searchText.trim() !== '' || filterCategory !== '전체';
+
+  const emptyMessage =
+    todos.length === 0
+      ? '아직 할 일이 없어요'
+      : isFiltering && filteredTodos.length === 0
+        ? '검색 결과가 없습니다'
+        : '아직 할 일이 없어요';
+
   return (
     <div className="todo">
       <TodoHeader title="오늘의 할 일" />
@@ -119,6 +129,7 @@ function App() {
       />
       <TodoList 
         todos={filteredTodos} 
+        emptyMessage={emptyMessage}
         editingId={editingId}
         editingText={editingText}
         onChangeEditText={setEditingText}

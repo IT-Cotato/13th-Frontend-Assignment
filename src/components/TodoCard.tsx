@@ -21,46 +21,46 @@ type Props = {
 
 function TodoCard({ text, completed, category, isEditing, editingText, onChangeEditText, onStartEdit, onSaveEdit, onCancelEdit, onToggle, onDelete }: Props) {
   return (
+
     <div className={`card ${completed ? 'done' : ''}`}>
+      <div className="card-content">
+        <label className="todo-check-label">
+          <input
+            type="checkbox"
+            checked={completed}
+            onChange={onToggle}
+            className="checkbox-hidden"
+          />
 
-      <label className="todo-check-label">
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={onToggle}
-          className="checkbox-hidden"
-        />
+          <span className={`check-circle ${completed ? 'checked' : ''}`}>
+            {completed && <img src={checkIcon} className="check-img" alt="" />}
+          </span>
 
-        <span className={`check-circle ${completed ? 'checked' : ''}`}>
-          {completed && <img src={checkIcon} className="check-img" alt="" />}
-        </span> 
-
-        <div className="card-content">
-
-          {isEditing ? (
-            <>
-              <input
-                className="edit-input"
-                aria-label='할 일 수정하는 입력창'
-                value={editingText}
-                onChange={(e) => onChangeEditText(e.target.value)}
-              />
-
-              <span className={`category-tag category-${category}`}>
-                {category}
-              </span>
-            </>
-          ) : (
+          {!isEditing && (
             <>
               <span className="card-done">{text}</span>
-
               <span className={`category-tag category-${category}`}>
                 {category}
               </span>
             </>
           )}
-        </div>
-      </label>
+        </label>
+
+        {isEditing && (
+          <div className="edit-area">
+            <input
+              className="edit-input"
+              aria-label="할 일 수정하는 입력창"
+              value={editingText}
+              onChange={(e) => onChangeEditText(e.target.value)}
+            />
+
+            <span className={`category-tag category-${category}`}>
+              {category}
+            </span>
+          </div>
+        )}
+      </div>
 
       {isEditing ? (
         <div className="edit-actions">
