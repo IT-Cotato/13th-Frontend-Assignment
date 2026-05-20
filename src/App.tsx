@@ -1,28 +1,22 @@
 import './App.css';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import TodoHeader from './components/TodoHeader';
 import TodoCount from './components/TodoCount';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
-import type { Todo, TodoCategory } from './types/todo';
+import type { TodoCategory } from './types/todo';
 import SearchInput from './components/SearchInput';
 import CategoryFilter from './components/CategoryFilter';
+import { initialTodos, todoReducer } from './reducers/todoReducer';
 
 function App() {
+  const [todos, dispatch] = useReducer(todoReducer, initialTodos);
   const [inputText, setInputText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<TodoCategory>('공부');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState('');
   const [searchText, setSearchText] = useState('');
   const [filterCategory, setFilterCategory] = useState<'전체' | TodoCategory>('전체');
-
-  const [todos, setTodos] = useState<Todo[]>([
-    { id: 1, text: '리액트 공식문서 읽기', completed: true, category: '공부' },
-    { id: 2, text: '알고리즘 문제 풀기', completed: true, category: '공부' },
-    { id: 3, text: '운동 30분 하기', completed: false, category: '운동' },
-    { id: 4, text: '프로젝트 회의 준비', completed: false, category: '업무' },
-    { id: 5, text: '장보기 하기', completed: false, category: '개인' },
-  ]);
 
   const handleChangeInput = (value: string) => {
     setInputText(value);
@@ -33,23 +27,21 @@ function App() {
 
     if (trimmedText === '') return;
 
-    const newTodo: Todo = {
-      id: Date.now(),
-      text: trimmedText,
-      completed: false,
-      category: selectedCategory,
-    };
-
-    setTodos((prev) => [...prev, newTodo]);
+    dispatch({
+      type: 'ADD_TODO',
+      payload: {
+        text: trimmedText,
+        category: selectedCategory,
+      },
+    });
     setInputText('');
   };
 
   const handleToggleTodo = (id: number) => {
-    setTodos((prev) => 
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+    dispatch({
+      type: 'TOGGLE_TODO',
+      payload: { id },
+    });
   };
 
   const handleStartEdit = (id: number, text: string) => {
@@ -62,13 +54,13 @@ function App() {
 
     if (trimmedText === '') return;
 
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id
-          ? { ...todo, text: trimmedText }
-          : todo
-      )
-    );
+    dispatch({
+      type: 'EDIT_TODO',
+      payload: {
+        id,
+        text: trimmedText,
+      },
+    });
 
     setEditingId(null);
     setEditingText('');
@@ -80,9 +72,10 @@ function App() {
   };
 
   const handleDeleteTodo = (id: number) => {
-    setTodos((prev) => 
-      prev.filter((todo) =>
-        todo.id !== id));
+    dispatch({
+      type: 'DELETE_TODO',
+      payload: { id },
+    });
   };
 
   const filteredTodos = todos.filter((todo) => {
