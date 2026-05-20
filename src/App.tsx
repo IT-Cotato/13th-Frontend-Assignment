@@ -3,6 +3,9 @@ import type Todo from "./types/todo";
 import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
 import "./App.css";
+import TodoSearch from "./TodoSearch";
+import TodoFilter from "./TodoFilter";
+import TodoInput from "./TodoInput";
 
 const fixedTodos: Todo[] = [
   { id: 1, text: "리액트 공식문서 읽기", isCompleted: true, category: "공부" },
@@ -104,59 +107,22 @@ function App() {
         />
       </div>
 
-      <form className="inputContainer" onSubmit={handleAddTodo}>
-        <input
-          className="todoInput"
-          type="text"
-          placeholder="할 일을 입력하세요"
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-        <button className="addButton" type="submit">
-          추가
-        </button>
-      </form>
-
-      <div className="category-selector">
-        {(["공부", "운동", "개인", "업무"] as const).map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            className={`category-button category-${cat} ${selectedCategory === cat ? "selected" : ""}`}
-            onClick={() => setSelectedCategory(cat)}
-            aria-pressed={selectedCategory === cat}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      <TodoInput
+        inputValue={inputValue}
+        selectedCategory={selectedCategory}
+        onInputChange={setInputValue}
+        onCategoryChange={setSelectedCategory}
+        onSubmit={handleAddTodo}
+      />
 
       <hr className="divider" />
 
-      <div className="search-bar">
-        <span className="search-icon">🔍</span>
-        <input
-          type="text"
-          placeholder="할 일 검색..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="search-input"
-        />
-      </div>
+      <TodoSearch searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      <div className="filter-category-bar">
-        {["전체", "공부", "운동", "개인", "업무"].map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            className={`category-button category-${cat} ${filterCategory === cat ? "selected" : ""}`}
-            onClick={() => setFilterCategory(cat)}
-            aria-pressed={filterCategory === cat}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      <TodoFilter
+        filterCategory={filterCategory}
+        onFilterChange={setFilterCategory}
+      />
 
       <div className="container">
         {todos.length === 0 ? (
