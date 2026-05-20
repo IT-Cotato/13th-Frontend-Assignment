@@ -1,11 +1,13 @@
+import type Todo from "./types/todo";
+
 const FILTER_CATEGORIES = ["전체", "공부", "운동", "개인", "업무"] as const;
-type FilterCategory = (typeof FILTER_CATEGORIES)[number];
+export type FilterCategory = "전체" | Todo["category"];
 
 export default function TodoFilter({
   filterCategory,
   onFilterChange,
 }: {
-  filterCategory: string;
+  filterCategory: FilterCategory;
   onFilterChange: (category: FilterCategory) => void;
 }) {
   return (

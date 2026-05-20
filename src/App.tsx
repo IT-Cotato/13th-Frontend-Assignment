@@ -4,7 +4,7 @@ import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
 import "./App.css";
 import TodoSearch from "./TodoSearch";
-import TodoFilter from "./TodoFilter";
+import TodoFilter, { type FilterCategory } from "./TodoFilter";
 import TodoInput from "./TodoInput";
 
 const fixedTodos: Todo[] = [
@@ -21,7 +21,7 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<Todo["category"]>("공부");
-  const [filterCategory, setFilterCategory] = useState<string>("전체");
+  const [filterCategory, setFilterCategory] = useState<FilterCategory>("전체");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
