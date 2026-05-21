@@ -1,6 +1,5 @@
 import type Todo from "./types/todo";
-
-const INPUT_CATEGORIES = ["공부", "운동", "개인", "업무"] as const;
+import { CATEGORIES } from "./types/categories";
 
 export default function TodoInput({
   inputValue,
@@ -31,15 +30,21 @@ export default function TodoInput({
       </form>
 
       <div className="category-selector">
-        {INPUT_CATEGORIES.map((cat) => (
+        {CATEGORIES.map(({ value, color }) => (
           <button
-            key={cat}
+            key={value}
             type="button"
-            className={`category-button category-${cat} ${selectedCategory === cat ? "selected" : ""}`}
-            onClick={() => onCategoryChange(cat)}
-            aria-pressed={selectedCategory === cat}
+            className={`category-button ${selectedCategory === value ? "selected" : ""}`}
+            style={{
+              borderColor: color,
+              color: selectedCategory === value ? "#fff" : color,
+              background: selectedCategory === value ? color : "#fff",
+              border: `2px solid ${color}`,
+            }}
+            onClick={() => onCategoryChange(value)}
+            aria-pressed={selectedCategory === value}
           >
-            {cat}
+            {value}
           </button>
         ))}
       </div>

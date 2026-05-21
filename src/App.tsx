@@ -27,10 +27,6 @@ function App() {
   const [editingText, setEditingText] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
   const handleAddTodo = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim() === "") return;

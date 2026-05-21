@@ -1,7 +1,9 @@
-import type Todo from "./types/todo";
-
-const FILTER_CATEGORIES = ["전체", "공부", "운동", "개인", "업무"] as const;
-export type FilterCategory = "전체" | Todo["category"];
+import {
+  CATEGORIES,
+  FILTER_CATEGORIES,
+  type FilterCategory,
+} from "./types/categories";
+export type { FilterCategory } from "./types/categories";
 
 export default function TodoFilter({
   filterCategory,
@@ -12,17 +14,28 @@ export default function TodoFilter({
 }) {
   return (
     <div className="filter-category-bar">
-      {FILTER_CATEGORIES.map((cat) => (
-        <button
-          key={cat}
-          type="button"
-          className={`category-button category-${cat} ${filterCategory === cat ? "selected" : ""}`}
-          onClick={() => onFilterChange(cat)}
-          aria-pressed={filterCategory === cat}
-        >
-          {cat}
-        </button>
-      ))}
+      {FILTER_CATEGORIES.map((cat) => {
+        const style = CATEGORIES.find((c) => c.value === cat);
+        const color = style?.color ?? "#1f2937"; // "전체"는 fallback 색상
+        const isSelected = filterCategory === cat;
+        return (
+          <button
+            key={cat}
+            type="button"
+            className={`category-button ${isSelected ? "selected" : ""}`}
+            style={{
+              borderColor: color,
+              color: isSelected ? "#fff" : color,
+              background: isSelected ? color : "#fff",
+              border: `2px solid ${color}`,
+            }}
+            onClick={() => onFilterChange(cat)}
+            aria-pressed={isSelected}
+          >
+            {cat}
+          </button>
+        );
+      })}
     </div>
   );
 }
