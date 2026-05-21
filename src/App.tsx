@@ -4,20 +4,27 @@ import TodoList from "./TodoList";
 import { todos as initialTodos } from "./todos.data";
 import InputTodo from "./InputTodo";
 import { useState } from "react";
-import type { Todo } from "./types/todo.types";
+//import type { Todo } from "./types/todo.types";
 import Summary from "./Summary";
 import Search from "./Search";
+import type {
+  Todo,
+  TodoCategory,
+  FilterCategory,
+} from "./types/todo.types";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
   const [input, setInput] = useState("");
-  const [category, setCategory] = useState("공부");
+  const [category, setCategory] =
+    useState<TodoCategory>("공부");
 
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editText, setEditText] = useState("");
 
   const [search, setSearch] = useState("");
-  const [filterCategory, setFilterCategory] = useState("전체");
+  const [filterCategory, setFilterCategory] =
+    useState<FilterCategory>("전체");
 
   const handleAdd = () => {
     if (input.trim() === "") return;
@@ -115,17 +122,23 @@ function App() {
       />
 
       <div className="container">
+        {todos.length === 0 ? (
+        <p>아직 할 일이 없어요.</p>
+        ) : filteredTodos.length === 0 ? (
+        <p>검색 결과가 없습니다.</p>
+        ) : (
         <TodoList
-          todos={filteredTodos}
-          onDelete={handleDelete}
-          onToggle={handleToggle}
-          editingId={editingId}
-          editText={editText}
-          setEditText={setEditText}
-          onEdit={handleEdit}
-          onUpdate={handleUpdate}
-          onCancel={handleCancel}
+        todos={filteredTodos}
+        onDelete={handleDelete}
+        onToggle={handleToggle}
+        editingId={editingId}
+        editText={editText}
+        setEditText={setEditText}
+        onEdit={handleEdit}
+        onUpdate={handleUpdate}
+        onCancel={handleCancel}
         />
+      )}
       </div>
     </div>
   );
