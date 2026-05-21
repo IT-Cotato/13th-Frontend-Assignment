@@ -6,6 +6,7 @@ import "./App.css";
 import TodoSearch from "./TodoSearch";
 import TodoFilter, { type FilterCategory } from "./TodoFilter";
 import TodoInput from "./TodoInput";
+import TodoEmptyState from "./TodoEmptyState";
 
 const fixedTodos: Todo[] = [
   { id: 1, text: "리액트 공식문서 읽기", isCompleted: true, category: "공부" },
@@ -106,7 +107,6 @@ function App() {
           incompleteCount={incompleteCount}
         />
       </div>
-
       <TodoInput
         inputValue={inputValue}
         selectedCategory={selectedCategory}
@@ -114,22 +114,15 @@ function App() {
         onCategoryChange={setSelectedCategory}
         onSubmit={handleAddTodo}
       />
-
       <hr className="divider" />
-
       <TodoSearch searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-
       <TodoFilter
         filterCategory={filterCategory}
         onFilterChange={setFilterCategory}
       />
-
       <div className="container">
         {todos.length === 0 ? (
-          <div className="empty-state">
-            <span className="empty-icon">📋</span>
-            <p className="empty-text">아직 할 일이 없어요</p>
-          </div>
+          <TodoEmptyState icon="📋" message="아직 할 일이 없어요" />
         ) : filteredTodos.length > 0 ? (
           <TodoList
             todos={filteredTodos}
@@ -143,10 +136,7 @@ function App() {
             onEditTextChange={setEditingText}
           />
         ) : (
-          <div className="empty-state">
-            <span className="empty-icon">🔍</span>
-            <p className="empty-text">검색 결과가 없습니다.</p>
-          </div>
+          <TodoEmptyState icon="🔍" message="검색 결과가 없습니다." />
         )}
       </div>
     </div>
