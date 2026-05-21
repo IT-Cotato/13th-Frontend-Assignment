@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import type Todo from "./types/todo";
 import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
@@ -7,6 +7,7 @@ import TodoSearch from "./TodoSearch";
 import TodoFilter, { type FilterCategory } from "./TodoFilter";
 import TodoInput from "./TodoInput";
 import TodoEmptyState from "./TodoEmptyState";
+import { todoReducer } from "./types/todoReducer";
 
 const fixedTodos: Todo[] = [
   { id: 1, text: "리액트 공식문서 읽기", isCompleted: true, category: "공부" },
@@ -18,7 +19,7 @@ const fixedTodos: Todo[] = [
 ];
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>(fixedTodos);
+  const [todos, dispatch] = useReducer(todoReducer, fixedTodos);
   const [inputValue, setInputValue] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<Todo["category"]>("공부");
@@ -31,29 +32,25 @@ function App() {
     e.preventDefault();
     if (inputValue.trim() === "") return;
 
-    const newTodo = {
-      id: Date.now(),
-      text: inputValue.trim(),
-      isCompleted: false,
-      category: selectedCategory,
-    };
-
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    dispatch({
+      type: "ADD",
+      payload: {
+        text: inputValue.trim(),
+        isCompleted: false,
+        category: selectedCategory,
+      },
+    });
 
     setInputValue("");
     setSelectedCategory("공부");
   };
 
   const handleDeleteTodo = (id: number) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    dispatch({ type: "DELETE", payload: { id } });
   };
 
   const handleToggleTodo = (id: number) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
-      ),
-    );
+    dispatch({ type: "TOGGLE", payload: { id } });
   };
 
   const handleEditStart = (id: number, text: string) => {
@@ -64,11 +61,7 @@ function App() {
   const handleEditSave = (id: number) => {
     if (editingText.trim() === "") return;
 
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, text: editingText.trim() } : todo,
-      ),
-    );
+    dispatch({ type: "EDIT_SAVE", payload: { id, text: editingText.trim() } });
 
     setEditingId(null);
     setEditingText("");
