@@ -96,7 +96,7 @@ function App() {
 
   return (
     <>
-    <div key={filter} className="flex flex-col w-[640px] mt-[80px] ml-[445px] mr-[464px] gap-6">
+    <div className="flex flex-col w-[640px] mt-[80px] ml-[445px] mr-[464px] gap-6">
       <TodoHeader />
       <TodoStatus
         total={totalCount} 
