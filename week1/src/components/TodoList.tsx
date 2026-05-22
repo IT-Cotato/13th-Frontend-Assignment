@@ -3,6 +3,8 @@ import TodoCard from "./TodoCard";
 
 interface TodoListProps {
   items: TodoItem[];
+  emptyMessage?: string;
+  emptyIcon?: string;
   editingId?: number | null;
   editingText?: string;
   onEditingTextChange?: (text: string) => void;
@@ -15,6 +17,8 @@ interface TodoListProps {
 
 export default function TodoList({
   items,
+  emptyMessage = "아직 등록된 할 일이 없어요.",
+  emptyIcon,
   editingId = null,
   editingText = "",
   onEditingTextChange,
@@ -27,7 +31,12 @@ export default function TodoList({
   if (items.length === 0) {
     return (
       <div className="todo-empty-state" role="status" aria-live="polite">
-        아직 등록된 할 일이 없어요.
+        {emptyIcon ? (
+          <span className="todo-empty-icon" aria-hidden="true">
+            {emptyIcon}
+          </span>
+        ) : null}
+        <span>{emptyMessage}</span>
       </div>
     );
   }
