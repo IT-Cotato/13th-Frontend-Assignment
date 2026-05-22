@@ -1,4 +1,3 @@
-// src/components/TodoCard.tsx
 import { useState } from 'react';
 
 interface TodoCardProps {
@@ -16,7 +15,7 @@ const TodoCard = ({ id, text, completed, category, onDelete, onToggle, onEdit }:
   const [editValue, setEditValue] = useState(text);
 
   const handleSave = () => {
-    
+    // 💡 빈 값 검사와 실제 데이터 업데이트에 동일한 trimmedValue 사용
     const trimmedValue = editValue.trim();
     if (trimmedValue === "") return;
     
@@ -36,7 +35,11 @@ const TodoCard = ({ id, text, completed, category, onDelete, onToggle, onEdit }:
         <input 
           className="todo-input edit-inline-input"
           value={editValue} 
-          onChange={(e) => setEditValue(e.target.value)} 
+          onChange={(e) => setEditValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleSave();
+            if (e.key === 'Escape') handleCancel();
+          }}
           autoFocus 
         /> 
         <button className="text-btn save-btn" onClick={handleSave} aria-label="수정 내용 저장">저장</button>
@@ -47,7 +50,6 @@ const TodoCard = ({ id, text, completed, category, onDelete, onToggle, onEdit }:
 
   return (
     <div className={`todo-card ${completed ? 'done-card' : ''}`}>
-      
       <input
         type="checkbox"
         className="todo-checkbox"
@@ -63,8 +65,9 @@ const TodoCard = ({ id, text, completed, category, onDelete, onToggle, onEdit }:
       </div>
 
       <div className="action-buttons">
-        <button className="icon-btn" onClick={() => setIsEditing(true)} aria-label={`${text} 수정하기`}>✏️</button>
-        <button className="icon-btn" onClick={onDelete} aria-label={`${text} 삭제하기`}>🗑️</button>
+        {/* 💡 수정/삭제 버튼의 역할이 명확히 전달되도록 aria-label 추가 */}
+        <button className="icon-btn" onClick={() => setIsEditing(true)} aria-label="할 일 수정">✏️</button>
+        <button className="icon-btn" onClick={onDelete} aria-label="할 일 삭제">🗑️</button>
       </div>
     </div>
   );
