@@ -1,6 +1,7 @@
 import './App.css';
 import EmptyList from './components/EmptyList';
 import TodoCount from './components/TodoCount';
+import TodoFilter from './components/TodoFilter';
 import TodoHeader from './components/TodoHeader';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
@@ -124,35 +125,13 @@ function App() {
       <TodoCount todos={todos} />
       <TodoInput key={inputKey} onAdd={onAdd} />
 
-      <section className="todo-filter-section" aria-label="할 일 필터">
-        <div className="todo-search-box">
-          <span className="todo-search-icon" aria-hidden="true">
-            🔍
-          </span>
-          <input
-            className="todo-search-input"
-            type="text"
-            placeholder="할 일 검색..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-        </div>
-
-        <div className="filter-buttons" aria-label="카테고리 필터">
-          {FILTER_CATEGORIES.map((category) => (
-            <button
-              key={category}
-              type="button"
-              className={`filter-button category-${category} ${
-                filterCategory === category ? 'is-selected' : ''
-              }`}
-              onClick={() => setFilterCategory(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </section>
+      <TodoFilter
+        searchText={searchText}
+        filterCategory={filterCategory}
+        categories={FILTER_CATEGORIES}
+        onSearchChange={setSearchText}
+        onFilterChange={setFilterCategory}
+      />
 
       {todos.length === 0 ? (
         <EmptyList />
