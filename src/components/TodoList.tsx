@@ -4,6 +4,7 @@ import type { Todo } from '../types/todo';
 
 type Props = {
   todos: Todo[];
+  emptyMessage: string;
   editingId: number | null;
   editingText: string;
   onChangeEditText: (value: string) => void;
@@ -14,13 +15,13 @@ type Props = {
   onDeleteTodo: (id: number) => void;
 };
 
-function TodoList({ todos, editingId, editingText, onChangeEditText, onStartEdit, onSaveEdit, onCancelEdit, onToggleTodo, onDeleteTodo }: Props) {
+function TodoList({ todos, emptyMessage, editingId, editingText, onChangeEditText, onStartEdit, onSaveEdit, onCancelEdit, onToggleTodo, onDeleteTodo }: Props) {
    // 할 일이 없을 때
   if (todos.length === 0) {
     return (
       <div className="empty">
         <div className="empty-icon">📋</div>
-        <p className="empty-text">아직 할 일이 없어요</p>
+        <p className="empty-text">{emptyMessage}</p>
       </div>
     );
   }
@@ -30,7 +31,7 @@ function TodoList({ todos, editingId, editingText, onChangeEditText, onStartEdit
     <ul className="card-list">
       {todos.map((todo) => (
         <li key={todo.id} className="card-item">
-           <TodoCard
+          <TodoCard
             text={todo.text}
             completed={todo.completed}
             category={todo.category}
