@@ -1,4 +1,5 @@
 import CheckIcon from "./CheckIcon";
+import { CATEGORIES } from "./types/categories";
 import type Todo from "./types/todo";
 
 export default function TodoCard({
@@ -23,6 +24,8 @@ export default function TodoCard({
   onEditCancel: () => void;
   onEditTextChange: (text: string) => void;
 }) {
+  const categoryStyle = CATEGORIES.find((c) => c.value === category);
+
   return (
     <div className="TodoCard">
       <label className="TodoCard-checkbox-wrapper">
@@ -49,7 +52,13 @@ export default function TodoCard({
               autoFocus
               aria-label={`${text} 수정`}
             />
-            <span className={`category-tag category-${category}`}>
+            <span
+              className="category-tag"
+              style={{
+                color: categoryStyle?.color,
+                background: categoryStyle?.bg,
+              }}
+            >
               {category}
             </span>
           </div>
@@ -67,7 +76,13 @@ export default function TodoCard({
           <div className={`TodoCard-text ${isCompleted ? "completed" : ""}`}>
             {text}
           </div>
-          <span className={`category-tag category-${category}`}>
+          <span
+            className="category-tag"
+            style={{
+              color: categoryStyle?.color,
+              background: categoryStyle?.bg,
+            }}
+          >
             {category}
           </span>
         </div>

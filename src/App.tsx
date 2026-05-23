@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import type Todo from "./types/todo";
 import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
 import "./App.css";
+import TodoSearch from "./TodoSearch";
+import TodoFilter, { type FilterCategory } from "./TodoFilter";
+import TodoInput from "./TodoInput";
+import TodoEmptyState from "./TodoEmptyState";
+import { todoReducer } from "./types/todoReducer";
 
 const fixedTodos: Todo[] = [
   { id: 1, text: "리액트 공식문서 읽기", isCompleted: true, category: "공부" },
@@ -14,46 +19,38 @@ const fixedTodos: Todo[] = [
 ];
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>(fixedTodos);
+  const [todos, dispatch] = useReducer(todoReducer, fixedTodos);
   const [inputValue, setInputValue] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<Todo["category"]>("공부");
-  const [filterCategory, setFilterCategory] = useState<string>("전체");
+  const [filterCategory, setFilterCategory] = useState<FilterCategory>("전체");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingText, setEditingText] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
 
   const handleAddTodo = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim() === "") return;
 
-    const newTodo = {
-      id: Date.now(),
-      text: inputValue.trim(),
-      isCompleted: false,
-      category: selectedCategory,
-    };
-
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    dispatch({
+      type: "ADD",
+      payload: {
+        text: inputValue.trim(),
+        isCompleted: false,
+        category: selectedCategory,
+      },
+    });
 
     setInputValue("");
     setSelectedCategory("공부");
   };
 
   const handleDeleteTodo = (id: number) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    dispatch({ type: "DELETE", payload: { id } });
   };
 
   const handleToggleTodo = (id: number) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
-      ),
-    );
+    dispatch({ type: "TOGGLE", payload: { id } });
   };
 
   const handleEditStart = (id: number, text: string) => {
@@ -64,11 +61,7 @@ function App() {
   const handleEditSave = (id: number) => {
     if (editingText.trim() === "") return;
 
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, text: editingText.trim() } : todo,
-      ),
-    );
+    dispatch({ type: "EDIT_SAVE", payload: { id, text: editingText.trim() } });
 
     setEditingId(null);
     setEditingText("");
@@ -103,67 +96,22 @@ function App() {
           incompleteCount={incompleteCount}
         />
       </div>
-
-      <form className="inputContainer" onSubmit={handleAddTodo}>
-        <input
-          className="todoInput"
-          type="text"
-          placeholder="할 일을 입력하세요"
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-        <button className="addButton" type="submit">
-          추가
-        </button>
-      </form>
-
-      <div className="category-selector">
-        {(["공부", "운동", "개인", "업무"] as const).map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            className={`category-button category-${cat} ${selectedCategory === cat ? "selected" : ""}`}
-            onClick={() => setSelectedCategory(cat)}
-            aria-pressed={selectedCategory === cat}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
+      <TodoInput
+        inputValue={inputValue}
+        selectedCategory={selectedCategory}
+        onInputChange={setInputValue}
+        onCategoryChange={setSelectedCategory}
+        onSubmit={handleAddTodo}
+      />
       <hr className="divider" />
-
-      <div className="search-bar">
-        <span className="search-icon">🔍</span>
-        <input
-          type="text"
-          placeholder="할 일 검색..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="search-input"
-        />
-      </div>
-
-      <div className="filter-category-bar">
-        {["전체", "공부", "운동", "개인", "업무"].map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            className={`category-button category-${cat} ${filterCategory === cat ? "selected" : ""}`}
-            onClick={() => setFilterCategory(cat)}
-            aria-pressed={filterCategory === cat}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
+      <TodoSearch searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+      <TodoFilter
+        filterCategory={filterCategory}
+        onFilterChange={setFilterCategory}
+      />
       <div className="container">
         {todos.length === 0 ? (
-          <div className="empty-state">
-            <span className="empty-icon">📋</span>
-            <p className="empty-text">아직 할 일이 없어요</p>
-          </div>
+          <TodoEmptyState icon="📋" message="아직 할 일이 없어요" />
         ) : filteredTodos.length > 0 ? (
           <TodoList
             todos={filteredTodos}
@@ -177,10 +125,7 @@ function App() {
             onEditTextChange={setEditingText}
           />
         ) : (
-          <div className="empty-state">
-            <span className="empty-icon">🔍</span>
-            <p className="empty-text">검색 결과가 없습니다.</p>
-          </div>
+          <TodoEmptyState icon="🔍" message="검색 결과가 없습니다." />
         )}
       </div>
     </div>

@@ -180,31 +180,9 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 150% */
-}
 
-.category-tag.category-공부 {
   border-radius: 999px;
   border: none;
-  background: rgba(59, 130, 246, 0.13);
-  color: #3b82f6;
-}
-.category-tag.category-운동 {
-  border-radius: 999px;
-  border: none;
-  background-color: rgba(34, 197, 94, 0.13);
-  color: #22c55e;
-}
-.category-tag.category-개인 {
-  border-radius: 999px;
-  border: none;
-  background-color: rgba(168, 85, 247, 0.13);
-  color: #a855f7;
-}
-.category-tag.category-업무 {
-  border-radius: 999px;
-  border: none;
-  background-color: rgba(245, 158, 11, 0.13);
-  color: #f59e0b;
 }
 
 .TodoCard-checkbox {
@@ -357,59 +335,10 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: 21px; /* 150% */
-}
 
-.category-공부 {
   border-radius: 8px;
-  border: 2px solid #3b82f6;
-  color: #3b82f6;
   background: #fff;
-}
-.category-운동 {
-  border-radius: 8px;
-  border: 2px solid #22c55e;
-  color: #22c55e;
-  background: #fff;
-}
-.category-개인 {
-  border-radius: 8px;
-  border: 2px solid #a855f7;
-  color: #a855f7;
-  background: #fff;
-}
-.category-업무 {
-  border-radius: 8px;
-  border: 2px solid #f59e0b;
-  color: #f59e0b;
-  background: #fff;
-}
-
-.category-전체 {
-  border-radius: 8px;
-  border: 2px solid #1f2937;
-  color: #1f2937;
-  background: #fff;
-}
-
-.category-공부.selected {
-  background: #3b82f6;
-  color: white;
-}
-.category-운동.selected {
-  background: #22c55e;
-  color: white;
-}
-.category-개인.selected {
-  background: #a855f7;
-  color: white;
-}
-.category-업무.selected {
-  background: #f59e0b;
-  color: white;
-}
-.category-전체.selected {
-  background: #1f2937;
-  color: white;
+  cursor: pointer;
 }
 
 .search-bar {
