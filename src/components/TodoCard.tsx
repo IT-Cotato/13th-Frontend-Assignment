@@ -1,5 +1,6 @@
 import '../css/TodoCard.css';
 import checkIcon from '../assets/checkIcon.svg';
+import TodoEditForm from './TodoEditForm';
 import type { TodoCategory } from '../types/todo.types';
 
 type Props = {
@@ -33,12 +34,6 @@ export default function TodoCard({
 }: Props) {
   const isEditSaveDisabled = !editingText.trim();
 
-  const handleEditSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isEditSaveDisabled) return;
-    onEditSave(id);
-  };
-
   return (
     <li className={`card ${isEditing ? 'is-editing' : ''}`}>
       <div className="card-main">
@@ -60,19 +55,14 @@ export default function TodoCard({
         </label>
 
         {isEditing ? (
-          <form className="card-edit-form" onSubmit={handleEditSubmit}>
-            <input
-              className="card-edit-input"
-              type="text"
-              value={editingText}
-              aria-label="할 일 수정"
-              onChange={(e) => onEditChange(e.target.value)}
-              autoFocus
-            />
-            <span className={`category-tag category-${category}`}>
-              {category}
-            </span>
-          </form>
+          <TodoEditForm
+            id={id}
+            category={category}
+            editingText={editingText}
+            isSaveDisabled={isEditSaveDisabled}
+            onEditChange={onEditChange}
+            onEditSave={onEditSave}
+          />
         ) : (
           <div className="card-content">
             <span className="card-text">{text}</span>

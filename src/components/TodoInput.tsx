@@ -1,27 +1,22 @@
 import '../css/TodoInput.css';
+import { useState } from 'react';
 import type { TodoCategory } from '../types/todo.types';
 
-const CATEGORIES: TodoCategory[] = ['공부', '운동', '개인', '업무'];
+const CATEGORIES = ['공부', '운동', '개인', '업무'] satisfies TodoCategory[];
 
 type TodoInputProps = {
-  value: string;
-  selectedCategory: TodoCategory;
-  onChange: (text: string) => void;
-  onCategoryChange: (category: TodoCategory) => void;
-  onAdd: () => void;
+  onAdd: (text: string, category: TodoCategory) => void;
 };
 
-export default function TodoInput({
-  value,
-  selectedCategory,
-  onChange,
-  onCategoryChange,
-  onAdd,
-}: TodoInputProps) {
+export default function TodoInput({ onAdd }: TodoInputProps) {
+  const [value, setValue] = useState('');
+  const [selectedCategory, setSelectedCategory] =
+    useState<TodoCategory>(CATEGORIES[0]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!value.trim()) return;
-    onAdd();
+    onAdd(value, selectedCategory);
   };
 
   return (
@@ -32,7 +27,7 @@ export default function TodoInput({
           type="text"
           placeholder="할 일을 입력하세요"
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
         />
         <button type="submit" className="todo-button">
           추가
@@ -48,7 +43,7 @@ export default function TodoInput({
               selectedCategory === category ? 'is-selected' : ''
             }`}
             aria-pressed={selectedCategory === category}
-            onClick={() => onCategoryChange(category)}
+            onClick={() => setSelectedCategory(category)}
           >
             {category}
           </button>
