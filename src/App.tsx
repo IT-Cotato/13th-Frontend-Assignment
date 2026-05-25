@@ -1,123 +1,149 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 import './App.css';
 
-const CATEGORIES = ['공부', '운동', '개인', '업무'];
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+  category: string;
+}
+
+const CATEGORIES = ["공부", "운동", "개인", "업무"];
+
+// Action 타입 정의
+type TodoAction =
+  | { type: 'ADD'; payload: Todo }
+  | { type: 'DELETE'; payload: number }
+  | { type: 'TOGGLE'; payload: number }
+  | { type: 'EDIT'; payload: { id: number; newText: string } };
+
+// 💡 2. Reducer 함수 정의
+// 현재 상태(state)와 액션(action)을 받아, 새로운 상태를 반환합니다.
+const todoReducer = (state: Todo[], action: TodoAction): Todo[] => {
+  switch (action.type) {
+    case 'ADD':
+      return [...state, action.payload];
+    case 'DELETE':
+      return state.filter(todo => todo.id !== action.payload);
+    case 'TOGGLE':
+      return state.map(todo =>
+        todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo
+      );
+    case 'EDIT':
+      return state.map(todo =>
+        todo.id === action.payload.id ? { ...todo, text: action.payload.newText } : todo
+      );
+    default:
+      return state; // 알 수 없는 액션일 경우 기존 상태 유지
+  }
+};
 
 const App = () => {
-  const [inputText, setInputText] = useState("");
-  const [inputCategory, setInputCategory] = useState("공부"); // 기본 선택값
-  const [todos, setTodos] = useState([
-    { id: 1, text: "리액트 공식문서 읽기", completed: true, category: "공부" },
-    { id: 2, text: "알고리즘 문제 풀기", completed: true, category: "공부" },
-    { id: 3, text: "운동 30분 하기", completed: false, category: "운동" },
-    { id: 4, text: "프로젝트 회의 준비", completed: false, category: "업무" },
-    { id: 5, text: "장보기 하기", completed: false, category: "개인" },
-  ]);
+  // useReducer 
+  const [todos, dispatch] = useReducer(todoReducer, []);
   
-  const [searchQuery, setSearchQuery] = useState("");
+  const [inputText, setInputText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("전체");
+  const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
+  // 검색어 및 카테고리 필터링
   const filteredTodos = todos.filter((todo) => {
     const matchCategory = selectedCategory === "전체" || todo.category === selectedCategory;
     const matchSearch = todo.text.toLowerCase().includes(searchQuery.toLowerCase());
     return matchCategory && matchSearch;
   });
 
+  // 할 일 추가 로직
   const handleAdd = () => {
-    if (inputText.trim() === "") return;
-    const newTodo = {
+    const trimmedText = inputText.trim();
+    if (trimmedText === "") return;
+
+    const newTodo: Todo = {
       id: Date.now(),
-      text: inputText,
+      text: trimmedText,
       completed: false,
-      category: inputCategory, 
+      category: selectedCategory === "전체" ? "개인" : selectedCategory,
     };
-    setTodos([...todos, newTodo]);
+
+    dispatch({ type: 'ADD', payload: newTodo });
     setInputText("");
   };
 
-  const handleDelete = (id: number) => setTodos(todos.filter(t => t.id !== id));
-  const handleToggle = (id: number) => setTodos(todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
-  const handleEdit = (id: number, newText: string) => setTodos(todos.map(t => t.id === id ? { ...t, text: newText } : t));
+  const handleDelete = (id: number) => {
+    dispatch({ type: 'DELETE', payload: id });
+  };
+
+  const handleToggle = (id: number) => {
+    dispatch({ type: 'TOGGLE', payload: id });
+  };
+
+  const handleEdit = (id: number, newText: string) => {
+    dispatch({ type: 'EDIT', payload: { id, newText } });
+  };
 
   return (
     <div className="app-layout">
       <div className="todo-container">
-        <div className="section">
-          
-          {/* 1. 헤더 및 통계 */}
-          <TodoHeader todos={todos} />
-          
-          {/* 2. 할 일 입력 영역 (위로 올라옴) */}
-          <div className="input-section">
-            <div className="todo-input-container">
-              <input 
-                type="text" 
-                className={`todo-input ${isFocused ? 'focused-input' : ''}`}
-                placeholder="할 일을 입력하세요" 
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-              />
-              <button className="todo-submit-btn" onClick={handleAdd}>추가</button>
-            </div>
-            
-            {/* 할 일 추가용 카테고리 버튼들 */}
-            <div className="add-category-buttons">
-              {CATEGORIES.map(cat => (
-                <button 
-                  key={`add-${cat}`}
-                  // 선택된 카테고리에는 active 클래스를, 그리고 각 카테고리별 고유 색상 클래스(cat-이름)를 줍니다.
-                  className={`cat-btn cat-${cat} ${inputCategory === cat ? 'active' : ''}`}
-                  onClick={() => setInputCategory(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
+        <TodoHeader todos={todos} />
 
-          <hr className="divider" />
-          
-          {/* 3. 검색 및 필터 영역 */}
-          <div className="filter-section">
-            <div className="search-input-wrapper">
-              <span className="search-icon">🔍</span>
-              <input 
-                type="text" 
-                className="search-input" 
-                placeholder="할 일 검색..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            
-            <div className="filter-category-buttons">
-              {['전체', ...CATEGORIES].map((cat) => (
-                <button 
-                  key={`filter-${cat}`}
-                  className={`filter-btn ${cat !== '전체' ? `cat-${cat}` : 'cat-all'} ${selectedCategory === cat ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+        <div className="input-section">
+          <div className="todo-input-container">
+ 
+            <input
+              className={`todo-input ${isFocused ? 'focused-input' : ''}`}
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              placeholder="할 일을 입력하세요"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleAdd();
+              }}
+            />
+            <button className="todo-submit-btn" onClick={handleAdd}>추가</button>
           </div>
-
-          {/* 4. 할 일 목록 */}
-          <TodoList 
-            todos={filteredTodos} 
-            totalTodosCount={todos.length} 
-            onDelete={handleDelete} 
-            onToggle={handleToggle} 
-            onEdit={handleEdit}
-          />
-          
         </div>
+
+        <hr className="divider" />
+
+        <div className="filter-section">
+          <div className="search-input-wrapper">
+            <span className="search-icon">🔍</span>
+            <input
+              type="text"
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="할 일 검색..."
+              aria-label="할 일 검색"
+            />
+          </div>
+
+          <div className="filter-category-buttons">
+            {['전체', ...CATEGORIES].map((cat) => (
+              <button
+                key={cat}
+                className={`filter-btn cat-${cat === '전체' ? 'all' : cat} ${selectedCategory === cat ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(cat)}
+                aria-pressed={selectedCategory === cat}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
+
+        <TodoList
+          todos={filteredTodos}
+          totalTodosCount={todos.length}
+          onDelete={handleDelete}
+          onToggle={handleToggle}
+          onEdit={handleEdit}
+        />
       </div>
     </div>
   );

@@ -1,75 +1,73 @@
-// src/components/TodoCard.tsx
 import { useState } from 'react';
 
 interface TodoCardProps {
   id: number;
   text: string;
   completed: boolean;
-  category: string; 
-  onDelete: () => void; 
-  onToggle: () => void; 
-  onEdit: (newText: string) => void; 
+  category: string;
+  onDelete: () => void;
+  onToggle: () => void;
+  onEdit: (newText: string) => void;
 }
 
-const TodoCard = ({ text, completed, category, onDelete, onToggle, onEdit }: TodoCardProps) => {
+const TodoCard = ({ id, text, completed, category, onDelete, onToggle, onEdit }: TodoCardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(text);
 
   const handleSave = () => {
-    if (editValue.trim() === "") return; 
-    onEdit(editValue); 
-    setIsEditing(false); 
+    // 💡 빈 값 검사와 실제 데이터 업데이트에 동일한 trimmedValue 사용
+    const trimmedValue = editValue.trim();
+    if (trimmedValue === "") return;
+    
+    onEdit(trimmedValue);
+    setIsEditing(false);
   };
 
   const handleCancel = () => {
-    setEditValue(text); 
-    setIsEditing(false); 
+    setEditValue(text);
+    setIsEditing(false);
   };
 
   if (isEditing) {
     return (
-      <div className="todo-card">
-        <span className={`category-badge badge-${category}`}>{category}</span> 
+      <div className={`todo-card ${completed ? 'done-card' : ''}`}>
+        <span className={`category-badge badge-${category}`}>{category}</span>
         <input 
-          className="todo-input edit-inline-input" 
+          className="todo-input edit-inline-input"
           value={editValue} 
           onChange={(e) => setEditValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleSave();
+            if (e.key === 'Escape') handleCancel();
+          }}
           autoFocus 
-        />
-        <div className="action-buttons">
-          <button className="text-btn save-btn" onClick={handleSave}>저장</button>
-          <button className="text-btn cancel-btn" onClick={handleCancel}>취소</button>
-        </div>
+        /> 
+        <button className="text-btn save-btn" onClick={handleSave} aria-label="수정 내용 저장">저장</button>
+        <button className="text-btn cancel-btn" onClick={handleCancel} aria-label="수정 취소">취소</button>
       </div>
     );
   }
 
   return (
     <div className={`todo-card ${completed ? 'done-card' : ''}`}>
+      <input
+        type="checkbox"
+        className="todo-checkbox"
+        checked={completed}
+        onChange={onToggle}
+        style={{ cursor: 'pointer', width: '20px', height: '20px' }}
+        aria-label={`${text} 완료 상태 토글`}
+      />
+
       <div className="todo-info">
-        <div className="checkbox-icon" onClick={onToggle} style={{ cursor: 'pointer' }}>
-          {completed ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" fill="#A4C5FD"/>
-              <path d="M7 12.5L10 15.5L17 8.5" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" stroke="#E5E7EB" strokeWidth="2"/>
-            </svg>
-          )}
-        </div>
-        
         <span className={`category-badge badge-${category}`}>{category}</span>
-        
-        <p className={`card-text ${completed ? 'done-text' : ''}`}>
-          {text}
-        </p>
+        <p className={`card-text ${completed ? 'done-text' : ''}`}>{text}</p>
       </div>
 
       <div className="action-buttons">
-        <button className="icon-btn" onClick={() => setIsEditing(true)}>✏️</button>
-        <button className="icon-btn" onClick={onDelete}>🗑</button>
+        {/* 💡 수정/삭제 버튼의 역할이 명확히 전달되도록 aria-label 추가 */}
+        <button className="icon-btn" onClick={() => setIsEditing(true)} aria-label="할 일 수정">✏️</button>
+        <button className="icon-btn" onClick={onDelete} aria-label="할 일 삭제">🗑️</button>
       </div>
     </div>
   );
