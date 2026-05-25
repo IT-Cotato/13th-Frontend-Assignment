@@ -117,6 +117,13 @@ function App() {
     });
   }, [todos, searchKeyword, filterCategory]);
 
+  const hasTodos = todos.length > 0;
+  const visibleTodos = filteredTodos;
+
+  const emptyMessage = hasTodos
+    ? "검색 결과가 없습니다"
+    : "아직 할 일이 없어요";
+
   const totalCount = todos.length;
   const completedCount = todos.filter((todo) => todo.completed).length;
   const inCompleteCount = todos.filter((todo) => !todo.completed).length;
@@ -148,8 +155,8 @@ function App() {
         />
 
         <TodoList
-          todos={todos}
-          filteredTodos={filteredTodos}
+          todos={visibleTodos}
+          emptyMessage={emptyMessage}
           editingId={editingId}
           editingText={editingText}
           onToggle={handleToggleTodo}
