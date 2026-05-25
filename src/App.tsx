@@ -14,6 +14,9 @@ function App() {
   const [selectedFilterCategory, setSelectedFilterCategory] = useState<FilterCategory>("전체");
   const [searchText, setSearchText] = useState("");
 
+  const isFiltered =
+  searchText.trim() !== "" || selectedFilterCategory !== "전체";
+
   const filteredTodos = todos.filter((todo) => {
   const matchCategory =
     selectedFilterCategory === "전체" ||
@@ -71,7 +74,7 @@ function App() {
         <TodoInput onAddTodo={handleAddTodo} />
         <TodoCategorySelector selectedCategory={selectedCategory} onChangeCategory={setSelectedCategory}/>
         <TodoFilter searchText={searchText} onChangeSearchText={setSearchText} selectedFilterCategory={selectedFilterCategory} onChangeFilterCategory={setSelectedFilterCategory}/>
-        <TodoList todos={filteredTodos} searchText={searchText} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
+        <TodoList todos={filteredTodos} isFiltered={isFiltered} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
       </div>
     </div>
   )
