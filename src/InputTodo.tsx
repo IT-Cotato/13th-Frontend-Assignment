@@ -1,10 +1,14 @@
+import type { TodoCategory } from "./types/todo.types";
+
 type InputTodoProps = {
   input: string;
   setInput: (value: string) => void;
   onAdd: () => void;
   placeholder: string;
-  category: string;
-  setCategory: (value: string) => void;
+
+  category: TodoCategory;
+  setCategory: (value: TodoCategory) => void;
+
 };
 
 function InputTodo({
@@ -15,11 +19,15 @@ function InputTodo({
   category,
   setCategory,
 }: InputTodoProps) {
-  const categories = [
-    { label: "공부", value: "study" },
-    { label: "운동", value: "workout" },
-    { label: "개인", value: "personal" },
-    { label: "업무", value: "work" },
+  const categories: {
+    label: string;
+    value: TodoCategory;
+    className: string;
+  }[] = [
+    { label: "공부", value: "공부", className: "study" },
+    { label: "운동", value: "운동", className: "workout" },
+    { label: "개인", value: "개인", className: "personal" },
+    { label: "업무", value: "업무", className: "work" },
   ];
 
   return (
@@ -42,7 +50,7 @@ function InputTodo({
           <button
             key={cat.value}
             onClick={() => setCategory(cat.value)}
-            className={`category-btn ${cat.value} ${
+            className={`category-btn ${cat.className} ${
               category === cat.value ? "active" : ""
             }`}
           >

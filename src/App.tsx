@@ -3,88 +3,54 @@ import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
 import { todos as initialTodos } from "./todos.data";
 import InputTodo from "./InputTodo";
-import { useState } from "react";
-import type { Todo } from "./types/todo.types";
 import Summary from "./Summary";
 import Search from "./Search";
+import { useState, useReducer } from "react";   // useReducer 추가
+import { todoReducer, editReducer, editInitialState } from "./reducers/todoReducer";
+import type { TodoCategory, FilterCategory } from "./types/todo.types";
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>(initialTodos);
-  const [input, setInput] = useState("");
-  const [category, setCategory] = useState("공부");
+  const [todos, dispatch]     = useReducer(todoReducer, initialTodos);
+  const [editState, editDispatch] = useReducer(editReducer, editInitialState);
 
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [editText, setEditText] = useState("");
-
-  const [search, setSearch] = useState("");
-  const [filterCategory, setFilterCategory] = useState("전체");
+  const [input, setInput]               = useState("");
+  const [category, setCategory]         = useState<TodoCategory>("공부");
+  const [search, setSearch]             = useState("");
+  const [filterCategory, setFilterCategory] = useState<FilterCategory>("전체");
 
   const handleAdd = () => {
     if (input.trim() === "") return;
-
-    setTodos((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        text: input.trim(),
-        completed: false,
-        category,
-      },
-    ]);
-
-    setInput("");
+    dispatch({ type: "ADD", payload: { text: input, category } });
+    setInput(""); 
   };
 
   const handleDelete = (id: number) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    dispatch({ type: "DELETE", payload: { id } });
   };
 
   const handleToggle = (id: number) => {
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id
-          ? { ...todo, completed: !todo.completed }
-          : todo
-      )
-    );
+    dispatch({ type: "TOGGLE", payload: { id } });
   };
 
   const handleEdit = (id: number, text: string) => {
-    setEditingId(id);
-    setEditText(text);
+    editDispatch({ type: "START_EDIT", payload: { id, text } });
   };
 
   const handleUpdate = (id: number) => {
-    const trimmedText = editText.trim();
-
-    if (!trimmedText) return;
-
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id
-          ? { ...todo, text: trimmedText }
-          : todo
-      )
-    );
-
-    setEditingId(null);
-    setEditText("");
+    const trimmed = editState.editText.trim();
+    if (!trimmed) return;
+    dispatch({ type: "UPDATE", payload: { id, text: trimmed } });
+    editDispatch({ type: "CANCEL_EDIT" });
   };
 
   const handleCancel = () => {
-    setEditingId(null);
-    setEditText("");
+    editDispatch({ type: "CANCEL_EDIT" });
   };
 
   const filteredTodos = todos.filter((todo) => {
-    const matchSearch = todo.text
-      .toLowerCase()
-      .includes(search.toLowerCase());
-
+    const matchSearch = todo.text.toLowerCase().includes(search.toLowerCase());
     const matchCategory =
-      filterCategory === "전체" ||
-      todo.category === filterCategory;
-
+      filterCategory === "전체" || todo.category === filterCategory;
     return matchSearch && matchCategory;
   });
 
@@ -115,17 +81,25 @@ function App() {
       />
 
       <div className="container">
-        <TodoList
-          todos={filteredTodos}
-          onDelete={handleDelete}
-          onToggle={handleToggle}
-          editingId={editingId}
-          editText={editText}
-          setEditText={setEditText}
-          onEdit={handleEdit}
-          onUpdate={handleUpdate}
-          onCancel={handleCancel}
-        />
+        {todos.length === 0 ? (
+          <p>아직 할 일이 없어요.</p>
+        ) : filteredTodos.length === 0 ? (
+          <p>검색 결과가 없습니다.</p>
+        ) : (
+          <TodoList
+            todos={filteredTodos}
+            onDelete={handleDelete}
+            onToggle={handleToggle}
+            editingId={editState.editingId}          
+            editText={editState.editText}             
+            setEditText={(text) =>
+              editDispatch({ type: "CHANGE_TEXT", payload: { text } })
+            }
+            onEdit={handleEdit}
+            onUpdate={handleUpdate}
+            onCancel={handleCancel}
+          />
+        )}
       </div>
     </div>
   );

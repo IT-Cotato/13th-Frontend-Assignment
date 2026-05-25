@@ -1,9 +1,10 @@
+import type { FilterCategory } from "./types/todo.types";
 type SearchProps = {
   search: string;
   setSearch: (value: string) => void;
 
-  filterCategory: string;
-  setFilterCategory: (value: string) => void;
+  filterCategory: FilterCategory;
+  setFilterCategory: (value: FilterCategory) => void;
 };
 
 function Search({
@@ -12,7 +13,11 @@ function Search({
   filterCategory,
   setFilterCategory,
 }: SearchProps) {
-  const categories = [
+  const categories: {
+  label: string;
+  value: FilterCategory;
+  className: string;
+}[] = [
     { label: "전체", value: "전체", className: "전체" },
     { label: "공부", value: "공부", className: "공부" },
     { label: "운동", value: "운동", className: "운동" },
