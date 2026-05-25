@@ -83,13 +83,10 @@ export default function App() {
     const remainingCount = listState.filter((item) => !item.completed).length;
 
     // 카테고리 필터 상태 관리
-    const filters = ["all", "study", "exercise", "personal", "work"];
+    const filters = ["all", ...categories];
     const filterLabels: Record<string, string> = {
         all: "전체",
-        study: "공부",
-        exercise: "운동",
-        personal: "개인",
-        work: "업무",
+        ...categoryLabels,
     };
     const [filterCategory, setFilterCategory] = useState("all");
 
@@ -102,9 +99,9 @@ export default function App() {
     const [searchText, setSearchText] = useState("");
 
     // 투두 검색 이벤트 핸들러
-    function handleSearchTodo(e: React.ChangeEvent<HTMLInputElement>) {
-        setSearchText(e.target.value);
-    }
+    const handleSearchTodo = (text: string) => {
+        setSearchText(text);
+    };
 
     // 카테고리로 필터링된 투두리스트
     const categoryFilteredList =

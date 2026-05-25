@@ -1,7 +1,7 @@
 import { type ChangeEvent } from "react";
 import magnifier from "../resource/magnifier.png";
 
-export default function TodoSearch({
+export default function TodoFilter({
     searchText,
     onSearch,
     filters,
@@ -10,7 +10,7 @@ export default function TodoSearch({
     onFilterCategory,
 }: {
     searchText: string;
-    onSearch: (e: ChangeEvent<HTMLInputElement, Element>) => void;
+    onSearch: (nextSearchText: string) => void;
     filters: string[];
     filterLabels: Record<string, string>;
     filterCategory: string;
@@ -25,7 +25,7 @@ export default function TodoSearch({
                     id="search-input-area"
                     type="text"
                     placeholder="할 일 검색..."
-                    onChange={onSearch}
+                    onChange={(e) => onSearch(e.target.value)}
                     value={searchText}
                     className="todoSearch"
                 ></input>

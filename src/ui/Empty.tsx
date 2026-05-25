@@ -1,6 +1,8 @@
 import magnifier from "../resource/magnifier.png";
 
-export default function Empty({ type }: { type: string }) {
+type EmptyType = "total" | "search";
+
+export default function Empty({ type }: { type: EmptyType }) {
     const fileIcon = "📋";
     const totalNotice = "아직 할 일이 없어요";
     const searchNotice = "검색 결과가 없습니다.";
