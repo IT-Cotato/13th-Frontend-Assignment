@@ -6,13 +6,17 @@ import TodoCounter from "./ui/TodoCounter";
 import CategorySelector from "./ui/CategorySelector";
 import type { TodoItem } from "./types";
 import TodoFilter from "./ui/TodoFilter";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { reducer, initialState } from "./reducer";
 
 export default function App() {
     // useReducer 전체 상태 관리
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { todos, selectedCategory, filterCategory, searchText } = state;
+    const { todos } = state;
+
+    const [selectedCategory, setSelectedCategory] = useState("study");
+    const [filterCategory, setFilterCategory] = useState("all");
+    const [searchText, setSearchText] = useState("");
 
     const categories = ["study", "exercise", "personal", "work"];
     const categoryLabels: Record<string, string> = {
@@ -71,18 +75,18 @@ export default function App() {
 
     // 카테고리 선택 이벤트 핸들러
     function handleCategorySelect(category: string) {
-        dispatch({ type: "SELECT_CATEGORY", category });
+        setSelectedCategory(category);
     }
 
     // 필터 선택 이벤트 핸들러
     function handleFilterCategory(category: string) {
-        dispatch({ type: "FILTER_CATEGORY", category });
+        setFilterCategory(category);
     }
 
     // 투두 검색 이벤트 핸들러
-    const handleSearchTodo = (text: string) => {
-        dispatch({ type: "SEARCH_TODO", text });
-    };
+    function handleSearchTodo(text: string) {
+        setSearchText(text);
+    }
 
     return (
         <>

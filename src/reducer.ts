@@ -3,16 +3,10 @@ import type { TodoItem } from "./types";
 
 type State = {
     todos: TodoItem[];
-    selectedCategory: string;
-    filterCategory: string;
-    searchText: string;
 };
 
 const initialState: State = {
     todos: todoItems,
-    selectedCategory: "study",
-    filterCategory: "all",
-    searchText: "",
 };
 
 type Action =
@@ -24,10 +18,7 @@ type Action =
       }
     | { type: "TOGGLE_TODO"; id: number }
     | { type: "DELETE_TODO"; id: number }
-    | { type: "CHANGE_TODO"; nextTodo: TodoItem }
-    | { type: "SELECT_CATEGORY"; category: string }
-    | { type: "FILTER_CATEGORY"; category: string }
-    | { type: "SEARCH_TODO"; text: string };
+    | { type: "CHANGE_TODO"; nextTodo: TodoItem };
 
 function reducer(state: State, action: Action): State {
     switch (action.type) {
@@ -75,16 +66,6 @@ function reducer(state: State, action: Action): State {
                 ),
             };
         }
-        case "SELECT_CATEGORY": {
-            return {
-                ...state,
-                selectedCategory: action.category,
-            };
-        }
-        case "FILTER_CATEGORY":
-            return { ...state, filterCategory: action.category };
-        case "SEARCH_TODO":
-            return { ...state, searchText: action.text };
     }
 }
 
