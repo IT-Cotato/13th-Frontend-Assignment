@@ -2,7 +2,7 @@ import TodoEmpty from "./component/TodoEmpty"
 import TodoHeader from "./component/TodoHeader"
 import TodoList from "./component/TodoList"
 import TodoInput from "./component/TodoInput"
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import TodoStatus from "./component/TodoStatus";
 import { type CategoryType, CATEGORY_STYLES } from "./constants/category";
 import TodoSearch from "./component/TodoSearch";
@@ -15,16 +15,54 @@ interface TodoItem {
   category: CategoryType;
 }
 
+type TodoAction =
+  | { type: "ADD_TODO"; payload: { text: string; category: CategoryType } }
+  | { type: "DELETE_TODO"; payload: { id: number } }
+  | { type: "TOGGLE_TODO"; payload: { id: number } }
+  | { type: "UPDATE_TODO"; payload: { id: number; newContent: string } }
+  | { type: "RESET_TODOS"; payload: TodoItem[] }; // 💡 key 리셋과 연동하거나 직접 리셋할 때 사용할 액션
+
+const INITIAL_TODOS: TodoItem[] = [
+  { id: 1, content: "리액트 공식문서 읽기", isDone: true, category: "공부" },
+  { id: 2, content: "알고리즘 문제 풀기", isDone: true, category: "공부" },
+  { id: 3, content: "운동 30분 하기", isDone: false, category: "운동" },
+  { id: 4, content: "프로젝트 회의 준비", isDone: false, category: "업무" },
+  { id: 5, content: "장보기 하기", isDone: false, category: "개인" },
+  { id: 6, content: "블로그 포스팅 작성", isDone: false, category: "업무" },
+];
+
+// 2. Reducer 함수 구현 (useState CRUD -> useReducer 전환)
+function todoReducer(state: TodoItem[], action: TodoAction): TodoItem[] {
+  switch (action.type) {
+    case "ADD_TODO":
+      return [
+        ...state,
+        {
+          id: Date.now(),
+          content: action.payload.text,
+          isDone: false,
+          category: action.payload.category,
+        },
+      ];
+    case "DELETE_TODO":
+      return state.filter((todo) => todo.id !== action.payload.id);
+    case "TOGGLE_TODO":
+      return state.map((todo) =>
+        todo.id === action.payload.id ? { ...todo, isDone: !todo.isDone } : todo
+      );
+    case "UPDATE_TODO":
+      return state.map((todo) =>
+        todo.id === action.payload.id ? { ...todo, content: action.payload.newContent } : todo
+      );
+    case "RESET_TODOS":
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 function App() {
-  const [todos, setTodos] = useState<TodoItem[]>([
-    { id: 1, content: "리액트 공식문서 읽기", isDone: true, category: "공부" },
-    { id: 2, content: "알고리즘 문제 풀기", isDone: true, category: "공부" },
-    { id: 3, content: "운동 30분 하기", isDone: false, category: "운동" },
-    { id: 4, content: "프로젝트 회의 준비", isDone: false, category: "업무" },
-    { id: 5, content: "장보기 하기", isDone: false, category: "개인" },
-    { id: 6, content: "블로그 포스팅 작성", isDone: false, category: "업무" },
-  ]);
+  const [todos, dispatch] = useReducer(todoReducer, INITIAL_TODOS);
 
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>("공부");
   const [filter, setFilter] = useState<CategoryType | "전체">("전체");
@@ -41,33 +79,19 @@ function App() {
   const pendingCount = totalCount - doneCount;
 
   const handleAdd = (text: string) => {
-    const newTodo: TodoItem = {
-      id: Date.now(),
-      content: text,
-      isDone: false,
-      category: selectedCategory,
-    };
-    setTodos((prev) => [...prev, newTodo]);
+    dispatch({ type: "ADD_TODO", payload: { text, category: selectedCategory } });
   };
 
   const handleDelete = (id: number) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    dispatch({ type: "DELETE_TODO", payload: { id } });
   };
 
   const handleToggle = (id: number) => {
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      )
-    );
+    dispatch({ type: "TOGGLE_TODO", payload: { id } });
   };
 
   const handleUpdate = (id: number, newContent: string) => {
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id? { ...todo, content: newContent } : todo
-      )
-    );
+    dispatch({ type: "UPDATE_TODO", payload: { id, newContent } });
   }
 
   return (
