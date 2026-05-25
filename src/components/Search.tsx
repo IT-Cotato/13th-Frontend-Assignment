@@ -1,11 +1,11 @@
-import { type Dispatch, type SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 export default function Search({
   searchText,
-  onSeachChange,
+  onSearchChange,
 }: {
   searchText: string;
-  onSeachChange: Dispatch<SetStateAction<string>>;
+  onSearchChange: Dispatch<SetStateAction<string>>;
 }) {
 
   return (
@@ -15,7 +15,7 @@ export default function Search({
         type="text"
         placeholder="🔍 할 일 검색..."
         value={searchText}
-        onChange={(e) => onSeachChange(e.target.value)}
+        onChange={(e) => onSearchChange(e.target.value)}
       />
     </>
   );
