@@ -56,12 +56,12 @@ export default function App() {
     }
     // 투두 추가 이벤트 핸들러
     function handleAddTodo(inputText: string) {
-        if (inputText == "") return;
+        if (inputText.trim() === "") return;
 
         setListState((prevList) => {
             const newId =
                 listState.length > 0
-                    ? listState[listState.length - 1].id + 1
+                    ? prevList[listState.length - 1].id + 1
                     : 1;
 
             return [
