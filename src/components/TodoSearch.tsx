@@ -1,10 +1,20 @@
 import type { TodoCategory } from "../types/todo";
 
+type FilterCategory = "전체" | TodoCategory;
+
+const FILTER_CATEGORIES: FilterCategory[] = [
+  "전체",
+  "공부",
+  "운동",
+  "개인",
+  "업무",
+];
+
 type TodoSearchProps = {
   keyword: string;
-  selectedCategory: "전체" | TodoCategory;
+  selectedCategory: FilterCategory;
   onChangeKeyword: (value: string) => void;
-  onChangeCategory: (category: "전체" | TodoCategory) => void;
+  onChangeCategory: (category: FilterCategory) => void;
 };
 
 function TodoSearch({
@@ -13,7 +23,7 @@ function TodoSearch({
   onChangeKeyword,
   onChangeCategory,
 }: TodoSearchProps) {
-  const getFilterButtonClass = (category: "전체" | TodoCategory) => {
+  const getFilterButtonClass = (category: FilterCategory) => {
     const base =
       "flex h-10 items-center justify-center rounded-lg px-4 text-sm font-medium leading-5 outline outline-2 outline-offset-[-2px]";
 
@@ -62,45 +72,16 @@ function TodoSearch({
       </div>
 
       <div className="flex items-start gap-3">
-        <button
-          type="button"
-          onClick={() => onChangeCategory("전체")}
-          className={getFilterButtonClass("전체")}
-        >
-          전체
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onChangeCategory("공부")}
-          className={getFilterButtonClass("공부")}
-        >
-          공부
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onChangeCategory("운동")}
-          className={getFilterButtonClass("운동")}
-        >
-          운동
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onChangeCategory("개인")}
-          className={getFilterButtonClass("개인")}
-        >
-          개인
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onChangeCategory("업무")}
-          className={getFilterButtonClass("업무")}
-        >
-          업무
-        </button>
+        {FILTER_CATEGORIES.map((category) => (
+          <button
+            key={category}
+            type="button"
+            onClick={() => onChangeCategory(category)}
+            className={getFilterButtonClass(category)}
+          >
+            {category}
+          </button>
+        ))}
       </div>
     </div>
   );

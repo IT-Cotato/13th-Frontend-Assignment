@@ -11,9 +11,9 @@ function App() {
   const icon = "✅";
 
   const [inputValue, setInputValue] = useState("");
+
   const [selectedCategory, setSelectedCategory] =
     useState<TodoCategory>("공부");
-
   const [searchKeyword, setSearchKeyword] = useState("");
   const [filterCategory, setFilterCategory] = useState<"전체" | TodoCategory>(
     "전체",
