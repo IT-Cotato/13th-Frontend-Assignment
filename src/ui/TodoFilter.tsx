@@ -1,4 +1,3 @@
-import { type ChangeEvent } from "react";
 import magnifier from "../resource/magnifier.png";
 
 export default function TodoFilter({
