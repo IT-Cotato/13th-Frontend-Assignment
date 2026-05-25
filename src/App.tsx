@@ -54,6 +54,7 @@ function App() {
   const [ selectedCategory, setSelectedCategory ] = useState<Category>("공부");
   const [selectedFilterCategory, setSelectedFilterCategory] = useState<FilterCategory>("전체");
   const [searchText, setSearchText] = useState("");
+  const [inputResetKey, setInputResetKey] = useState(0);
 
   const isFiltered =
   searchText.trim() !== "" || selectedFilterCategory !== "전체";
@@ -76,6 +77,8 @@ function App() {
       text,
       category: selectedCategory,
     });
+
+    setInputResetKey((prev) => prev + 1);
   }
 
   function handleToggle(id: number) {
@@ -105,7 +108,7 @@ function App() {
       <div className="mx-auto flex w-full max-w-[640px] flex-col items-start gap-[24px]">
         <TodoHeader />
         <TodoOverview todos={todos} />
-        <TodoInput onAddTodo={handleAddTodo} />
+        <TodoInput onAddTodo={handleAddTodo} key={inputResetKey}/>
         <TodoCategorySelector selectedCategory={selectedCategory} onChangeCategory={setSelectedCategory}/>
         <TodoFilter searchText={searchText} onChangeSearchText={setSearchText} selectedFilterCategory={selectedFilterCategory} onChangeFilterCategory={setSelectedFilterCategory}/>
         <TodoList todos={filteredTodos} isFiltered={isFiltered} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
