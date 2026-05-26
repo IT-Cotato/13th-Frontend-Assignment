@@ -126,7 +126,7 @@ function App() {
 
   const totalCount = todos.length;
   const completedCount = todos.filter((todo) => todo.completed).length;
-  const inCompleteCount = todos.filter((todo) => !todo.completed).length;
+  const inCompleteCount = totalCount - completedCount;
 
   return (
     <div className="min-h-screen bg-neutral-100 p-10">
