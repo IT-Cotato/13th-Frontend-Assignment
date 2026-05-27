@@ -31,9 +31,8 @@ export default function TodoList({
 
     return (
         <>
-            <ul id="todoList">
-                {filteredList.length > 0 ? todoItem : <Empty type="search" />}
-            </ul>
+            <ul id="todoList">{filteredList.length > 0 && todoItem}</ul>
+            {filteredList.length === 0 && <Empty type="search" />}
         </>
     );
 }
