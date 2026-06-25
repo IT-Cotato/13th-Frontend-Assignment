@@ -9,14 +9,17 @@ import CategoryTag from './components/CategoryTag';
 import SearchInput from './components/SearchInput';
 import FilterCategory from './components/FilterCategory';
 import { todoReducer } from './reducers/todoReducer';
+import ViewToggle from './components/ViewToggle';
 import type { Category } from './types/todo';
 import type { FilterCategory as FilterCategoryType } from './components/FilterCategory';
+import type { ViewMode } from './components/ViewToggle';
 
 export default function App() {
   const [todoItems, dispatch] = useReducer(todoReducer, TODO_ITEMS);
   const [selectedCategory, setSelectedCategory] = useState<Category>('공부');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<FilterCategoryType>('전체');
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
 
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
@@ -80,12 +83,14 @@ export default function App() {
           />
         </div>
         <SearchInput value={searchQuery} onChange={setSearchQuery} />
-        <div style={{ marginTop: '24px' }}>
+        <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <FilterCategory selected={filterCategory} onSelect={setFilterCategory} />
+          <ViewToggle viewMode={viewMode} onToggle={setViewMode} />
         </div>
         {filteredItems.length > 0 ? (
           <TodoList
             items={filteredItems}
+            viewMode={viewMode}
             onToggle={handleToggleTodo}
             onDelete={handleDeleteTodo}
             onUpdate={handleUpdateTodo}
