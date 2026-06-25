@@ -10,6 +10,7 @@ import FilterCategory from './components/FilterCategory';
 import { todoReducer } from './reducers/todoReducer';
 import ViewToggle from './components/ViewToggle';
 import SortBar from './components/SortBar';
+import Toast from './components/Toast';
 import type { Category } from './types/todo';
 import type { FilterCategory as FilterCategoryType } from './components/FilterCategory';
 import type { ViewMode } from './components/ViewToggle';
@@ -25,6 +26,17 @@ export default function App() {
   const [hideCompleted, setHideCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [toast, setToast] = useState({ message: '', visible: false });
+
+  useEffect(() => {
+    if (!toast.visible) return;
+    const timer = setTimeout(() => setToast((prev) => ({ ...prev, visible: false })), 3000);
+    return () => clearTimeout(timer);
+  }, [toast.visible]);
+
+  const showToast = (message: string) => {
+    setToast({ message, visible: true });
+  };
 
   useEffect(() => {
     fetch('http://localhost:3001/todos')
@@ -66,6 +78,7 @@ export default function App() {
 
   const handleAddTodo = (task: string) => {
     dispatch({ type: 'ADD', payload: { id: `todo-${Date.now()}`, task, category: selectedCategory } });
+    showToast('할 일이 추가되었습니다');
   };
 
   const handleToggleTodo = (id: string) => {
@@ -74,10 +87,12 @@ export default function App() {
 
   const handleDeleteTodo = (id: string) => {
     dispatch({ type: 'DELETE', payload: { id } });
+    showToast('할 일이 삭제되었습니다');
   };
 
   const handleUpdateTodo = (id: string, task: string) => {
     dispatch({ type: 'UPDATE', payload: { id, task } });
+    showToast('할 일이 수정되었습니다');
   };
 
   const filteredItems = todoItems
@@ -134,6 +149,7 @@ export default function App() {
           <EmptyState variant={searchQuery || filterCategory !== '전체' ? 'no-results' : 'empty'} />
         )}
       </main>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }
