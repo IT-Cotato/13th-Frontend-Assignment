@@ -1,7 +1,7 @@
 import type { Todo, Category } from '../types/todo';
 
 export type TodoAction =
-  | { type: 'ADD'; payload: { task: string; category: Category } }
+  | { type: 'ADD'; payload: { id: string; task: string; category: Category } }
   | { type: 'TOGGLE'; payload: { id: string } }
   | { type: 'DELETE'; payload: { id: string } }
   | { type: 'UPDATE'; payload: { id: string; task: string } };
@@ -12,7 +12,7 @@ export function todoReducer(state: Todo[], action: TodoAction): Todo[] {
       return [
         ...state,
         {
-          id: `todo-${Date.now()}`,
+          id: action.payload.id,
           task: action.payload.task,
           isCompleted: false,
           category: action.payload.category,

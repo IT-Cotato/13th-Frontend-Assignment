@@ -58,7 +58,7 @@ export default function App() {
         <TodoStats todos={todoItems} />
         <div style={dividerStyle}>
           <TodoInput
-            onAdd={(task) => dispatch({ type: 'ADD', payload: { task, category: selectedCategory } })}
+            onAdd={(task) => dispatch({ type: 'ADD', payload: { id: `todo-${Date.now()}`, task, category: selectedCategory } })}
           />
           <CategoryTag
             selectedCategory={selectedCategory}
