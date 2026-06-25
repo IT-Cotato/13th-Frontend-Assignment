@@ -96,21 +96,25 @@ export default function TodoCard({
               </svg>
             )}
           </span>
-          <div style={textContainerStyle}>
-            {isEditing ? (
-              <input
-                className="edit-input"
-                value={editText}
-                onChange={(e) => setEditText(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
-                autoFocus
-              />
-            ) : (
+          {!isEditing && (
+            <div style={textContainerStyle}>
               <span style={textStyle}>{task}</span>
-            )}
+              <CategoryBadge category={category} />
+            </div>
+          )}
+        </label>
+        {isEditing && (
+          <div style={textContainerStyle}>
+            <input
+              className="edit-input"
+              value={editText}
+              onChange={(e) => setEditText(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
+              autoFocus
+            />
             <CategoryBadge category={category} />
           </div>
-        </label>
+        )}
       </div>
 
       <div className="button-group" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
