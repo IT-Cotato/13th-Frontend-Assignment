@@ -1,6 +1,7 @@
 import type { Todo, Category } from '../types/todo';
 
 export type TodoAction =
+  | { type: 'INIT'; payload: Todo[] }
   | { type: 'ADD'; payload: { id: string; task: string; category: Category } }
   | { type: 'TOGGLE'; payload: { id: string } }
   | { type: 'DELETE'; payload: { id: string } }
@@ -8,6 +9,8 @@ export type TodoAction =
 
 export function todoReducer(state: Todo[], action: TodoAction): Todo[] {
   switch (action.type) {
+    case 'INIT':
+      return action.payload;
     case 'ADD':
       return [
         ...state,

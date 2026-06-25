@@ -1,5 +1,4 @@
-import { useState, useReducer } from 'react';
-import { TODO_ITEMS } from './constants/todoData';
+import { useState, useReducer, useEffect } from 'react';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 import EmptyState from './components/EmptyState';
@@ -17,13 +16,26 @@ import type { ViewMode } from './components/ViewToggle';
 import type { SortType } from './components/SortBar';
 
 export default function App() {
-  const [todoItems, dispatch] = useReducer(todoReducer, TODO_ITEMS);
+  const [todoItems, dispatch] = useReducer(todoReducer, []);
   const [selectedCategory, setSelectedCategory] = useState<Category>('공부');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<FilterCategoryType>('전체');
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [sort, setSort] = useState<SortType>('생성순');
   const [hideCompleted, setHideCompleted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/todos')
+      .then((res) => {
+        if (!res.ok) throw new Error('데이터를 불러오지 못했습니다.');
+        return res.json();
+      })
+      .then((data) => dispatch({ type: 'INIT', payload: data }))
+      .catch((err: Error) => setError(err.message))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
@@ -106,7 +118,11 @@ export default function App() {
             onHideCompletedChange={setHideCompleted}
           />
         </div>
-        {filteredItems.length > 0 ? (
+        {isLoading ? (
+          <p style={{ textAlign: 'center', marginTop: '40px', color: 'var(--text-secondary)' }}>불러오는 중...</p>
+        ) : error ? (
+          <p style={{ textAlign: 'center', marginTop: '40px', color: 'var(--danger)' }}>{error}</p>
+        ) : filteredItems.length > 0 ? (
           <TodoList
             items={filteredItems}
             viewMode={viewMode}
