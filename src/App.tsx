@@ -45,6 +45,22 @@ export default function App() {
     marginBottom: '24px',
   };
 
+  const handleAddTodo = (task: string) => {
+    dispatch({ type: 'ADD', payload: { id: `todo-${Date.now()}`, task, category: selectedCategory } });
+  };
+
+  const handleToggleTodo = (id: string) => {
+    dispatch({ type: 'TOGGLE', payload: { id } });
+  };
+
+  const handleDeleteTodo = (id: string) => {
+    dispatch({ type: 'DELETE', payload: { id } });
+  };
+
+  const handleUpdateTodo = (id: string, task: string) => {
+    dispatch({ type: 'UPDATE', payload: { id, task } });
+  };
+
   const filteredItems = todoItems.filter((item) => {
     const matchesCategory = filterCategory === '전체' || item.category === filterCategory;
     const matchesSearch = item.task.toLowerCase().includes(searchQuery.toLowerCase());
@@ -57,9 +73,7 @@ export default function App() {
         <TodoHeader title="✅ 오늘의 할 일" />
         <TodoStats todos={todoItems} />
         <div style={dividerStyle}>
-          <TodoInput
-            onAdd={(task) => dispatch({ type: 'ADD', payload: { id: `todo-${Date.now()}`, task, category: selectedCategory } })}
-          />
+          <TodoInput onAdd={handleAddTodo} />
           <CategoryTag
             selectedCategory={selectedCategory}
             onSelect={setSelectedCategory}
@@ -72,9 +86,9 @@ export default function App() {
         {filteredItems.length > 0 ? (
           <TodoList
             items={filteredItems}
-            onToggle={(id) => dispatch({ type: 'TOGGLE', payload: { id } })}
-            onDelete={(id) => dispatch({ type: 'DELETE', payload: { id } })}
-            onUpdate={(id, task) => dispatch({ type: 'UPDATE', payload: { id, task } })}
+            onToggle={handleToggleTodo}
+            onDelete={handleDeleteTodo}
+            onUpdate={handleUpdateTodo}
           />
         ) : (
           <EmptyState variant={searchQuery || filterCategory !== '전체' ? 'no-results' : 'empty'} />
