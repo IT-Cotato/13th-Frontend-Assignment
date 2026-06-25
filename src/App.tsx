@@ -10,9 +10,11 @@ import SearchInput from './components/SearchInput';
 import FilterCategory from './components/FilterCategory';
 import { todoReducer } from './reducers/todoReducer';
 import ViewToggle from './components/ViewToggle';
+import SortBar from './components/SortBar';
 import type { Category } from './types/todo';
 import type { FilterCategory as FilterCategoryType } from './components/FilterCategory';
 import type { ViewMode } from './components/ViewToggle';
+import type { SortType } from './components/SortBar';
 
 export default function App() {
   const [todoItems, dispatch] = useReducer(todoReducer, TODO_ITEMS);
@@ -20,6 +22,8 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<FilterCategoryType>('전체');
   const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [sort, setSort] = useState<SortType>('생성순');
+  const [hideCompleted, setHideCompleted] = useState(false);
 
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
@@ -64,11 +68,18 @@ export default function App() {
     dispatch({ type: 'UPDATE', payload: { id, task } });
   };
 
-  const filteredItems = todoItems.filter((item) => {
-    const matchesCategory = filterCategory === '전체' || item.category === filterCategory;
-    const matchesSearch = item.task.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredItems = todoItems
+    .filter((item) => {
+      const matchesCategory = filterCategory === '전체' || item.category === filterCategory;
+      const matchesSearch = item.task.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesHide = !hideCompleted || !item.isCompleted;
+      return matchesCategory && matchesSearch && matchesHide;
+    })
+    .sort((a, b) => {
+      if (sort === '완료순') return Number(b.isCompleted) - Number(a.isCompleted);
+      if (sort === '이름순') return a.task.localeCompare(b.task, 'ko');
+      return 0;
+    });
 
   return (
     <div style={appBackgroundStyle}>
@@ -86,6 +97,14 @@ export default function App() {
         <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <FilterCategory selected={filterCategory} onSelect={setFilterCategory} />
           <ViewToggle viewMode={viewMode} onToggle={setViewMode} />
+        </div>
+        <div style={{ marginTop: '26px' }}>
+          <SortBar
+            sort={sort}
+            onSortChange={setSort}
+            hideCompleted={hideCompleted}
+            onHideCompletedChange={setHideCompleted}
+          />
         </div>
         {filteredItems.length > 0 ? (
           <TodoList
