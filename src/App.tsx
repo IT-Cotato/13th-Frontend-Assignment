@@ -6,13 +6,58 @@ import TodoCategorySelector from './components/TodoCategorySelector'
 import TodoFilter from './components/TodoFilter'
 import type { Category, FilterCategory } from './types/todo';
 import { todoData } from './data/TodoData'
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
+
+type TodoAction =
+| { type: "ADD"; text: string; category: Category }
+| { type: "TOGGLE"; id: number }
+| { type: "DELETE"; id: number }
+| { type: "UPDATE"; id: number; newText: string };
+
+function todoReducer(state: typeof todoData, action: TodoAction) {
+  switch (action.type) {
+    case "ADD":
+      return [
+        ...state,
+        {
+          id: Date.now(),
+          todo: action.text,
+          isCompleted: false,
+          category: action.category,
+        },
+      ];
+
+    case "TOGGLE":
+      return state.map((item) =>
+        item.id === action.id
+          ? { ...item, isCompleted: !item.isCompleted }
+          : item
+      );
+
+    case "DELETE":
+      return state.filter((item) => item.id !== action.id);
+
+    case "UPDATE":
+      return state.map((item) =>
+        item.id === action.id
+          ? { ...item, todo: action.newText }
+          : item
+      );
+
+    default:
+      return state;
+  }
+}
 
 function App() {
-  const [todos, setTodos] = useState(todoData);
+  const [todos, dispatch] = useReducer(todoReducer, todoData);
   const [ selectedCategory, setSelectedCategory ] = useState<Category>("공부");
   const [selectedFilterCategory, setSelectedFilterCategory] = useState<FilterCategory>("전체");
   const [searchText, setSearchText] = useState("");
+  const [inputResetKey, setInputResetKey] = useState(0);
+
+  const isFiltered =
+  searchText.trim() !== "" || selectedFilterCategory !== "전체";
 
   const filteredTodos = todos.filter((todo) => {
   const matchCategory =
@@ -27,40 +72,35 @@ function App() {
 });
 
   function handleAddTodo(text: string) {
-    const newTodo = {
-      id : Date.now(),
-      todo : text,
-      isCompleted : false,
-      category : selectedCategory 
-    };
+    dispatch({
+      type: "ADD",
+      text,
+      category: selectedCategory,
+    });
 
-    setTodos((prev) => [...prev, newTodo])
+    setInputResetKey((prev) => prev + 1);
   }
 
   function handleToggle(id: number) {
-    setTodos((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, isCompleted: !item.isCompleted }
-          : item
-      )
-    );
+    dispatch({
+      type: "TOGGLE",
+      id,
+    });
   }
 
   function handleDelete(id: number) {
-    setTodos((prev) => 
-      prev.filter((item) =>
-      item.id !== id ));
+    dispatch({
+      type: "DELETE",
+      id,
+    });
   }
 
   function handleUpdate(id: number, newText: string) {
-    setTodos((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? {...item, todo: newText }
-          : item
-        )
-      );
+    dispatch({
+      type: "UPDATE",
+      id,
+      newText,
+    });
   }
 
   return (
@@ -68,10 +108,10 @@ function App() {
       <div className="mx-auto flex w-full max-w-[640px] flex-col items-start gap-[24px]">
         <TodoHeader />
         <TodoOverview todos={todos} />
-        <TodoInput onAddTodo={handleAddTodo} />
+        <TodoInput onAddTodo={handleAddTodo} key={inputResetKey}/>
         <TodoCategorySelector selectedCategory={selectedCategory} onChangeCategory={setSelectedCategory}/>
         <TodoFilter searchText={searchText} onChangeSearchText={setSearchText} selectedFilterCategory={selectedFilterCategory} onChangeFilterCategory={setSelectedFilterCategory}/>
-        <TodoList todos={filteredTodos} searchText={searchText} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
+        <TodoList todos={filteredTodos} isFiltered={isFiltered} onToggle={handleToggle} onDelete={handleDelete} onUpdate={handleUpdate} />
       </div>
     </div>
   )
