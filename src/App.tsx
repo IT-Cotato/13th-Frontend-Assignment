@@ -1,5 +1,4 @@
-import { useState, useReducer } from 'react';
-import { TODO_ITEMS } from './constants/todoData';
+import { useState, useReducer, useEffect } from 'react';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 import EmptyState from './components/EmptyState';
@@ -9,14 +8,46 @@ import CategoryTag from './components/CategoryTag';
 import SearchInput from './components/SearchInput';
 import FilterCategory from './components/FilterCategory';
 import { todoReducer } from './reducers/todoReducer';
+import ViewToggle from './components/ViewToggle';
+import SortBar from './components/SortBar';
+import Toast from './components/Toast';
 import type { Category } from './types/todo';
 import type { FilterCategory as FilterCategoryType } from './components/FilterCategory';
+import type { ViewMode } from './components/ViewToggle';
+import type { SortType } from './components/SortBar';
 
 export default function App() {
-  const [todoItems, dispatch] = useReducer(todoReducer, TODO_ITEMS);
+  const [todoItems, dispatch] = useReducer(todoReducer, []);
   const [selectedCategory, setSelectedCategory] = useState<Category>('공부');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<FilterCategoryType>('전체');
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [sort, setSort] = useState<SortType>('생성순');
+  const [hideCompleted, setHideCompleted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [toast, setToast] = useState({ message: '', visible: false });
+
+  useEffect(() => {
+    if (!toast.visible) return;
+    const timer = setTimeout(() => setToast((prev) => ({ ...prev, visible: false })), 3000);
+    return () => clearTimeout(timer);
+  }, [toast.visible]);
+
+  const showToast = (message: string) => {
+    setToast({ message, visible: true });
+  };
+
+  useEffect(() => {
+    fetch('http://localhost:3001/todos')
+      .then((res) => {
+        if (!res.ok) throw new Error('데이터를 불러오지 못했습니다.');
+        return res.json();
+      })
+      .then((data) => dispatch({ type: 'INIT', payload: data }))
+      .catch((err: Error) => setError(err.message))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const appBackgroundStyle: React.CSSProperties = {
     backgroundColor: 'var(--bg)',
@@ -45,11 +76,37 @@ export default function App() {
     marginBottom: '24px',
   };
 
-  const filteredItems = todoItems.filter((item) => {
-    const matchesCategory = filterCategory === '전체' || item.category === filterCategory;
-    const matchesSearch = item.task.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const handleAddTodo = (task: string) => {
+    dispatch({ type: 'ADD', payload: { id: `todo-${Date.now()}`, task, category: selectedCategory } });
+    showToast('할 일이 추가되었습니다');
+  };
+
+  const handleToggleTodo = (id: string) => {
+    dispatch({ type: 'TOGGLE', payload: { id } });
+  };
+
+  const handleDeleteTodo = (id: string) => {
+    dispatch({ type: 'DELETE', payload: { id } });
+    showToast('할 일이 삭제되었습니다');
+  };
+
+  const handleUpdateTodo = (id: string, task: string) => {
+    dispatch({ type: 'UPDATE', payload: { id, task } });
+    showToast('할 일이 수정되었습니다');
+  };
+
+  const filteredItems = todoItems
+    .filter((item) => {
+      const matchesCategory = filterCategory === '전체' || item.category === filterCategory;
+      const matchesSearch = item.task.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesHide = !hideCompleted || !item.isCompleted;
+      return matchesCategory && matchesSearch && matchesHide;
+    })
+    .sort((a, b) => {
+      if (sort === '완료순') return Number(b.isCompleted) - Number(a.isCompleted);
+      if (sort === '이름순') return a.task.localeCompare(b.task, 'ko');
+      return 0;
+    });
 
   return (
     <div style={appBackgroundStyle}>
@@ -57,29 +114,42 @@ export default function App() {
         <TodoHeader title="✅ 오늘의 할 일" />
         <TodoStats todos={todoItems} />
         <div style={dividerStyle}>
-          <TodoInput
-            onAdd={(task) => dispatch({ type: 'ADD', payload: { task, category: selectedCategory } })}
-          />
+          <TodoInput onAdd={handleAddTodo} />
           <CategoryTag
             selectedCategory={selectedCategory}
             onSelect={setSelectedCategory}
           />
         </div>
         <SearchInput value={searchQuery} onChange={setSearchQuery} />
-        <div style={{ marginTop: '24px' }}>
+        <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <FilterCategory selected={filterCategory} onSelect={setFilterCategory} />
+          <ViewToggle viewMode={viewMode} onToggle={setViewMode} />
         </div>
-        {filteredItems.length > 0 ? (
+        <div style={{ marginTop: '26px' }}>
+          <SortBar
+            sort={sort}
+            onSortChange={setSort}
+            hideCompleted={hideCompleted}
+            onHideCompletedChange={setHideCompleted}
+          />
+        </div>
+        {isLoading ? (
+          <p style={{ textAlign: 'center', marginTop: '40px', color: 'var(--text-secondary)' }}>불러오는 중...</p>
+        ) : error ? (
+          <p style={{ textAlign: 'center', marginTop: '40px', color: 'var(--danger)' }}>{error}</p>
+        ) : filteredItems.length > 0 ? (
           <TodoList
             items={filteredItems}
-            onToggle={(id) => dispatch({ type: 'TOGGLE', payload: { id } })}
-            onDelete={(id) => dispatch({ type: 'DELETE', payload: { id } })}
-            onUpdate={(id, task) => dispatch({ type: 'UPDATE', payload: { id, task } })}
+            viewMode={viewMode}
+            onToggle={handleToggleTodo}
+            onDelete={handleDeleteTodo}
+            onUpdate={handleUpdateTodo}
           />
         ) : (
           <EmptyState variant={searchQuery || filterCategory !== '전체' ? 'no-results' : 'empty'} />
         )}
       </main>
+      <Toast message={toast.message} visible={toast.visible} />
     </div>
   );
 }

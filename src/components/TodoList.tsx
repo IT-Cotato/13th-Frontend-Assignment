@@ -1,33 +1,36 @@
 import TodoCard from './TodoCard';
 import type { Todo } from '../types/todo';
+import type { ViewMode } from './ViewToggle';
 
 interface TodoListProps {
   items: Todo[];
+  viewMode: ViewMode;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onUpdate: (id: string, newTask: string) => void;
 }
 
-export default function TodoList({ items, onToggle, onDelete, onUpdate }: TodoListProps) {
+export default function TodoList({ items, viewMode, onToggle, onDelete, onUpdate }: TodoListProps) {
   const listStyle: React.CSSProperties = {
     listStyle: 'none',
     padding: 0,
     margin: '24px 0 0 0',
-    display: 'flex',
-    flexDirection: 'column',
+    display: viewMode === 'grid' ? 'grid' : 'flex',
+    gridTemplateColumns: viewMode === 'grid' ? 'repeat(2, 1fr)' : undefined,
+    flexDirection: viewMode === 'list' ? 'column' : undefined,
     gap: '16px',
   };
-return (
+
+  return (
     <ul style={listStyle}>
       {items.map((item) => (
         <li key={item.id}>
-          {/* key를 TodoCard에 지정하면 id가 바뀔 때 isEditing 등 내부 state가 리셋됨 */}
           <TodoCard
-            key={item.id}
             id={item.id}
             task={item.task}
             isCompleted={item.isCompleted}
             category={item.category}
+            viewMode={viewMode}
             onToggle={onToggle}
             onDelete={onDelete}
             onUpdate={onUpdate}

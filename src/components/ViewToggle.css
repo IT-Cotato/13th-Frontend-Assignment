@@ -1,0 +1,28 @@
+.view-toggle {
+  display: flex;
+  gap: 4px;
+}
+
+.view-toggle-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.view-toggle-button.selected {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.view-toggle-button:not(.selected):hover {
+  background: var(--bg);
+}

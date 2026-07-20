@@ -2,25 +2,28 @@ import { useState } from 'react';
 import './TodoCard.css';
 import CategoryBadge from './CategoryBadge';
 import type { Category } from '../types/todo';
+import type { ViewMode } from './ViewToggle';
 
 interface TodoCardProps {
-  id: string; 
+  id: string;
   task: string;
   isCompleted: boolean;
-  category: Category; 
+  category: Category;
+  viewMode: ViewMode;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onUpdate: (id: string, newTask: string) => void;
 }
 
-export default function TodoCard({ 
-  id, 
-  task, 
-  isCompleted, 
-  category, 
-  onToggle, 
-  onDelete, 
-  onUpdate 
+export default function TodoCard({
+  id,
+  task,
+  isCompleted,
+  category,
+  viewMode,
+  onToggle,
+  onDelete,
+  onUpdate
 }: TodoCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(task);
@@ -77,6 +80,68 @@ export default function TodoCard({
   };
 
 
+  const actionButtons = isEditing ? (
+    <>
+      <button className="card-save-button" onClick={handleUpdate} disabled={!editText.trim()}>
+        저장
+      </button>
+      <button className="cancel-button" onClick={handleCancel}>
+        취소
+      </button>
+    </>
+  ) : (
+    <>
+      <button className="action-button" onClick={() => setIsEditing(true)} aria-label="수정">
+        ✏️
+      </button>
+      <button className="action-button" onClick={() => onDelete(id)} aria-label="삭제">
+        🗑
+      </button>
+    </>
+  );
+
+  if (viewMode === 'grid') {
+    return (
+      <div className="todo-card todo-card--grid">
+        <div style={contentSectionStyle}>
+          <input
+            type="checkbox"
+            id={id}
+            className="todo-checkbox"
+            checked={isCompleted}
+            onChange={() => onToggle(id)}
+            disabled={isEditing}
+          />
+          <label htmlFor={id} className="todo-checkbox-label">
+            <span style={checkboxStyle}>
+              {isCompleted && (
+                <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+                  <path d="M1 5L4.5 8.5L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </span>
+            {!isEditing && <span style={textStyle}>{task}</span>}
+          </label>
+          {isEditing && (
+            <input
+              className="edit-input"
+              value={editText}
+              onChange={(e) => setEditText(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
+              autoFocus
+            />
+          )}
+        </div>
+        <div className="todo-card__grid-bottom">
+          <CategoryBadge category={category} />
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            {actionButtons}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="todo-card">
       <div style={contentSectionStyle}>
@@ -96,58 +161,28 @@ export default function TodoCard({
               </svg>
             )}
           </span>
-          <div style={textContainerStyle}>
-            {isEditing ? (
-              <input
-                className="edit-input"
-                value={editText}
-                onChange={(e) => setEditText(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
-                autoFocus
-              />
-            ) : (
+          {!isEditing && (
+            <div style={textContainerStyle}>
               <span style={textStyle}>{task}</span>
-            )}
+              <CategoryBadge category={category} />
+            </div>
+          )}
+        </label>
+        {isEditing && (
+          <div style={textContainerStyle}>
+            <input
+              className="edit-input"
+              value={editText}
+              onChange={(e) => setEditText(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
+              autoFocus
+            />
             <CategoryBadge category={category} />
           </div>
-        </label>
-      </div>
-
-      <div className="button-group" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-        {isEditing ? (
-          <>
-            <button
-              className="card-save-button"
-              onClick={handleUpdate}
-              disabled={!editText.trim()}
-            >
-              저장
-            </button>
-            <button 
-              className="cancel-button" 
-              onClick={handleCancel}
-            >
-              취소
-            </button>
-          </>
-        ) : (
-          <>
-            <button 
-              className="action-button"
-              onClick={() => setIsEditing(true)}
-              aria-label="수정"
-            >
-              ✏️
-            </button>
-            <button 
-              className="action-button"
-              onClick={() => onDelete(id)}
-              aria-label="삭제"
-            >
-              🗑
-            </button>
-          </>
         )}
+      </div>
+      <div className="button-group" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        {actionButtons}
       </div>
     </div>
   );
