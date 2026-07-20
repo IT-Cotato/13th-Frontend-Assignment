@@ -7,12 +7,14 @@ export default function TodoList({
   handleCompletedStatus,
   handleUpdateTodo,
   handleDeleteTodo,
+  viewMode,
 }: {
   todos: Todo[];
-  searchText: string,
+  searchText: string;
   handleCompletedStatus: (targetId: number) => void;
   handleUpdateTodo: (updatedId: number, updatedText: string) => void;
   handleDeleteTodo: (deletedId: number) => void;
+  viewMode: "List" | "Grid";
 }) {
   const isEmpty = todos.length === 0;
 
@@ -22,24 +24,39 @@ export default function TodoList({
         <div className="emptyList">
           <div className="emptyContainer">
             <div className="emptyIcon">📋</div>
-            <div className="emptyText">{searchText ? "검색 결과가 없어요" : "아직 할 일이 없어요"}</div>
+            <div className="emptyText">
+              {searchText ? "검색 결과가 없어요" : "아직 할 일이 없어요"}
+            </div>
           </div>
         </div>
       )}
 
-      {!isEmpty && (
-        <ul className="toDoList">
-          {todos.map((todo) => (
-            <TodoCard
-              key={todo.id}
-              todo={todo}
-              handleCompletedStatus={handleCompletedStatus}
-              handleUpdateTodo={handleUpdateTodo}
-              handleDeleteTodo={handleDeleteTodo}
-            />
-          ))}
-        </ul>
-      )}
+      {!isEmpty &&
+        (viewMode === "List" ? (
+          <ul className="toDoListView">
+            {todos.map((todo) => (
+              <TodoCard
+                key={todo.id}
+                todo={todo}
+                handleCompletedStatus={handleCompletedStatus}
+                handleUpdateTodo={handleUpdateTodo}
+                handleDeleteTodo={handleDeleteTodo}
+              />
+            ))}
+          </ul>
+        ) : (
+          <ul className="grid grid-cols-2 gap-4">
+            {todos.map((todo) => (
+              <TodoCard
+                key={todo.id}
+                todo={todo}
+                handleCompletedStatus={handleCompletedStatus}
+                handleUpdateTodo={handleUpdateTodo}
+                handleDeleteTodo={handleDeleteTodo}
+              />
+            ))}
+          </ul>
+        ))}
     </>
   );
 }

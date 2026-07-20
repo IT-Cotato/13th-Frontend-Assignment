@@ -20,7 +20,7 @@ export default function TodoCard({
   const [updateText, setUpdateText] = useState(text);
 
   const isDisabled = updateText.trim() === "";
-  
+
   const handleSave = () => {
     handleUpdateTodo(id, updateText);
     setIsEditing(false);
@@ -30,9 +30,14 @@ export default function TodoCard({
     setIsEditing(false);
   };
 
-  const categoryConfig = CATEGORY_OPTIONS.find((option) => option.value === category);
-  const tagClassName = categoryConfig ? categoryConfig.tagClass : "bg-gray/13 text-gray";
+  const categoryConfig = CATEGORY_OPTIONS.find(
+    (option) => option.value === category,
+  );
+  const tagClassName = categoryConfig
+    ? categoryConfig.tagClass
+    : "bg-gray/13 text-gray";
 
+  // 수정 모드
   if (isEditing) {
     return (
       <li className="item editing">
@@ -47,7 +52,9 @@ export default function TodoCard({
             onChange={(e) => setUpdateText(e.target.value)}
             aria-label="할 일 수정 입력창"
           />
-          <div className={`w-fit px-3 py-1 rounded-full ${tagClassName}`}>{category}</div>
+          <div className={`w-fit px-3 py-1 rounded-full ${tagClassName}`}>
+            {category}
+          </div>
         </div>
         <div className="flex gap-2 items-center ml-auto">
           <button
@@ -57,7 +64,10 @@ export default function TodoCard({
           >
             저장
           </button>
-          <button className="cancelBtn px-4 py-2.5 rounded-lg border-2 border-gray-200 cursor-pointer" onClick={handleCancel}>
+          <button
+            className="cancelBtn px-4 py-2.5 rounded-lg border-2 border-gray-200 cursor-pointer"
+            onClick={handleCancel}
+          >
             취소
           </button>
         </div>
@@ -65,6 +75,7 @@ export default function TodoCard({
     );
   }
 
+  // 일반 모드
   return (
     <li className={`item ${completed ? "checked" : ""}`}>
       <CheckBox
@@ -73,13 +84,23 @@ export default function TodoCard({
       />
       <div className="itemInfo flex flex-col gap-3">
         <div className="text">{completed ? <del>{text}</del> : text}</div>
-        <div className={`w-fit px-3 py-1 rounded-full ${tagClassName}`}>{category}</div>
+        <div className={`w-fit px-3 py-1 rounded-full ${tagClassName}`}>
+          {category}
+        </div>
       </div>
       <div className="btnContainer">
-        <button className="updateBtn" onClick={() => setIsEditing(true)} aria-label="할 일 수정">
+        <button
+          className="updateBtn"
+          onClick={() => setIsEditing(true)}
+          aria-label="할 일 수정"
+        >
           ✏️
         </button>
-        <button className="delBtn" onClick={() => handleDeleteTodo(id)} aria-label="할 일 삭제">
+        <button
+          className="delBtn"
+          onClick={() => handleDeleteTodo(id)}
+          aria-label="할 일 삭제"
+        >
           🗑
         </button>
       </div>

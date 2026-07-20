@@ -156,7 +156,7 @@ body {
   line-height: 21px;
 }
 
-.toDoList {
+.toDoListView {
   display: flex;
   flex-direction: column;
   row-gap: 16px;
