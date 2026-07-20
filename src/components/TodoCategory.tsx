@@ -1,3 +1,5 @@
+import { CATEGORY_OPTIONS } from "../data/categoryOption";
+
 export default function TodoCategory({
   isShowAll,
   selected,
@@ -9,40 +11,30 @@ export default function TodoCategory({
   onSelect: (category: string) => void;
   name: string
 }) {
-  const baseCategories = ["공부", "운동", "업무", "개인"];
-  const categories = isShowAll ? ["전체", ...baseCategories] : baseCategories;
 
-  const styles: {[key: string]: string} = {
-    전체: "bg-whole border-whole text-white",
-    공부: "bg-study border-study text-white",
-    운동: "bg-exercise border-exercise text-white",
-    업무: "bg-work border-work text-white",
-    개인: "bg-personal border-personal text-white"
+  const wholeOption = {
+    value: "전체",
+    activeClass: "bg-whole border-whole text-white",
+    inactiveClass: "text-whole"
   };
 
-  const inactiveStyles: {[key: string]: string} = {
-    전체: "text-whole",
-    공부: "text-study",
-    운동: "text-exercise",
-    업무: "text-work",
-    개인: "text-personal"
-  };
+  const categories = isShowAll ? [wholeOption, ...CATEGORY_OPTIONS] : CATEGORY_OPTIONS;
 
   return (
     <div className="radioContainer flex gap-3 mb-4">
       {categories.map((category) => {
-        const isSelected = selected === category;
-        const newId = `${name}-${category}`;
+        const isSelected = selected === category.value;
+        const newId = `${name}-${category.value}`;
 
         return (
-          <div key={category}>
+          <div key={category.value}>
             <input
               type="radio"
               id={newId}
               name={name}
-              value={category}
+              value={category.value}
               checked={isSelected}
-              onChange={() => onSelect(category)}
+              onChange={() => onSelect(category.value)}
               className="sr-only outline-none"
             />
             <label
@@ -50,12 +42,12 @@ export default function TodoCategory({
               className={`
                 px-4.5 py-2.5 rounded-lg border-2 cursor-pointer
                 ${isSelected 
-                  ? styles[category]
-                  : inactiveStyles[category]
+                  ? category.activeClass
+                  : category.inactiveClass
                 }
               `}
             >
-              {category}
+              {category.value}
             </label>
           </div>
         );

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CheckBox from "./CheckBox";
 import type { Todo } from "../types/todo";
+import { CATEGORY_OPTIONS } from "../data/categoryOption";
 
 export default function TodoCard({
   todo,
@@ -29,12 +30,8 @@ export default function TodoCard({
     setIsEditing(false);
   };
 
-  const styles: {[key: string]: string} = {
-    공부: "bg-study/13 border-study text-study",
-    운동: "bg-exercise/13 border-exercise text-exercise",
-    업무: "bg-work/13 border-work text-work",
-    개인: "bg-personal/13 border-personal text-personal"
-  };
+  const categoryConfig = CATEGORY_OPTIONS.find((option) => option.value === category);
+  const tagClassName = categoryConfig ? categoryConfig.tagClass : "bg-gray/13 text-gray";
 
   if (isEditing) {
     return (
@@ -50,7 +47,7 @@ export default function TodoCard({
             onChange={(e) => setUpdateText(e.target.value)}
             aria-label="할 일 수정 입력창"
           />
-          <div className={`w-fit px-3 py-1 rounded-full ${styles[category]}`}>{category}</div>
+          <div className={`w-fit px-3 py-1 rounded-full ${tagClassName}`}>{category}</div>
         </div>
         <div className="flex gap-2 items-center ml-auto">
           <button
@@ -76,7 +73,7 @@ export default function TodoCard({
       />
       <div className="itemInfo flex flex-col gap-3">
         <div className="text">{completed ? <del>{text}</del> : text}</div>
-        <div className={`w-fit px-3 py-1 rounded-full ${styles[category]}`}>{category}</div>
+        <div className={`w-fit px-3 py-1 rounded-full ${tagClassName}`}>{category}</div>
       </div>
       <div className="btnContainer">
         <button className="updateBtn" onClick={() => setIsEditing(true)} aria-label="할 일 수정">
