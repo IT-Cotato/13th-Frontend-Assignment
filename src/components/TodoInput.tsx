@@ -1,4 +1,8 @@
 import type { TodoCategory } from "../types/todo";
+import {
+  BASE_CATEGORY_BUTTON_CLASS,
+  CATEGORY_OPTIONS,
+} from "../constants/categories";
 
 type TodoInputProps = {
   value: string;
@@ -18,36 +22,6 @@ function TodoInput({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onAdd();
-  };
-
-  const getCategoryButtonClass = (
-    category: TodoCategory,
-    isSelected: boolean,
-  ) => {
-    const base =
-      "flex h-10 items-center justify-center rounded-lg px-4 text-sm font-medium leading-5 outline outline-2 outline-offset-[-2px]";
-
-    if (category === "공부") {
-      return isSelected
-        ? `${base} bg-blue-500 text-white outline-blue-500`
-        : `${base} bg-white text-blue-500 outline-blue-500`;
-    }
-
-    if (category === "운동") {
-      return isSelected
-        ? `${base} bg-green-500 text-white outline-green-500`
-        : `${base} bg-white text-green-500 outline-green-500`;
-    }
-
-    if (category === "개인") {
-      return isSelected
-        ? `${base} bg-purple-500 text-white outline-purple-500`
-        : `${base} bg-white text-purple-500 outline-purple-500`;
-    }
-
-    return isSelected
-      ? `${base} bg-amber-500 text-white outline-amber-500`
-      : `${base} bg-white text-amber-500 outline-amber-500`;
   };
 
   return (
@@ -70,49 +44,22 @@ function TodoInput({
       </form>
 
       <div className="flex items-start gap-3">
-        <button
-          type="button"
-          onClick={() => onChangeCategory("공부")}
-          className={getCategoryButtonClass(
-            "공부",
-            selectedCategory === "공부",
-          )}
-        >
-          공부
-        </button>
+        {CATEGORY_OPTIONS.map((category) => {
+          const isSelected = selectedCategory === category.value;
 
-        <button
-          type="button"
-          onClick={() => onChangeCategory("운동")}
-          className={getCategoryButtonClass(
-            "운동",
-            selectedCategory === "운동",
-          )}
-        >
-          운동
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onChangeCategory("개인")}
-          className={getCategoryButtonClass(
-            "개인",
-            selectedCategory === "개인",
-          )}
-        >
-          개인
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onChangeCategory("업무")}
-          className={getCategoryButtonClass(
-            "업무",
-            selectedCategory === "업무",
-          )}
-        >
-          업무
-        </button>
+          return (
+            <button
+              key={category.value}
+              type="button"
+              onClick={() => onChangeCategory(category.value)}
+              className={`${BASE_CATEGORY_BUTTON_CLASS} ${
+                isSelected ? category.selectedClass : category.defaultClass
+              }`}
+            >
+              {category.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
